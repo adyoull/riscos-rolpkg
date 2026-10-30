@@ -1,0 +1,12 @@
+#!/bin/sh
+# keeps the ROM being replaced, so that it can be put back (ROLLBACK)
+set -e
+if [ "$1" = upgrade ] || [ "$1" = install ]; then
+  if [ -f /opt/riscos/RISCOS.IMG ]; then
+    mkdir -p /opt/riscos/rollback
+    cp -p /opt/riscos/RISCOS.IMG /opt/riscos/rollback/RISCOS.IMG.new
+    mv -f /opt/riscos/rollback/RISCOS.IMG.new /opt/riscos/rollback/RISCOS.IMG
+    if [ -n "$2" ]; then echo "$2" > /opt/riscos/rollback/VERSION; else echo unknown > /opt/riscos/rollback/VERSION; fi
+  fi
+fi
+exit 0

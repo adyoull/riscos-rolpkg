@@ -1,0 +1,14 @@
+Package: riscos-kernel-generic
+Architecture: arm64
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Conflicts: riscos-kernel-wdk2023
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on UEFI machines and Pinebooks
+ The Linux kernel UEFI machines (UTM, QEMU, ARM boards and servers) and
+ Pine64's Pinebook and Pinebook Pro start (EFI/BOOT/BOOTAA64.EFI on the
+ card's FAT partition), with the Pinebooks' device trees. Installing it
+ copies them onto the FAT partition, keeping the old ones as *.old; a
+ restart starts the new kernel.

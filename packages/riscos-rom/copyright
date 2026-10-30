@@ -1,0 +1,16 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: RISC OS on Linux
+Source: https://github.com/adyoull/riscos-linux
+
+Files: opt/riscos/RISCOS.IMG
+Copyright: RISC OS Open Ltd and contributors; Castle Technology Ltd;
+ Pace Micro Technology plc; Acorn Computers Ltd; Timothy Baldwin (the Linux port)
+License: Apache-2.0
+Comment: RISC OS 5.31, RISC OS Open's sources of 29 October 2026 merged into
+ Timothy Baldwin's Linux port: source on the riscos-5.31-source branch of
+ https://github.com/adyoull/riscos-linux. Some components are under the
+ BSD-3-Clause licence: see each component's LICENSE file there.
+
+License: Apache-2.0
+ On Debian systems, the complete text of the Apache License 2.0 can be
+ found in /usr/share/common-licenses/Apache-2.0.

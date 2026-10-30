@@ -1,0 +1,13 @@
+Package: riscos-support
+Architecture: arm64
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: The Linux side of RISC OS on Linux
+ What runs RISC OS on Linux: init, rol-fb (screen, keyboard and mouse),
+ rol-snd (sound), rol-netd (network and Wi-Fi), rol-cmd (Linux commands
+ for RISC OS, with the root password), rol-usbd (USB devices for RISC
+ OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
+ NativeSupport, and this repository's source and key. A restart puts a
+ new version to use.

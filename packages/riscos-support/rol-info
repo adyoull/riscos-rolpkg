@@ -1,0 +1,40 @@
+#!/bin/sh
+# rol-info: what the Updates plug-in shows without asking for the root
+# password (rol-cmd runs it for a request of just "@info"): the RISC OS on
+# Linux packages installed, what apt last found to upgrade, the RISC OS
+# versions the repository has, and the ROM kept for ROLLBACK.
+# The kernel this machine starts (a Pi starts kernel8.img, the Windows Dev
+# Kit 2023 its own EFI/BOOT/BOOTAA64.EFI, anything else the generic one):
+# only that one is kept up to date; any other installed is held, so apt
+# leaves it as it is (the generic image's card still starts on a Pi).
+machine=generic
+model=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null || true)
+case $model in
+  *"Raspberry Pi"*) machine=pi ;;
+  *"Windows Dev Kit"*) machine=wdk2023 ;;
+esac
+kernels=$(dpkg-query -W -f='${Package} ${Status}\n' 'riscos-kernel-*' 2>/dev/null | awk '/ installed$/ {print $1}')
+# (an image with only one kernel, such as the Dev Kit's: that one)
+if [ "$(echo "$kernels" | grep -c .)" = 1 ]; then machine=${kernels#riscos-kernel-}; fi
+for k in $kernels; do
+  if [ "$k" = "riscos-kernel-$machine" ]; then
+    apt-mark unhold "$k" >/dev/null 2>&1
+  else
+    apt-mark hold "$k" >/dev/null 2>&1
+  fi
+done
+echo "@machine"
+echo "$machine"
+echo "@installed"
+dpkg-query -W -f='${Package} ${Version}\n' 'riscos-*' 2>/dev/null | awk 'NF == 2'
+echo "@upgradable"
+apt list --upgradable 2>/dev/null | grep -v '^Listing'
+echo "@rom-versions"
+apt-cache madison riscos-rom 2>/dev/null | awk -F'|' '{gsub(/ /, "", $2); print $2}'
+echo "@rollback"
+cat /opt/riscos/rollback/VERSION 2>/dev/null
+echo "@checked"
+t=$(ls -t /var/lib/apt/lists/*Release 2>/dev/null | head -n 1)
+if [ -n "$t" ]; then stat -c %Y "$t"; else echo 0; fi
+date +%s
+echo "@end"

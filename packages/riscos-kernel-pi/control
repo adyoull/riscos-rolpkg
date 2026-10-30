@@ -1,0 +1,13 @@
+Package: riscos-kernel-pi
+Architecture: arm64
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
+ The Raspberry Pi kernel (kernel8.img), its device trees and overlays and
+ the Pi's start-up firmware, on the card's FAT partition. config.txt and
+ cmdline.txt are left as they are. Installing it copies them onto the FAT
+ partition, keeping the old ones as *.old; a restart starts the new
+ kernel.

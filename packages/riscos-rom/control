@@ -1,0 +1,12 @@
+Package: riscos-rom
+Architecture: arm64
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS 5.31 for RISC OS on Linux
+ RISC OS itself (its ROM image, /opt/riscos/RISCOS.IMG), built from RISC
+ OS Open's sources with Timothy Baldwin's Linux port. RISC OS starts the
+ new one at its next start. The one it replaces is kept in
+ /opt/riscos/rollback: a file called ROLLBACK on the card's FAT partition
+ puts it back at the next start.

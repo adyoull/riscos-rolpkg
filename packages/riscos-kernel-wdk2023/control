@@ -1,0 +1,14 @@
+Package: riscos-kernel-wdk2023
+Architecture: arm64
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Conflicts: riscos-kernel-generic
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
+ The Linux kernel the Windows Dev Kit 2023 (Snapdragon 8cx Gen 3, "Project
+ Volterra") starts from the card's EFI partition (EFI/BOOT/BOOTAA64.EFI,
+ which loads blackrock.dtb), with that device tree. Installing it copies
+ them onto the EFI partition, keeping the old ones as *.old; a restart
+ starts the new kernel.

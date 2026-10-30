@@ -1,0 +1,2 @@
+/etc/apt/sources.list.d/riscos-rolpkg.sources
+/etc/apt/apt.conf.d/50riscos-ca

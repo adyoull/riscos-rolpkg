@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  echo "RISC OS $(dpkg-query -W -f='${Version}' riscos-rom) is installed: restart (shut down and switch on) to use it."
+fi
+exit 0

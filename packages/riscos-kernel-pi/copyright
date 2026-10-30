@@ -1,0 +1,15 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: RISC OS on Linux
+Source: https://github.com/adyoull/riscos-linux
+
+Files: *
+Copyright: Linus Torvalds, Raspberry Pi Ltd and others
+License: GPL-2
+Comment: raspberrypi/linux at the commit in kernel/pi-6.6/BASE of riscos-linux,
+ with its configuration there. The start-up firmware (bootcode.bin, start*.elf,
+ fixup*.dat) is Broadcom's and Raspberry Pi's, redistributable under
+ LICENCE.broadcom (licences/ in riscos-linux, and on the FAT partition).
+
+License: GPL-2
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in /usr/share/common-licenses/GPL-2.

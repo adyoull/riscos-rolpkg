@@ -1,0 +1,22 @@
+#!/bin/sh
+# install-boot-files DIR: copies the files under DIR onto the FAT
+# partition (the kernels and their device trees), keeping each file it
+# replaces as NAME.old. Used by the riscos-kernel-* packages.
+set -e
+src=$1
+dev=$(/usr/lib/riscos/fat-partition)
+mnt=$(mktemp -d)
+mount -t vfat -o shortname=mixed "$dev" "$mnt"
+trap 'sync; umount "$mnt"; rmdir "$mnt"' EXIT
+cd "$src"
+find . -type f | while read -r f; do
+  f=${f#./}
+  mkdir -p "$mnt/$(dirname "$f")"
+  if [ -f "$mnt/$f" ] && ! cmp -s "$f" "$mnt/$f"; then
+    cp -f "$mnt/$f" "$mnt/$f.old"
+  fi
+  cp -f "$f" "$mnt/$f.new"
+  sync
+  mv -f "$mnt/$f.new" "$mnt/$f"
+done
+echo "The kernel files on $dev are updated (the old ones are kept as *.old): restart to use them."

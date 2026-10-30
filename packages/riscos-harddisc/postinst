@@ -1,0 +1,9 @@
+#!/bin/sh
+# HardDisc4 belongs to RISC OS (the user riscos, uid 1000)
+set -e
+if [ "$1" = configure ]; then
+  dpkg-query -L riscos-harddisc | while read -r f; do
+    case "$f" in /riscos/HardDisc4/*) [ -e "$f" ] && chown -h 1000:1000 "$f" ;; esac
+  done
+fi
+exit 0

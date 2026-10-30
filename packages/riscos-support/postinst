@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  # OpenSSL (apt's https) looks for the root certificates in /usr/lib/ssl,
+  # which only Debian's openssl package makes
+  mkdir -p /usr/lib/ssl
+  [ -e /usr/lib/ssl/cert.pem ] || ln -s /etc/ssl/certs/ca-certificates.crt /usr/lib/ssl/cert.pem
+  [ -e /usr/lib/ssl/certs ] || ln -s /etc/ssl/certs /usr/lib/ssl/certs
+  echo "The Linux side of RISC OS on Linux is updated: restart (shut down and switch on) to use it."
+fi
+exit 0

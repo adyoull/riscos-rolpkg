@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  /usr/lib/riscos/install-boot-files /usr/lib/riscos/boot-wdk2023
+fi
+exit 0
