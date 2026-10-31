@@ -8,7 +8,7 @@
 # only that one is kept up to date; any other installed is held, so apt
 # leaves it as it is (the generic image's card still starts on a Pi).
 machine=generic
-model=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null || true)
+model=$(tr -d '\0' 2>/dev/null < /proc/device-tree/model || true)
 case $model in
   *"Raspberry Pi"*) machine=pi ;;
   *"Windows Dev Kit"*) machine=wdk2023 ;;
