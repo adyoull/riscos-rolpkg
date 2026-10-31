@@ -47,17 +47,20 @@ New versions take effect at the next start (shut down and switch on).
 
 ## Versions
 
-Every package carries the version of RISC OS on Linux it was built for:
-`1.0.<build>-<revision>`, where `<build>` is the build number (four
-digits: `1.0.0001-1` is the first). A new build of any part gets the next
-build number. What each package holds (RISC OS 5.31, Linux 7.2, the Pi's
-Linux 6.6) is in its description.
+- **RISC OS, its Linux side and the desktop parts** (`riscos-rom`,
+  `riscos-support`, `riscos-harddisc`) carry the RISC OS on Linux build
+  they came from: `1.0.<build>-1`, with a four-digit build number
+  (`1.0.0004-1`).
+- **The kernels** keep the kernel's own version, with a count of this
+  project's builds of it after the hyphen: `riscos-kernel-pi` `6.6.78-2`
+  (Raspberry Pi's Linux 6.6.78, second build), `riscos-kernel-generic` and
+  `riscos-kernel-wdk2023` `7.2.0-1` (Linux 7.2.0, first build).
 
 ## Making a release
 
 ```sh
 ROOT=<image root> BOOT=<FAT partition directory> \
-  tools/build.sh site riscos-rom=1.0.0001-1 riscos-support=1.0.0001-1 ...
+  tools/build.sh site riscos-rom=1.0.0001-1 riscos-kernel-pi=6.6.78-2 ...
 tools/index.py site <key id>     # Packages, Release, InRelease (signed)
 tools/publish.sh site            # the gh-pages branch, served by GitHub Pages
 ```
