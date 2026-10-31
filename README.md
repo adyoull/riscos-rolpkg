@@ -47,20 +47,25 @@ New versions take effect at the next start (shut down and switch on).
 
 ## Versions
 
-- **RISC OS, its Linux side and the desktop parts** (`riscos-rom`,
-  `riscos-support`, `riscos-harddisc`) carry the RISC OS on Linux build
-  they came from: `1.0.<build>-1`, with a four-digit build number
-  (`1.0.0004-1`).
+- **RISC OS itself** (`riscos-rom`) keeps RISC OS's own version, with a
+  count of this project's builds of it after the hyphen: `5.31-2` (RISC OS
+  5.31, second build). RISC OS shows the same: "RISC OS 5.31-2 (29 Oct
+  2026)", with the date of RISC OS Open's nightly it was built from. The
+  first build was published as `1.0.0001-1`.
+- **Its Linux side and the desktop parts** (`riscos-support`,
+  `riscos-harddisc`) carry the RISC OS on Linux build they came from:
+  `1.0.<build>-1`, with a four-digit build number (`1.0.0004-1`).
 - **The kernels** keep the kernel's own version, with a count of this
   project's builds of it after the hyphen: `riscos-kernel-pi` `6.6.78-2`
   (Raspberry Pi's Linux 6.6.78, second build), `riscos-kernel-generic` and
   `riscos-kernel-wdk2023` `7.2.0-1` (Linux 7.2.0, first build).
+- Modules keep their own versions.
 
 ## Making a release
 
 ```sh
 ROOT=<image root> BOOT=<FAT partition directory> \
-  tools/build.sh site riscos-rom=1.0.0001-1 riscos-kernel-pi=6.6.78-2 ...
+  tools/build.sh site riscos-rom=5.31-2 riscos-kernel-pi=6.6.78-2 ...
 tools/index.py site <key id>     # Packages, Release, InRelease (signed)
 tools/publish.sh site            # the gh-pages branch, served by GitHub Pages
 ```
