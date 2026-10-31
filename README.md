@@ -24,7 +24,7 @@ and its key (`/usr/share/keyrings/riscos-rolpkg.gpg`, also
 | `riscos-kernel-generic` | the kernel for UEFI machines (UTM, QEMU, boards) and the Pinebooks | copied onto the FAT partition (`EFI/BOOT/BOOTAA64.EFI`, `dtb/`); the old files are kept as `*.old` |
 | `riscos-kernel-wdk2023` | the Windows Dev Kit 2023's kernel (it loads `blackrock.dtb`) and device tree | copied onto the Dev Kit image's EFI partition; the old files are kept as `*.old` |
 | `riscos-kernel-pi` | the Raspberry Pi kernel, device trees, overlays and firmware | copied onto the FAT partition (`kernel8.img` …); `config.txt` and `cmdline.txt` are left alone |
-| `riscos-harddisc` | RISC OS on Linux's desktop parts: Configure's Updates and Linux network, the hard disc icon, `*Linux` (LinuxShell), USBDriver | `/riscos/HardDisc4`; your own files and choices are never touched |
+| `riscos-harddisc` | RISC OS on Linux's desktop parts: Configure's Updates and Linux network, the hard disc icon, `*Linux` (LinuxShell), USBDriver, LinuxCodec (Linux's video decoders) | `/riscos/HardDisc4`; your own files and choices are never touched |
 
 Only the kernel the machine starts is kept up to date: the Updates plug-in
 holds any other (`apt-mark hold`), so the generic card still starts on both
