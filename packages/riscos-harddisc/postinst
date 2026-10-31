@@ -17,5 +17,15 @@ if [ "$1" = configure ]; then
     cp /riscos/HardDisc4/TestBed/Modules/ARMEABISupport,ffa "$s/310/Modules/"
     chown -R 1000:1000 "$s/310/Modules/ARMEABISupport,ffa"
   fi
+  # LinuxCodec at start-up (with the other TestBed modules)
+  tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
+  if [ -f "$tb" ] && ! grep -q "LinuxCodec" "$tb"; then
+    printf '%s\n' \
+      "| LinuxCodec: Linux's video decoders (VideoCore's H.264 on a Pi 3 or 4) for" \
+      "| RISC OS programs; on machines without one, LinuxCodec_Open says so and" \
+      "| programs decode in software" \
+      "RMEnsure LinuxCodec 0 RMLoad <IXFS\$HardDisc4>.TestBed.Codec.LinuxCodec" >> "$tb"
+    chown 1000:1000 "$tb"
+  fi
 fi
 exit 0
