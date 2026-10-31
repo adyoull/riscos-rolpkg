@@ -56,7 +56,8 @@ for spec in "$@"; do
       for p in '!Boot/Resources/Configure/!ROLUpdate' '!Boot/Resources/Configure/!LinuxNet' \
                '!Boot/Resources/Configure/!WheelSetup' 'TestBed/Modules/KVMWheel,ffa' \
                '!Boot/Resources/!DiscIcon' '!Boot/Resources/!NetWatch' 'TestBed/Modules/LinuxShell,ffa' \
-               'TestBed/Modules/USBDriver,ffa' 'TestBed/Codec/LinuxCodec,ffa' 'TestBed/Codec/ReadMe,fff' 'Utilities/!Updates' \
+               'TestBed/Modules/USBDriver,ffa' 'TestBed/Codec/LinuxCodec,ffa' 'TestBed/Codec/ReadMe,fff' \
+               'TestBed/Codec/VCHIQ,ffa' 'TestBed/Codec/BCMSupport,ffa' 'TestBed/Codec/PCI,ffa' 'TestBed/Codec/LoadVC,feb' 'TestBed/Codec/VCTest,fff' 'Utilities/!Updates' \
                'Documents/Licences' 'Documents/Source,fff'; do
         args+=("$hd/$p=/riscos/HardDisc4/$p")
       done
