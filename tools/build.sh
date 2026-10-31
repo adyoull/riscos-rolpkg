@@ -55,7 +55,7 @@ for spec in "$@"; do
       args=()
       for p in '!Boot/Resources/Configure/!ROLUpdate' '!Boot/Resources/Configure/!LinuxNet' \
                '!Boot/Resources/Configure/!WheelSetup' 'TestBed/Modules/KVMWheel,ffa' \
-               '!Boot/Resources/!DiscIcon' 'TestBed/Modules/LinuxShell,ffa' \
+               '!Boot/Resources/!DiscIcon' '!Boot/Resources/!NetWatch' 'TestBed/Modules/LinuxShell,ffa' \
                'TestBed/Modules/USBDriver,ffa' 'Utilities/!Updates' \
                'Documents/Licences' 'Documents/Source,fff'; do
         args+=("$hd/$p=/riscos/HardDisc4/$p")

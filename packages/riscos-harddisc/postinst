@@ -5,5 +5,17 @@ if [ "$1" = configure ]; then
   dpkg-query -L riscos-harddisc | while read -r f; do
     case "$f" in /riscos/HardDisc4/*) [ -e "$f" ] && chown -h 1000:1000 "$f" ;; esac
   done
+  # ARMEABISupport 1.05 in !System.500 hid a newer one PackMan installs
+  # (in !System.310): take it away, and give !System GCCSDK's 1.08
+  s=/riscos/HardDisc4/!Boot/Resources/!System
+  old="$s/500/Modules/ARMEABISupport,ffa"
+  if [ -f "$old" ] && grep -q "ARMEABISupport.1\.0[0-5] " "$old" 2>/dev/null; then
+    rm -f "$old"
+  fi
+  if [ ! -e "$s/310/Modules/ARMEABISupport,ffa" ] && [ -f /riscos/HardDisc4/TestBed/Modules/ARMEABISupport,ffa ]; then
+    mkdir -p "$s/310/Modules"
+    cp /riscos/HardDisc4/TestBed/Modules/ARMEABISupport,ffa "$s/310/Modules/"
+    chown -R 1000:1000 "$s/310/Modules/ARMEABISupport,ffa"
+  fi
 fi
 exit 0
