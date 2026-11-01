@@ -22,13 +22,14 @@ if [ "$1" = configure ]; then
     cp "$m" "$cur"
     chown -R 1000:1000 "$s/310/Modules"
   fi
-  # MbufManager at start-up (every RISC OS 5 ROM has it; ROL's from 5.31-7):
-  # !Omni's LanManFS and Access need it
+  # MbufManager at start-up (every RISC OS 5 ROM has it; ROL's from 5.31-7),
+  # with MbufRes for its Messages: !Omni's LanManFS and Access need it
   tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
   if [ -f "$tb" ] && ! grep -q "MbufManager" "$tb"; then
     printf '%s\n' \
       "| MbufManager (DCI4 network buffers): in every RISC OS 5 ROM, and in this" \
       "| one from 5.31-7; !Omni's LanManFS and Access need it" \
+      "RMEnsure MbufManager 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.MbufRes" \
       "RMEnsure MbufManager 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.MManager" >> "$tb"
     chown 1000:1000 "$tb"
   fi
