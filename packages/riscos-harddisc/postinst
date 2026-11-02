@@ -33,6 +33,15 @@ if [ "$1" = configure ]; then
       "RMEnsure MbufManager 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.MManager" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # LinuxOverlay: VideoOverlay's GraphicsV calls on rol-fb's overlay plane
+  if [ -f "$tb" ] && ! grep -q "LinuxOverlay" "$tb"; then
+    printf '%s\n' \
+      "| LinuxOverlay: video overlays for VideoOverlay (Reel), on rol-fb's overlay" \
+      "| plane (the display hardware scales the video and changes it at the" \
+      "| vertical blank)" \
+      "RMEnsure LinuxOverlay 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.LinuxOverlay" >> "$tb"
+    chown 1000:1000 "$tb"
+  fi
   # LinuxCodec at start-up (with the other TestBed modules)
   tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
   if [ -f "$tb" ] && ! grep -q "LinuxCodec" "$tb"; then
