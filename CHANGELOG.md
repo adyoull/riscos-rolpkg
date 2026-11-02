@@ -1,0 +1,70 @@
+# Changelog
+
+What each package update changed. Newest first within each package. The
+updates arrive through Configure → Updates (or `apt full-upgrade`); the
+next images include them.
+
+## Coming next (built, not yet packaged)
+
+- **RISC OS 5.31-9:** the keyboard LEDs (Caps Lock, Num Lock, Scroll
+  Lock) follow RISC OS. Needs the new rol-fb as well (riscos-support).
+- **riscos-support:** rol-fb sets the keyboard LEDs.
+- **Kernels:** the fast SWI entry (RISC OS's SWIs about three times
+  faster), once it has had more use on the Raspberry Pi.
+
+## riscos-rom (RISC OS itself)
+
+| Version | Date | What changed |
+|---|---|---|
+| 5.31-8 | 2 Nov 2026 | **Files get the type of their extension** when nothing else says (no `,xxx`, no stored type), as on DOS discs: files on USB discs and files Linux programs wrote show as JPEG, Text, Archive and so on (`photo/jpg` is a JPEG), with their names unchanged. Saving to a USB disc adds `,xxx` only when the name doesn't already say the type. `IXFS#M:` turns it off. Includes 5.31-7's changes (below). |
+| 5.31-7 | 2 Nov 2026 | Not packaged on its own (its changes are in 5.31-8). **MbufManager in the ROM**, as in every RISC OS 5 ROM: !Omni's LanManFS and Access work. **Network servers answer their clients:** a connection's first data, sent before the server accepted it, is seen (RDPServer said "server not responding"). |
+| 5.31-6 | 1 Nov 2026 | Socket options for GLib programs (SO_TYPE), unknown TCP options refused, Socket_Sendmsg_1 (found by the web browser project). |
+| 5.31-5 | 31 Oct 2026 | The Internet module reports version 5.73, so `RMEnsure Internet 5.xx` checks pass: !Omni's LanManager and !Internet start. |
+| 5.31-4 | 31 Oct 2026 | Socket_Select returns when its time runs out (TubeSearch and Reel could hang the machine); a locked file can't be renamed. |
+| 5.31-3 | 31 Oct 2026 | Proper RISC OS errors from HardDisc4 ("The disc has no more available space", "This item is locked", "This file is already open") instead of Linux's, the Locked attribute obeyed, delete failures no longer lost; physical memory pool areas done by the kernel itself (GCCSDK's ARMEABISupport 1.08). |
+| 5.31-2 | 31 Oct 2026 | All the RAM Linux can give RISC OS (up to 4GB) instead of a fixed figure, and the Task Manager's free memory from it; network statistics for NetStats and InetStat; the version reads "RISC OS 5.31-2 (29 Oct 2026)". |
+| 1.0.0001-1 | 30 Oct 2026 | The first: RISC OS 5.31 (RISC OS Open's nightly of 29 October 2026) in Timothy Baldwin's Linux port. |
+
+## riscos-support (the Linux side: start-up, screen, keyboard, sound, network, USB)
+
+| Version | Date | What changed |
+|---|---|---|
+| 1.0.0016-1 | 2 Nov 2026 | Files on USB discs aren't marked executable, so RISC OS no longer calls them all UNIX Ex (with RISC OS 5.31-8 they get their extensions' types). |
+| 1.0.0015-1 | 2 Nov 2026 | **Video in hardware on the Raspberry Pi:** rol-fb gives VideoOverlay (Reel) the display's video plane, scaled by the display and changed at the vertical blank (no tearing); the pointer, windows and menus stay on top. `*USBDevices` can list Linux's USB devices; a USB disc that can't be mounted is described in the Linux log. |
+| 1.0.0014-1 | 1 Nov 2026 | **USB discs and SD cards in RISC OS:** FAT, exFAT, NTFS and ext discs are mounted when plugged in (named by their volume labels) and appear on the icon bar. |
+| 1.0.0013-1 | 31 Oct 2026 | Shutdown and restart leave Linux's disc clean (no 14-second disc check at the next start). |
+| 1.0.0012-1 | 31 Oct 2026 | Updates shows apt's progress line by line as it comes. |
+| 1.0.0011-1 | 31 Oct 2026 | The screen: only what changed is redrawn, and moving the pointer doesn't redraw the screen. |
+| 1.0.0009-1 | 31 Oct 2026 | Restart (Ctrl+Break, Restart in the Shutdown box, `*Reset`) restarts the machine instead of switching it off. |
+| 1.0.0008-1 | 31 Oct 2026 | `/dev/pts` mounted (apt couldn't write its log). |
+| 1.0.0007-1 | 31 Oct 2026 | Alt+Shift+Backspace works as Break, for keyboards without a Break key. |
+| 1.0.0006-1 | 31 Oct 2026 | A start-up screen that says what's happening, and a quieter console; setting the root password no longer prints PAM's note on the screen. |
+| 1.0.0004-1 | 31 Oct 2026 | The clock set by NTP all the time and kept across starts (a Pi no longer starts in 1970); RISC OS's RAM from what Linux has free. |
+| 1.0.0002-1 | 31 Oct 2026 | Linux's partition grows to fill the card or disc; start-up logs copied to the FAT partition (LOGS); rol-fb says which screen it uses. |
+| 1.0.0001-1 | 30 Oct 2026 | The first. |
+
+## riscos-harddisc (the desktop parts on HardDisc4)
+
+| Version | Date | What changed |
+|---|---|---|
+| 1.0.0017-1 | 2 Nov 2026 | LinuxOverlay (with riscos-support 1.0.0015-1: Reel's video in hardware), loaded at start-up; `*USBDevices` also lists Linux's own USB devices (keyboard, mouse, discs, card readers) and what's on their discs. |
+| 1.0.0016-1 | 1 Nov 2026 | USB discs and cards get the removable drive icon; MbufManager (and its messages) loaded at start-up when the ROM hasn't one, so !Omni works on RISC OS before 5.31-7. |
+| 1.0.0015-1 | 1 Nov 2026 | GCCSDK's ARMEABISupport 1.05 is the installed version (1.08 isn't stable on RISC OS on Linux), in !System where PackMan's package puts it. |
+| 1.0.0014-1 | 31 Oct 2026 | The VideoCore stand-ins (VCHIQ, BCMSupport, PCI) loaded at start-up where Linux has the Pi's VideoCore, for ReelHWAccel's H.264. |
+| 1.0.0013-1 | 31 Oct 2026 | Updates stays open while installing or rolling back, and only one runs at a time. |
+| 1.0.0012-1 | 31 Oct 2026 | NetWatch reads Linux's network status in one go. |
+| 1.0.0010-1 | 31 Oct 2026 | LinuxCodec loaded at start-up. |
+| 1.0.0009-1 | 31 Oct 2026 | LinuxCodec 0.03 (whole pictures to the decoder: split pictures had turned green) and its ReadMe. |
+| 1.0.0007-1 | 31 Oct 2026 | LinuxCodec: the Raspberry Pi's H.264 decoder for RISC OS programs. |
+| 1.0.0006-1 | 31 Oct 2026 | NetWatch lets null events through; Updates' details use the desktop font's line height. |
+| 1.0.0004-1 | 31 Oct 2026 | NetWatch: name servers follow the network when a link or Wi-Fi comes up after the desktop; the wireless regulatory database's licence. |
+| 1.0.0001-1 | 30 Oct 2026 | The first. |
+
+## Kernels
+
+| Package | Version | Date | What changed |
+|---|---|---|---|
+| riscos-kernel-pi | 6.6.78-3 | 1 Nov 2026 | NTFS discs (and exFAT, already there). |
+| riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-2 | 1 Nov 2026 | exFAT discs (SD cards and sticks over 32GB) and UAS (fast USB discs). |
+| riscos-kernel-pi | 6.6.78-2 | 31 Oct 2026 | The kernels keep their own versions from here. |
+| riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-1 | 31 Oct 2026 | The same. |
