@@ -42,6 +42,14 @@ if [ "$1" = configure ]; then
       "RMEnsure LinuxOverlay 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.LinuxOverlay" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # SCSILinux: FileCore discs as SCSI:: drives (SCSIFS, from RISC OS 5.31-10)
+  if [ -f "$tb" ] && ! grep -q "SCSILinux" "$tb"; then
+    printf '%s\n' \
+      "| SCSILinux: FileCore discs (USB sticks and SD cards in RISC OS's own format)" \
+      "| as SCSI:: drives, through Linux; needs RISC OS 5.31-10 (SCSIFS in the ROM)" \
+      "RMEnsure SCSILinux 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.SCSILinux" >> "$tb"
+    chown 1000:1000 "$tb"
+  fi
   # LinuxCodec at start-up (with the other TestBed modules)
   tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
   if [ -f "$tb" ] && ! grep -q "LinuxCodec" "$tb"; then
