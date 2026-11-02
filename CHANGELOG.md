@@ -23,7 +23,7 @@ next images include them.
 | 5.31-4 | 31 Oct 2026 | Socket_Select returns when its time runs out (TubeSearch and Reel could hang the machine); a locked file can't be renamed. |
 | 5.31-3 | 31 Oct 2026 | Proper RISC OS errors from HardDisc4 ("The disc has no more available space", "This item is locked", "This file is already open") instead of Linux's, the Locked attribute obeyed, delete failures no longer lost; physical memory pool areas done by the kernel itself (GCCSDK's ARMEABISupport 1.08). |
 | 5.31-2 | 31 Oct 2026 | All the RAM Linux can give RISC OS (up to 4GB) instead of a fixed figure, and the Task Manager's free memory from it; network statistics for NetStats and InetStat; the version reads "RISC OS 5.31-2 (29 Oct 2026)". |
-| 1.0.0001-1 | 30 Oct 2026 | The first: RISC OS 5.31 (RISC OS Open's nightly of 29 October 2026) in Timothy Baldwin's Linux port. |
+| 1.0.0001-1 | 30 Oct 2026 | The first (ROM build 5.31-1): RISC OS Open's 5.31 nightly of 29 October 2026 merged into Timothy Baldwin's Linux port, which was RISC OS 5.29. ROL-ROM's CHANGELOG has what that took. |
 
 ## riscos-support (the Linux side: start-up, screen, keyboard, sound, network, USB)
 
