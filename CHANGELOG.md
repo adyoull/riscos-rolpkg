@@ -6,11 +6,10 @@ next images include them.
 
 ## Coming next (built, not yet packaged)
 
-- **RISC OS 5.31-9:** the keyboard LEDs (Caps Lock, Num Lock, Scroll
-  Lock) follow RISC OS. Needs the new rol-fb as well (riscos-support).
-- **riscos-support:** rol-fb sets the keyboard LEDs.
-- **Kernels:** the fast SWI entry (RISC OS's SWIs about three times
-  faster), once it has had more use on the Raspberry Pi.
+- **RISC OS 5.31-10:** the keyboard LEDs follow RISC OS; FileCore discs
+  (USB sticks and SD cards in RISC OS's format) as `SCSI::` drives, with
+  RISC OS Open's SCSIFS. Needs the new rol-fb and rol-usbd
+  (riscos-support) and SCSILinux (riscos-harddisc).
 
 ## riscos-rom (RISC OS itself)
 
@@ -29,6 +28,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0017-1 | 2 Nov 2026 | NativeSupport 0.16: turns on the fast SWI entry where the kernel has it (RISC OS's SWIs about three times faster on a Raspberry Pi 4); `*NativeSupport FastSWI On\|Off`. With other kernels, SWIs go the usual way. (1.0.0015-1 and 1.0.0016-1 had brought back 0.15, which replaced a 0.16 installed by hand.) |
 | 1.0.0016-1 | 2 Nov 2026 | Files on USB discs aren't marked executable, so RISC OS no longer calls them all UNIX Ex (with RISC OS 5.31-8 they get their extensions' types). |
 | 1.0.0015-1 | 2 Nov 2026 | **Video in hardware on the Raspberry Pi:** rol-fb gives VideoOverlay (Reel) the display's video plane, scaled by the display and changed at the vertical blank (no tearing); the pointer, windows and menus stay on top. `*USBDevices` can list Linux's USB devices; a USB disc that can't be mounted is described in the Linux log. |
 | 1.0.0014-1 | 1 Nov 2026 | **USB discs and SD cards in RISC OS:** FAT, exFAT, NTFS and ext discs are mounted when plugged in (named by their volume labels) and appear on the icon bar. |
@@ -64,6 +64,8 @@ next images include them.
 
 | Package | Version | Date | What changed |
 |---|---|---|---|
+| riscos-kernel-pi | 6.6.78-4 | 2 Nov 2026 | **The fast SWI entry:** RISC OS's SWIs go straight to RISC OS instead of through Linux's security filter and a signal (with NativeSupport 0.16, riscos-support 1.0.0017-1): about 2.4 µs down to 745 ns per SWI on a Raspberry Pi 4. Only RISC OS's own process is affected. |
+| riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-3 | 2 Nov 2026 | The same fast SWI entry. |
 | riscos-kernel-pi | 6.6.78-3 | 1 Nov 2026 | NTFS discs (and exFAT, already there). |
 | riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-2 | 1 Nov 2026 | exFAT discs (SD cards and sticks over 32GB) and UAS (fast USB discs). |
 | riscos-kernel-pi | 6.6.78-2 | 31 Oct 2026 | The kernels keep their own versions from here. |
