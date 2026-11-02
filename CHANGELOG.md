@@ -6,15 +6,14 @@ next images include them.
 
 ## Coming next (built, not yet packaged)
 
-- **RISC OS 5.31-10:** the keyboard LEDs follow RISC OS; FileCore discs
-  (USB sticks and SD cards in RISC OS's format) as `SCSI::` drives, with
-  RISC OS Open's SCSIFS. Needs the new rol-fb and rol-usbd
-  (riscos-support) and SCSILinux (riscos-harddisc).
+- **Kernels:** the fast SWI entry is in the kernels already; nothing else
+  waiting.
 
 ## riscos-rom (RISC OS itself)
 
 | Version | Date | What changed |
 |---|---|---|
+| 5.31-10 | 2 Nov 2026 | **FileCore discs:** USB sticks and SD cards in RISC OS's own format appear as `SCSI::` drives, with RISC OS Open's SCSISwitch, SCSIFS and SCSIFiler as on a native Raspberry Pi (HForm can format them). Needs riscos-support 1.0.0018-1 and riscos-harddisc 1.0.0018-1. **The keyboard LEDs** (Caps Lock, Num Lock, Scroll Lock) follow RISC OS. (5.31-9, the LEDs alone, wasn't released.) |
 | 5.31-8 | 2 Nov 2026 | **Files get the type of their extension** when nothing else says (no `,xxx`, no stored type), as on DOS discs: files on USB discs and files Linux programs wrote show as JPEG, Text, Archive and so on (`photo/jpg` is a JPEG), with their names unchanged. Saving to a USB disc adds `,xxx` only when the name doesn't already say the type. `IXFS#M:` turns it off. Includes 5.31-7's changes (below). |
 | 5.31-7 | 2 Nov 2026 | Not packaged on its own (its changes are in 5.31-8). **MbufManager in the ROM**, as in every RISC OS 5 ROM: !Omni's LanManFS and Access work. **Network servers answer their clients:** a connection's first data, sent before the server accepted it, is seen (RDPServer said "server not responding"). |
 | 5.31-6 | 1 Nov 2026 | Socket options for GLib programs (SO_TYPE), unknown TCP options refused, Socket_Sendmsg_1 (found by the web browser project). |
@@ -28,6 +27,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0018-1 | 2 Nov 2026 | rol-fb sets the keyboard's LEDs as RISC OS has them (with RISC OS 5.31-10). rol-usbd gives RISC OS a disc in FileCore format instead of trying to mount it: listed, then handed to SCSILinux opened exclusively (Linux can't mount it meanwhile), with every write reaching the disc before RISC OS is told it's done. |
 | 1.0.0017-1 | 2 Nov 2026 | NativeSupport 0.16: turns on the fast SWI entry where the kernel has it (RISC OS's SWIs about three times faster on a Raspberry Pi 4); `*NativeSupport FastSWI On\|Off`. With other kernels, SWIs go the usual way. (1.0.0015-1 and 1.0.0016-1 had brought back 0.15, which replaced a 0.16 installed by hand.) |
 | 1.0.0016-1 | 2 Nov 2026 | Files on USB discs aren't marked executable, so RISC OS no longer calls them all UNIX Ex (with RISC OS 5.31-8 they get their extensions' types). |
 | 1.0.0015-1 | 2 Nov 2026 | **Video in hardware on the Raspberry Pi:** rol-fb gives VideoOverlay (Reel) the display's video plane, scaled by the display and changed at the vertical blank (no tearing); the pointer, windows and menus stay on top. `*USBDevices` can list Linux's USB devices; a USB disc that can't be mounted is described in the Linux log. |
@@ -47,6 +47,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0018-1 | 2 Nov 2026 | SCSILinux, loaded at start-up: the driver that gives RISC OS's SCSIFS the FileCore discs Linux hands over (RISC OS 5.31-10 and riscos-support 1.0.0018-1). |
 | 1.0.0017-1 | 2 Nov 2026 | LinuxOverlay (with riscos-support 1.0.0015-1: Reel's video in hardware), loaded at start-up; `*USBDevices` also lists Linux's own USB devices (keyboard, mouse, discs, card readers) and what's on their discs. |
 | 1.0.0016-1 | 1 Nov 2026 | USB discs and cards get the removable drive icon; MbufManager (and its messages) loaded at start-up when the ROM hasn't one, so !Omni works on RISC OS before 5.31-7. |
 | 1.0.0015-1 | 1 Nov 2026 | GCCSDK's ARMEABISupport 1.05 is the installed version (1.08 isn't stable on RISC OS on Linux), in !System where PackMan's package puts it. |
