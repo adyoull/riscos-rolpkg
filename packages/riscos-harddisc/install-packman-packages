@@ -9,6 +9,13 @@
 # removes them as its own. riscos-harddisc's postinst runs it; an image
 # builder runs it with ROOT, the image's root.
 #
+# A package without a status file (from 1.0.0027-1: NetSurf 3.11, from
+# NetSurf's own release, which has no PackMan record) is installed once
+# (ROOT/var/lib/riscos/packman/PACKAGE records that, so one the user
+# deletes stays deleted), only when none of the apps it lists in lookat is
+# there, and never replaces a file (so a newer Tinct or !Cache is kept);
+# PackMan offers to replace it if NetSurf is installed with PackMan later.
+#
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 root=${1:-}
@@ -17,21 +24,38 @@ pk="$hd/!Boot/Resources/!Packages"
 st="$pk/Status,fff"
 dt="$hd/!Boot/Choices/Boot/Desktop,fea"
 for d in "$root"/usr/share/riscos/packman/*; do
-  [ -f "$d/status" ] && [ -d "$pk" ] || continue
+  [ -d "$pk" ] || continue
   name=$(basename "$d")
-  if [ -f "$st" ] && cut -f1 "$st" | grep -qx "$name"; then continue; fi
+  if [ -f "$d/status" ]; then
+    if [ -f "$st" ] && cut -f1 "$st" | grep -qx "$name"; then continue; fi
+    cpflags=-a
+  else
+    there=no
+    [ -e "$root/var/lib/riscos/packman/$name" ] && continue
+    if [ -f "$d/lookat" ]; then
+      while read -r app; do
+        if [ -n "$app" ] && [ -e "$hd/$(echo "$app" | tr . /)" ]; then there=yes; fi
+      done < "$d/lookat"
+    fi
+    mkdir -p "$root/var/lib/riscos/packman"
+    : > "$root/var/lib/riscos/packman/$name"
+    [ "$there" = no ] || continue
+    cpflags="-a --update=none"
+  fi
   for top in "$d"/*; do
     case "$(basename "$top")" in Info|status|lookat) continue ;; esac
-    cp -a "$top" "$hd/"
+    cp $cpflags "$top" "$hd/"
     (cd "$d" && find "$(basename "$top")") | while read -r f; do chown -h 1000:1000 "$hd/$f"; done
   done
-  mkdir -p "$pk/Info/$name"
-  cp -a "$d/Info/." "$pk/Info/$name/"
-  chown -R 1000:1000 "$pk/Info/$name"
-  # Status: tab-separated lines, the last without a newline (as PackMan writes it)
-  if [ -s "$st" ] && [ -n "$(tail -c1 "$st")" ]; then printf '\n' >> "$st"; fi
-  cat "$d/status" >> "$st"
-  chown 1000:1000 "$st"
+  if [ -f "$d/status" ]; then
+    mkdir -p "$pk/Info/$name"
+    cp -a "$d/Info/." "$pk/Info/$name/"
+    chown -R 1000:1000 "$pk/Info/$name"
+    # Status: tab-separated lines, the last without a newline (as PackMan writes it)
+    if [ -s "$st" ] && [ -n "$(tail -c1 "$st")" ]; then printf '\n' >> "$st"; fi
+    cat "$d/status" >> "$st"
+    chown 1000:1000 "$st"
+  fi
   # look at: Filer_Boot in the Desktop file's BootBoot section, as PackMan does
   if [ -f "$d/lookat" ] && [ -f "$dt" ]; then
     while read -r app; do
