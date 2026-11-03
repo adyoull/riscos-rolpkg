@@ -60,6 +60,7 @@ for spec in "$@"; do
                '!Boot/Resources/!DiscIcon' '!Boot/Resources/!NetWatch' 'TestBed/Modules/LinuxShell,ffa' \
                'TestBed/Modules/USBDriver,ffa' 'TestBed/Codec/LinuxCodec,ffa' 'TestBed/Codec/ReadMe,fff' \
                'TestBed/Codec/VCHIQ,ffa' 'TestBed/Codec/BCMSupport,ffa' 'TestBed/Codec/PCI,ffa' 'TestBed/Codec/LoadVC,feb' 'TestBed/Codec/VCTest,fff' 'TestBed/Modules/ARMEABISupport,ffa' 'TestBed/Modules/MManager,ffa' 'TestBed/Modules/MbufRes,ffa' 'TestBed/Modules/LinuxOverlay,ffa' 'TestBed/Modules/SCSILinux,ffa' 'Utilities/!Updates' \
+               'TestBed/PDFS/PDFS,ffa' 'TestBed/PDFS/README,fff' 'TestBed/PDFS/LICENSE,fff' 'TestBed/PDFS/CHANGELOG,fff' \
                'Documents/Licences' 'Documents/Source,fff'; do
         args+=("$hd/$p=/riscos/HardDisc4/$p")
       done

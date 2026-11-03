@@ -55,6 +55,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0024-1 | 3 Nov 2026 | PDFS 0.16.2 beta in HardDisc4.TestBed.PDFS (with its README, CHANGELOG and licence), kept up to date by Updates from now on: phones, tablets and cameras answer reliably (every USB read in whole packets, from DeviceFS's buffer). *RMLoad it, or put it in !Boot.Choices.Boot.PreDesk to load it at start-up. |
 | 1.0.0023-1 | 3 Nov 2026 | *IXRun runs Linux programs as RISC OS's own Linux user, with no password (in protected RISC OS it always failed with ENOENT, as RISC OS's own view of the files has no Linux programs): through the new *LinuxUser (LinuxShell 0.03), with riscos-support 1.0.0024-1. *Linux still runs commands as root, after asking for the password. |
 | 1.0.0022-1 | 3 Nov 2026 | *IXRun works: in protected RISC OS (the standard set-up) it always failed with ENOENT, as RISC OS's own view of the files has no Linux programs or terminals; it now goes through *Linux, which runs the command outside it (as root, after asking for the password). |
 | 1.0.0021-1 | 3 Nov 2026 | Updates: a Changes button under the RISC OS on Linux packages opens a window of what each newer version changes, so you can see what an update brings before installing it (with riscos-support 1.0.0023-1; Check for updates fetches the list). |
