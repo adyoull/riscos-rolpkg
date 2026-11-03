@@ -52,22 +52,25 @@ if [ "$1" = configure ]; then
       "RMEnsure SCSILinux 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.SCSILinux" >> "$tb"
     chown 1000:1000 "$tb"
   fi
-  # *IXRun through *LinuxUser in protected RISC OS (no Linux programs or
-  # terminals in RISC OS's own view of the files): as RISC OS's own Linux
-  # user, no password. (1.0.0022-1 sent it through *Linux, as root: that
-  # line is replaced.)
-  if [ -f "$tb" ] && grep -q 'Alias\$IXRun Linux %%' "$tb"; then
-    sed -i -e 's/Alias\$IXRun Linux %%/Alias$IXRun LinuxUser %%/' \
-      -e "s/it goes through \*Linux, which runs/it goes through *LinuxUser, which/" \
-      -e "s/| the command outside it, as root, after asking for the password/| runs the command outside it as RISC OS's own Linux user (no password)/" "$tb"
-    chown 1000:1000 "$tb"
+  # *IXRun through *LinuxUser, always (rol-cmd runs it as RISC OS's own
+  # Linux user, through the shell: no password, and the path is searched).
+  # An earlier line (1.0.0022-1: through *Linux; 1.0.0023-1: only when
+  # protected) is replaced, with its comment.
+  if [ -f "$tb" ] && grep -q 'Alias\$IXRun' "$tb"; then
+    awk '
+      /^\| \*IXRun/ { skip = 1; next }
+      skip && /^\| / { next }
+      /Alias\$IXRun/ { skip = 0; next }
+      { skip = 0; print }
+    ' "$tb" > "$tb.new" && mv "$tb.new" "$tb"
   fi
   if [ -f "$tb" ] && ! grep -q 'Alias\$IXRun' "$tb"; then
     printf '%s\n' \
-      "| *IXRun: in protected RISC OS (no Linux programs or terminals in RISC OS's" \
-      "| own view of the files: no /dev/ptmx) it goes through *LinuxUser, which" \
-      "| runs the command outside it as RISC OS's own Linux user (no password)" \
-      "IfThere IXFS:\$.dev.ptmx Then Else Set Alias\$IXRun LinuxUser %%*0" >> "$tb"
+      "| *IXRun goes through *LinuxUser: rol-cmd runs the command (through the" \
+      "| shell, so the path is searched) as RISC OS's own Linux user, with no" \
+      "| password, protected or not (IXSupport's own needs Linux programs and a" \
+      "| terminal in RISC OS's view of the files, which protected RISC OS hasn't)" \
+      "Set Alias\$IXRun LinuxUser %%*0" >> "$tb"
     chown 1000:1000 "$tb"
   fi
   # LinuxCodec at start-up (with the other TestBed modules)
