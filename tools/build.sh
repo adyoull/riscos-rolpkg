@@ -64,6 +64,8 @@ for spec in "$@"; do
                'Documents/Licences' 'Documents/Source,fff'; do
         args+=("$hd/$p=/riscos/HardDisc4/$p")
       done
+      args+=("$pk/riscos-harddisc/install-packman-packages=/usr/lib/riscos/install-packman-packages" \
+             "$ROOT/usr/share/riscos/packman=/usr/share/riscos/packman")
       python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" ;;
     *) echo "build.sh: no package $name" >&2; exit 1 ;;
   esac

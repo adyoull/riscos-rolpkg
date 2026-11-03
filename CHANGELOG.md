@@ -55,6 +55,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0026-1 | 3 Nov 2026 | **RDPServer** 0.2 (use the RISC OS desktop from Windows Remote Desktop, the Windows App, FreeRDP or !RDPClient) in HardDisc4.Apps.Network, where PackMan installs it, and recorded in PackMan as installed, so PackMan upgrades and removes it as its own. It's installed once, only if PackMan has no record of RDPServer, so a newer one from PackMan, or a removal, is kept. MIT, with xrdp and Mbed TLS (Apache-2.0); the licences are in the app. |
 | 1.0.0025-1 | 3 Nov 2026 | *IXRun always goes through *LinuxUser (as RISC OS's own Linux user, no password), not only in protected RISC OS, and through the shell, so a command's name is enough (*IXRun ls, not only *IXRun /bin/ls). Restart afterwards. |
 | 1.0.0024-1 | 3 Nov 2026 | PDFS 0.16.2 beta in HardDisc4.TestBed.PDFS (with its README, CHANGELOG and licence), kept up to date by Updates from now on: phones, tablets and cameras answer reliably (every USB read in whole packets, from DeviceFS's buffer). *RMLoad it, or put it in !Boot.Choices.Boot.PreDesk to load it at start-up. |
 | 1.0.0023-1 | 3 Nov 2026 | *IXRun runs Linux programs as RISC OS's own Linux user, with no password (in protected RISC OS it always failed with ENOENT, as RISC OS's own view of the files has no Linux programs): through the new *LinuxUser (LinuxShell 0.03), with riscos-support 1.0.0024-1. *Linux still runs commands as root, after asking for the password. |

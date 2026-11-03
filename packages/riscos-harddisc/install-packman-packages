@@ -1,0 +1,54 @@
+#!/bin/sh
+# install-packman-packages [ROOT]: installs the PackMan packages that come
+# with RISC OS on Linux (from riscos-harddisc 1.0.0026-1: RDPServer), each
+# in ROOT/usr/share/riscos/packman/PACKAGE as PackMan would install it: its
+# files (Apps...), its Info (Control, Copyright, Files), its line for
+# PackMan's Status and the apps it has the boot look at. Each is installed
+# once, only when PackMan has no record of it, so a newer version from
+# PackMan, or one the user removed, is left alone; PackMan upgrades and
+# removes them as its own. riscos-harddisc's postinst runs it; an image
+# builder runs it with ROOT, the image's root.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+set -e
+root=${1:-}
+hd="$root/riscos/HardDisc4"
+pk="$hd/!Boot/Resources/!Packages"
+st="$pk/Status,fff"
+dt="$hd/!Boot/Choices/Boot/Desktop,fea"
+for d in "$root"/usr/share/riscos/packman/*; do
+  [ -f "$d/status" ] && [ -d "$pk" ] || continue
+  name=$(basename "$d")
+  if [ -f "$st" ] && cut -f1 "$st" | grep -qx "$name"; then continue; fi
+  for top in "$d"/*; do
+    case "$(basename "$top")" in Info|status|lookat) continue ;; esac
+    cp -a "$top" "$hd/"
+    (cd "$d" && find "$(basename "$top")") | while read -r f; do chown -h 1000:1000 "$hd/$f"; done
+  done
+  mkdir -p "$pk/Info/$name"
+  cp -a "$d/Info/." "$pk/Info/$name/"
+  chown -R 1000:1000 "$pk/Info/$name"
+  # Status: tab-separated lines, the last without a newline (as PackMan writes it)
+  if [ -s "$st" ] && [ -n "$(tail -c1 "$st")" ]; then printf '\n' >> "$st"; fi
+  cat "$d/status" >> "$st"
+  chown 1000:1000 "$st"
+  # look at: Filer_Boot in the Desktop file's BootBoot section, as PackMan does
+  if [ -f "$d/lookat" ] && [ -f "$dt" ]; then
+    while read -r app; do
+      [ -n "$app" ] || continue
+      line="Filer_Boot IXFS:\$.riscos.HardDisc4.$app"
+      grep -qxF "$line" "$dt" && continue
+      if grep -q '^|Start RISCOS BootBoot' "$dt"; then
+        awk -v l="$line" '
+          /^\|Start RISCOS BootBoot/ { inb = 1 }
+          inb && /^\|End/ { print l; inb = 0 }
+          { print }
+        ' "$dt" > "$dt.new" && mv "$dt.new" "$dt"
+      else
+        printf '\n%s\n%s\n%s\n' "|Start RISCOS BootBoot 0.01 Auto tasks" "$line" "|End" >> "$dt"
+      fi
+    done < "$d/lookat"
+    chown 1000:1000 "$dt"
+  fi
+done
+exit 0

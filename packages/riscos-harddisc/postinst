@@ -73,6 +73,9 @@ if [ "$1" = configure ]; then
       "Set Alias\$IXRun LinuxUser %%*0" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # PackMan packages that come with RISC OS on Linux (RDPServer), installed
+  # as PackMan would, once (see the script)
+  /usr/lib/riscos/install-packman-packages
   # LinuxCodec at start-up (with the other TestBed modules)
   tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
   if [ -f "$tb" ] && ! grep -q "LinuxCodec" "$tb"; then
