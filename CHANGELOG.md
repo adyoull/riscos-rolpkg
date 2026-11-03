@@ -53,6 +53,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0022-1 | 3 Nov 2026 | *IXRun works: in protected RISC OS (the standard set-up) it always failed with ENOENT, as RISC OS's own view of the files has no Linux programs or terminals; it now goes through *Linux, which runs the command outside it (as root, after asking for the password). |
 | 1.0.0021-1 | 3 Nov 2026 | Updates: a Changes button under the RISC OS on Linux packages opens a window of what each newer version changes, so you can see what an update brings before installing it (with riscos-support 1.0.0023-1; Check for updates fetches the list). |
 | 1.0.0020-1 | 3 Nov 2026 | !DiscIcon: a USB disc's directory windows close when it's ejected or pulled out; Eject works when a directory on the disc was the last one listed (it kept the disc busy), and a disc that's still in use is reported (with riscos-support 1.0.0022-1). |
 | 1.0.0019-1 | 2 Nov 2026 | SCSILinux reports a disc as removable or fixed as Linux says (with riscos-support 1.0.0019-1). |
