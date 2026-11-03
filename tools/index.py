@@ -7,7 +7,9 @@
 SITE holds pool/*.deb (every version ever published, so that an update
 can be rolled back). Writes SITE/dists/rol/main/binary-{arm64,all}/
 Packages(.xz) and SITE/dists/rol/{Release,InRelease,Release.gpg}, signed
-with KEYID (gpg; GNUPGHOME chooses the keyring).
+with KEYID (gpg; GNUPGHOME chooses the keyring). Also SITE/changes.txt,
+each package version's changes from CHANGELOG.md (tools/changes.py), which
+Updates shows.
 """
 import hashlib, lzma, os, subprocess, sys, time
 
@@ -22,6 +24,9 @@ def hashes(data):
 def main():
     site = sys.argv[1]
     key = sys.argv[2] if len(sys.argv) > 2 else None
+    here = os.path.dirname(os.path.abspath(__file__))
+    subprocess.run([sys.executable, os.path.join(here, 'changes.py'),
+                    os.path.join(here, '..', 'CHANGELOG.md'), os.path.join(site, 'changes.txt')], check=True)
     debs = sorted(f for f in os.listdir(os.path.join(site, 'pool')) if f.endswith('.deb'))
     stanzas = {a: [] for a in ARCHES}
     for f in debs:

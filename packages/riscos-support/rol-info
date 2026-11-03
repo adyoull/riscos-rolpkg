@@ -7,8 +7,21 @@
 # Kit 2023 its own EFI/BOOT/BOOTAA64.EFI, anything else the generic one):
 # only that one is kept up to date; any other installed is held, so apt
 # leaves it as it is (the generic image's card still starts on a Pi).
+# The changes of each version (@changes): with --fetch (Updates' Check for
+# updates) the repository's changes.txt is fetched first (apt's helper,
+# with apt's settings); each installed package's versions newer than the
+# one installed are marked "new", that one "now": a line "h|MARK|PACKAGE|
+# VERSION|DATE", then the text in "t|..." lines (no tabs: Updates drops
+# control characters).
 #
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+changes=/var/lib/riscos/changes.txt
+if [ "${1:-}" = --fetch ]; then
+  mkdir -p /var/lib/riscos
+  /usr/lib/apt/apt-helper download-file \
+    https://adyoull.github.io/riscos-rolpkg/changes.txt "$changes.new" >/dev/null 2>&1 \
+    && mv -f "$changes.new" "$changes" || rm -f "$changes.new"
+fi
 machine=generic
 model=$(tr -d '\0' 2>/dev/null < /proc/device-tree/model || true)
 case $model in
@@ -35,6 +48,21 @@ echo "@rom-versions"
 apt-cache madison riscos-rom 2>/dev/null | awk -F'|' '{gsub(/ /, "", $2); print $2}'
 echo "@rollback"
 cat /opt/riscos/rollback/VERSION 2>/dev/null
+echo "@changes"
+if [ -f "$changes" ]; then
+  dpkg-query -W -f='${Package} ${Version}\n' 'riscos-*' 2>/dev/null | awk 'NF == 2' |
+  while read -r p v; do
+    grep "^$p	" "$changes" | while IFS='	' read -r cp cv cd ct; do
+      if dpkg --compare-versions "$cv" gt "$v"; then m=new
+      elif [ "$cv" = "$v" ]; then m=now
+      else continue; fi
+      # (a heading line, then the text in lines of up to 200 characters:
+      # Updates' lines are BASIC strings)
+      printf 'h|%s|%s|%s|%s\n' "$m" "$cp" "$cv" "$cd"
+      printf '%s\n' "$ct" | fold -s -w 200 | sed 's/^/t|/'
+    done
+  done
+fi
 echo "@checked"
 t=$(ls -t /var/lib/apt/lists/*Release 2>/dev/null | head -n 1)
 if [ -n "$t" ]; then stat -c %Y "$t"; else echo 0; fi

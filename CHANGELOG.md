@@ -28,6 +28,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0023-1 | 3 Nov 2026 | rol-info gives Updates the changes of each RISC OS on Linux package: Check for updates fetches the list, and Updates' Changes button shows what the versions newer than the one installed change (with riscos-harddisc 1.0.0021-1). |
 | 1.0.0022-1 | 3 Nov 2026 | **Programs run faster natively:** NativeSupport 0.18 returns to programs without a Linux signal each time (RiscOSM's map drawing spent about 10 of its 30 seconds on them, against 17 seconds on native RISC OS). USB discs: Eject tries again for a second if the disc is busy, and if a file on it is still open !DiscIcon says so (riscos-harddisc 1.0.0020-1) instead of nothing happening. |
 | 1.0.0021-1 | 3 Nov 2026 | The boot (FAT) partition is never left mounted at a restart or shutdown. Before, restarting while the start-up logs were being copied to it (every 15 seconds for the first few minutes) could leave it marked "not properly unmounted", and Linux then warns at every mount ("Volume was not properly unmounted ... Please run fsck") until the disc is checked. |
 | 1.0.0020-1 | 2 Nov 2026 | An SD card in the machine's own slot (a Pi's, a laptop's) is treated like a USB stick: mounted if it's FAT, exFAT, NTFS or ext, given to RISC OS as a removable `SCSI::` drive if it's FileCore. The card RISC OS on Linux itself runs from is never touched, and soldered-on eMMC and the other internal discs are left alone. |
@@ -52,6 +53,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0021-1 | 3 Nov 2026 | Updates: a Changes button under the RISC OS on Linux packages opens a window of what each newer version changes, so you can see what an update brings before installing it (with riscos-support 1.0.0023-1; Check for updates fetches the list). |
 | 1.0.0020-1 | 3 Nov 2026 | !DiscIcon: a USB disc's directory windows close when it's ejected or pulled out; Eject works when a directory on the disc was the last one listed (it kept the disc busy), and a disc that's still in use is reported (with riscos-support 1.0.0022-1). |
 | 1.0.0019-1 | 2 Nov 2026 | SCSILinux reports a disc as removable or fixed as Linux says (with riscos-support 1.0.0019-1). |
 | 1.0.0018-1 | 2 Nov 2026 | SCSILinux, loaded at start-up: the driver that gives RISC OS's SCSIFS the FileCore discs Linux hands over (RISC OS 5.31-10 and riscos-support 1.0.0018-1). |
