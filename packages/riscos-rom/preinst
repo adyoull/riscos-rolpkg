@@ -1,5 +1,7 @@
 #!/bin/sh
 # keeps the ROM being replaced, so that it can be put back (ROLLBACK)
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 if [ "$1" = upgrade ] || [ "$1" = install ]; then
   if [ -f /opt/riscos/RISCOS.IMG ]; then

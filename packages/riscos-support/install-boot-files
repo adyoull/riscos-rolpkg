@@ -2,6 +2,8 @@
 # install-boot-files DIR: copies the files under DIR onto the FAT
 # partition (the kernels and their device trees), keeping each file it
 # replaces as NAME.old. Used by the riscos-kernel-* packages.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 src=$1
 dev=$(/usr/lib/riscos/fat-partition)

@@ -1,5 +1,7 @@
 #!/bin/sh
 # HardDisc4 belongs to RISC OS (the user riscos, uid 1000)
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 if [ "$1" = configure ]; then
   dpkg-query -L riscos-harddisc | while read -r f; do

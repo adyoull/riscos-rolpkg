@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 """preinstall.py: installs packages into an image's root as dpkg would,
 without running anything (for building an image on another machine).
 

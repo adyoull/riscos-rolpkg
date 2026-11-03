@@ -10,6 +10,8 @@
 # PACKAGE: riscos-rom, riscos-support, riscos-kernel-generic,
 #   riscos-kernel-pi, riscos-kernel-wdk2023 (BOOT: the Dev Kit image's EFI
 #   partition) or riscos-harddisc; VERSION: as in the README.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -euo pipefail
 here=$(cd "$(dirname "$0")" && pwd)
 site=$1; shift

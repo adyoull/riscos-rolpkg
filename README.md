@@ -81,3 +81,5 @@ The signing key isn't in this repository.
 The tools and packaging: MIT ([LICENSE](LICENSE)). The packages hold RISC OS
 (Apache 2.0, RISC OS Open), Timothy Baldwin's Linux port, QEMU (GPL-2.0),
 Linux (GPL-2.0) and firmware under their own licences; see each package.
+
+Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).

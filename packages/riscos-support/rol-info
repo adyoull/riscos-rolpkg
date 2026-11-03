@@ -7,6 +7,8 @@
 # Kit 2023 its own EFI/BOOT/BOOTAA64.EFI, anything else the generic one):
 # only that one is kept up to date; any other installed is held, so apt
 # leaves it as it is (the generic image's card still starts on a Pi).
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 machine=generic
 model=$(tr -d '\0' 2>/dev/null < /proc/device-tree/model || true)
 case $model in

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 """index.py: writes the apt repository's indexes and signs them.
 
   index.py SITE [KEYID]

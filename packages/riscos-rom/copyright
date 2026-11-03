@@ -4,7 +4,8 @@ Source: https://github.com/adyoull/riscos-linux
 
 Files: opt/riscos/RISCOS.IMG
 Copyright: RISC OS Open Ltd and contributors; Castle Technology Ltd;
- Pace Micro Technology plc; Acorn Computers Ltd; Timothy Baldwin (the Linux port)
+ Pace Micro Technology plc; Acorn Computers Ltd; Timothy Baldwin (the Linux port);
+ 2026 Andrew Youll (RISC OS on Linux's changes)
 License: Apache-2.0
 Comment: RISC OS 5.31, RISC OS Open's sources of 29 October 2026 merged into
  Timothy Baldwin's Linux port: source on the riscos-5.31-source branch of

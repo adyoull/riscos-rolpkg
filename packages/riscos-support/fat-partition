@@ -1,6 +1,8 @@
 #!/bin/sh
 # Prints the device of the FAT partition RISC OS on Linux starts from:
 # partition 1 of the disc the root file system is on.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 mm=$(mountpoint -d /)
 disk=$(basename "$(readlink -f "/sys/dev/block/$mm/..")")

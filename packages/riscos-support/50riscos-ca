@@ -1,4 +1,6 @@
 // RISC OS on Linux: the root certificates for https sources
 // (/etc/ssl/certs/ca-certificates.crt: Mozilla's, until Debian's
 // ca-certificates package is installed and makes its own)
+//
+// Copyright (c) 2026 Andrew Youll. MIT licence.
 Acquire::https::CAInfo "/etc/ssl/certs/ca-certificates.crt";

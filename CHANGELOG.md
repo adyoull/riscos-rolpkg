@@ -74,3 +74,5 @@ next images include them.
 | riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-2 | 1 Nov 2026 | exFAT discs (SD cards and sticks over 32GB) and UAS (fast USB discs). |
 | riscos-kernel-pi | 6.6.78-2 | 31 Oct 2026 | The kernels keep their own versions from here. |
 | riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-1 | 31 Oct 2026 | The same. |
+
+Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
