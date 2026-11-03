@@ -13,6 +13,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 5.31-14 | 3 Nov 2026 | *IXRun runs Linux commands as RISC OS's own Linux user (no password, no privileges), through the shell, so a command's name is enough (*IXRun ls -l): it gave ENOENT for any command named without its full path, and always in protected RISC OS. It needs nothing at start-up; the output shows as it comes, Escape stops the command, and a failing one reports its exit status. |
 | 5.31-13 | 3 Nov 2026 | **Files over 2GB on HardDisc4 and USB discs** (up to RISC OS's 4GB - 1): IXFS stopped every file at 2GB ("File too large": LanMan98 copies failed there). |
 | 5.31-12 | 3 Nov 2026 | **A connection closed by the other end is seen:** `select()` and Socket_Select report it at once instead of waiting out their timeout (ClawsMail's feed and calendar fetches took a minute each). **Saving to HardDisc4 from editors that check the free space first** (StrongEd) works: IXFS's free space always failed. (5.31-11, the free-space fix alone, wasn't released.) |
 | 5.31-10 | 2 Nov 2026 | **FileCore discs:** USB sticks and SD cards in RISC OS's own format appear as `SCSI::` drives, with RISC OS Open's SCSISwitch, SCSIFS and SCSIFiler as on a native Raspberry Pi (HForm can format them). Needs riscos-support 1.0.0018-1 and riscos-harddisc 1.0.0018-1. **The keyboard LEDs** (Caps Lock, Num Lock, Scroll Lock) follow RISC OS. (5.31-9, the LEDs alone, wasn't released.) |
