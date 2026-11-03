@@ -28,6 +28,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0024-1 | 3 Nov 2026 | rol-cmd runs commands as RISC OS's own Linux user (riscos) when asked, with no password: for *IXRun and the new *LinuxUser (riscos-harddisc 1.0.0023-1). It can't change the system or gain root's rights. |
 | 1.0.0023-1 | 3 Nov 2026 | rol-info gives Updates the changes of each RISC OS on Linux package: Check for updates fetches the list, and Updates' Changes button shows what the versions newer than the one installed change (with riscos-harddisc 1.0.0021-1). |
 | 1.0.0022-1 | 3 Nov 2026 | **Programs run faster natively:** NativeSupport 0.18 returns to programs without a Linux signal each time (RiscOSM's map drawing spent about 10 of its 30 seconds on them, against 17 seconds on native RISC OS). USB discs: Eject tries again for a second if the disc is busy, and if a file on it is still open !DiscIcon says so (riscos-harddisc 1.0.0020-1) instead of nothing happening. |
 | 1.0.0021-1 | 3 Nov 2026 | The boot (FAT) partition is never left mounted at a restart or shutdown. Before, restarting while the start-up logs were being copied to it (every 15 seconds for the first few minutes) could leave it marked "not properly unmounted", and Linux then warns at every mount ("Volume was not properly unmounted ... Please run fsck") until the disc is checked. |
@@ -53,6 +54,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0023-1 | 3 Nov 2026 | *IXRun runs Linux programs as RISC OS's own Linux user, with no password (in protected RISC OS it always failed with ENOENT, as RISC OS's own view of the files has no Linux programs): through the new *LinuxUser (LinuxShell 0.03), with riscos-support 1.0.0024-1. *Linux still runs commands as root, after asking for the password. |
 | 1.0.0022-1 | 3 Nov 2026 | *IXRun works: in protected RISC OS (the standard set-up) it always failed with ENOENT, as RISC OS's own view of the files has no Linux programs or terminals; it now goes through *Linux, which runs the command outside it (as root, after asking for the password). |
 | 1.0.0021-1 | 3 Nov 2026 | Updates: a Changes button under the RISC OS on Linux packages opens a window of what each newer version changes, so you can see what an update brings before installing it (with riscos-support 1.0.0023-1; Check for updates fetches the list). |
 | 1.0.0020-1 | 3 Nov 2026 | !DiscIcon: a USB disc's directory windows close when it's ejected or pulled out; Eject works when a directory on the disc was the last one listed (it kept the disc busy), and a disc that's still in use is reported (with riscos-support 1.0.0022-1). |
