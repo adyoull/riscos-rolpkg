@@ -13,6 +13,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 5.31-15 | 4 Nov 2026 | **Finer timing:** the hardware counter that programs use for times finer than a centisecond reloads every centisecond, as on a Pi, not once a second. Programs using UnixLib's clock_gettime (games' frame timing, SDL) get sub-centisecond times instead of 10 ms steps, and the network stack's microsecond times are no longer up to a second out. |
 | 5.31-14 | 3 Nov 2026 | *IXRun runs Linux commands as RISC OS's own Linux user (no password, no privileges), through the shell, so a command's name is enough (*IXRun ls -l): it gave ENOENT for any command named without its full path, and always in protected RISC OS. It needs nothing at start-up; the output shows as it comes, Escape stops the command, and a failing one reports its exit status. |
 | 5.31-13 | 3 Nov 2026 | **Files over 2GB on HardDisc4 and USB discs** (up to RISC OS's 4GB - 1): IXFS stopped every file at 2GB ("File too large": LanMan98 copies failed there). |
 | 5.31-12 | 3 Nov 2026 | **A connection closed by the other end is seen:** `select()` and Socket_Select report it at once instead of waiting out their timeout (ClawsMail's feed and calendar fetches took a minute each). **Saving to HardDisc4 from editors that check the free space first** (StrongEd) works: IXFS's free space always failed. (5.31-11, the free-space fix alone, wasn't released.) |
