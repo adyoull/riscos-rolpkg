@@ -84,6 +84,14 @@ if [ "$1" = configure ]; then
       grep -v '!DiscIcon' "$pb" > "$pb.new" || true
       cat "$pb.new" > "$pb"; rm -f "$pb.new"
     fi
+    # !DiscIcon (1.0.0030-1) puts IXFS:$ on the icon bar too, labelled
+    # "IXFS:$": Pinboard's AddTinyDir labels it just "$" from RISC OS
+    # 5.31-16 (IXFS's full names have a disc name), so that line goes
+    # (also as a Pinboard save writes it now, IXFS::ROL.$)
+    if [ -f "$pb" ] && grep -Eq 'AddTinyDir IXFS:(:ROL\.)?\$[[:space:]]*$' "$pb"; then
+      grep -Ev 'AddTinyDir IXFS:(:ROL\.)?\$[[:space:]]*$' "$pb" > "$pb.new" || true
+      cat "$pb.new" > "$pb"; rm -f "$pb.new"
+    fi
     if [ ! -e "$tk/DiscIcon,feb" ]; then
       printf '%s\n' \
         "| DiscIcon: HardDisc4, USB discs and SD cards as drive icons" \
