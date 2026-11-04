@@ -13,6 +13,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 5.31-17 | 4 Nov 2026 | **GPIO on a Raspberry Pi 3 or 4:** RISC OS has the Pi's GPIO devices, as RISC OS on the Pi does, working on the board's own GPIO registers (through Linux), so programs that drive the GPIO pins or look for the Pi's GPIO device (the Raspberry Pi edition of ROOL's DDE: its C compiler and assembler) work. Only the pins the board brings out (the 40-pin header) can be changed. Needs riscos-kernel-pi 6.6.78-5 and riscos-support 1.0.0025-1. |
 | 5.31-16 | 4 Nov 2026 | **Saving from StrongEd 4.70:** HardDisc4, USB discs and SD cards (IXFS) now have a disc name, ROL, so their full names read `IXFS::ROL.$.…`, like a native disc's `SDFS::RISCOSpi.$.…`. StrongEd 4.70 takes a name with `.$.` in it as a full path and refused every IXFS save ("Don't know where to save"). Names written the old way (`IXFS:$.…`) still work everywhere. |
 | 5.31-15 | 4 Nov 2026 | **Finer timing:** the hardware counter that programs use for times finer than a centisecond reloads every centisecond, as on a Pi, not once a second. Programs using UnixLib's clock_gettime (games' frame timing, SDL) get sub-centisecond times instead of 10 ms steps, and the network stack's microsecond times are no longer up to a second out. |
 | 5.31-14 | 3 Nov 2026 | *IXRun runs Linux commands as RISC OS's own Linux user (no password, no privileges), through the shell, so a command's name is enough (*IXRun ls -l): it gave ENOENT for any command named without its full path, and always in protected RISC OS. It needs nothing at start-up; the output shows as it comes, Escape stops the command, and a failing one reports its exit status. |
@@ -32,6 +33,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0025-1 | 4 Nov 2026 | Protected RISC OS gets the Pi 3 and 4's GPIO registers (/dev/gpiomem) for its GPIO devices (riscos-rom 5.31-17, riscos-kernel-pi 6.6.78-5). |
 | 1.0.0024-1 | 3 Nov 2026 | rol-cmd runs commands as RISC OS's own Linux user (riscos) when asked, with no password: for *IXRun and the new *LinuxUser (riscos-harddisc 1.0.0023-1). It can't change the system or gain root's rights. |
 | 1.0.0023-1 | 3 Nov 2026 | rol-info gives Updates the changes of each RISC OS on Linux package: Check for updates fetches the list, and Updates' Changes button shows what the versions newer than the one installed change (with riscos-harddisc 1.0.0021-1). |
 | 1.0.0022-1 | 3 Nov 2026 | **Programs run faster natively:** NativeSupport 0.18 returns to programs without a Linux signal each time (RiscOSM's map drawing spent about 10 of its 30 seconds on them, against 17 seconds on native RISC OS). USB discs: Eject tries again for a second if the disc is busy, and if a file on it is still open !DiscIcon says so (riscos-harddisc 1.0.0020-1) instead of nothing happening. |
@@ -86,6 +88,7 @@ next images include them.
 
 | Package | Version | Date | What changed |
 |---|---|---|---|
+| riscos-kernel-pi | 6.6.78-5 | 4 Nov 2026 | /dev/gpiomem: the Pi 3 and 4's GPIO registers for RISC OS's GPIO devices (riscos-rom 5.31-17). |
 | riscos-kernel-pi | 6.6.78-4 | 2 Nov 2026 | **The fast SWI entry:** RISC OS's SWIs go straight to RISC OS instead of through Linux's security filter and a signal (with NativeSupport 0.16, riscos-support 1.0.0017-1): about 2.4 µs down to 745 ns per SWI on a Raspberry Pi 4. Only RISC OS's own process is affected. |
 | riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-3 | 2 Nov 2026 | The same fast SWI entry. |
 | riscos-kernel-pi | 6.6.78-3 | 1 Nov 2026 | NTFS discs (and exFAT, already there). |
