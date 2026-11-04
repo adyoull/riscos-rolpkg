@@ -73,6 +73,24 @@ if [ "$1" = configure ]; then
       "Set Alias\$IXRun LinuxUser %%*0" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # !DiscIcon (the drive icons: HardDisc4, USB discs, SD cards) starts from
+  # its own file in the boot's Tasks (from 1.0.0028-1), not from a line in
+  # Pinboard's save file: a pinboard that replaces that file (ROD's
+  # Pinboard2) left the drives without their icons. The old line goes.
+  tk="/riscos/HardDisc4/!Boot/Choices/Boot/Tasks"
+  if [ -d "$tk" ]; then
+    pb="$tk/Pinboard,feb"
+    if [ -f "$pb" ] && grep -q '!DiscIcon' "$pb"; then
+      grep -v '!DiscIcon' "$pb" > "$pb.new" || true
+      cat "$pb.new" > "$pb"; rm -f "$pb.new"
+    fi
+    if [ ! -e "$tk/DiscIcon,feb" ]; then
+      printf '%s\n' \
+        "| DiscIcon: HardDisc4, USB discs and SD cards as drive icons" \
+        "X Filer_Run <IXFS\$HardDisc4>.!Boot.Resources.!DiscIcon" > "$tk/DiscIcon,feb"
+      chown 1000:1000 "$tk/DiscIcon,feb"
+    fi
+  fi
   # PackMan packages that come with RISC OS on Linux (RDPServer), installed
   # as PackMan would, once (see the script)
   /usr/lib/riscos/install-packman-packages
