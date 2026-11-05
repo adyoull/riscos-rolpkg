@@ -61,6 +61,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0031-1 | 5 Nov 2026 | Updates: Install updates stopped with "String too long at line 445" once the root password had been given (the password and the longer install command of 1.0.0029-1 together were over BASIC's 255 characters). |
 | 1.0.0030-1 | 4 Nov 2026 | **IXFS:$ on the icon bar is labelled "IXFS:$" again** (RISC OS 5.31-16's disc name made Pinboard label it just "$"): HardDisc4's icon task puts it there now, next to Apps, as a folder; Menu has Open '$' and Free (the whole disc's space). The boot's old AddTinyDir line for it goes. |
 | 1.0.0029-1 | 4 Nov 2026 | **Updates shows what it's doing while it installs:** the time it has been going, and apt's progress ("Unpacking riscos-rom (45%)"). apt and dpkg now report a line at a time (their output came in lumps minutes apart, often cut mid-line, so a long install looked stuck), and Details shows their lines as they come: lines apt finishes with "... Done" were shown empty, and the technical lines Updates reads for its table no longer fill it. |
 | 1.0.0028-1 | 4 Nov 2026 | The drive icons (HardDisc4, USB discs and SD cards) start from their own file in the boot sequence (Choices:Boot.Tasks.DiscIcon), not from a line in Pinboard's file, so a pinboard that replaces that file (ROD's Pinboard2) no longer leaves the drives without icons. The old line is taken out. Restart afterwards. |
