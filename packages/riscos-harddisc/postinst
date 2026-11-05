@@ -102,6 +102,22 @@ if [ "$1" = configure ]; then
   # PackMan packages that come with RISC OS on Linux (RDPServer), installed
   # as PackMan would, once (see the script)
   /usr/lib/riscos/install-packman-packages
+  # Folio (from 1.0.0032-1) opens PDF files: a file in the boot's Tasks sets
+  # PDF's run action to Folio's !Run when Folio has been seen. Put there
+  # once (the stamp), so deleting it to choose another viewer is kept.
+  fs=/var/lib/riscos/packman/FolioPDF
+  if [ -d "$tk" ] && [ ! -e "$fs" ]; then
+    if [ ! -e "$tk/FolioPDF,feb" ]; then
+      printf '%s\n' \
+        "| Folio opens PDF files (filetype &ADF) when they're double-clicked. Delete" \
+        "| this file to choose another PDF viewer: it's put here once (riscos-harddisc)." \
+        'If "<Folio$Dir>"<>"" Then Set Alias$@RunType_ADF /<Folio$Dir>.!Run %%*0' \
+        'If "<File$Type_ADF>"="" Then Set File$Type_ADF PDF' > "$tk/FolioPDF,feb"
+      chown 1000:1000 "$tk/FolioPDF,feb"
+    fi
+    mkdir -p /var/lib/riscos/packman
+    : > "$fs"
+  fi
   # LinuxCodec at start-up (with the other TestBed modules)
   tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
   if [ -f "$tb" ] && ! grep -q "LinuxCodec" "$tb"; then

@@ -1,6 +1,7 @@
 #!/bin/sh
 # install-packman-packages [ROOT]: installs the PackMan packages that come
-# with RISC OS on Linux (from riscos-harddisc 1.0.0026-1: RDPServer), each
+# with RISC OS on Linux (from riscos-harddisc 1.0.0026-1: RDPServer; from
+# 1.0.0032-1: Folio, which the postinst makes the PDF viewer), each
 # in ROOT/usr/share/riscos/packman/PACKAGE as PackMan would install it: its
 # files (Apps...), its Info (Control, Copyright, Files), its line for
 # PackMan's Status and the apps it has the boot look at. Each is installed
