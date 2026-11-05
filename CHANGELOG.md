@@ -63,6 +63,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0034-1 | 5 Nov 2026 | **ARMEABISupport goes in !System.400**, where PackMan's package puts it (ROL used 310, so after installing it from PackMan there were two copies, and 400's always won). The newest copy there is (in 400, 500, 310 or ROL's own 1.05) is moved to 400 and the others go; a copy PackMan installed is left as it is, and a newer version is never replaced. |
 | 1.0.0033-1 | 5 Nov 2026 | PDF files open in Folio however the boot is ordered: the file in the boot's Tasks now sets a macro, worked out when a PDF is opened (1.0.0032-1's needed the boot to have looked at Folio first). 1.0.0032-1's file is replaced if it hasn't been changed. |
 | 1.0.0032-1 | 5 Nov 2026 | **Folio, the PDF and ebook reader** (0.0.1 test71, from our PackMan source), installed as PackMan would install it, in Apps.Document: PackMan lists it as installed and upgrades it, and the boot looks at it. **PDF files open in Folio** when double-clicked (a file in the boot's Tasks, put there once: delete it to choose another viewer). Folio also reads EPUB, FB2, MOBI, CBZ and XPS files (drag them to its icon). It needs a screen of 32 thousand colours or more. |
 | 1.0.0031-1 | 5 Nov 2026 | Updates: Install updates stopped with "String too long at line 445" once the root password had been given (the password and the longer install command of 1.0.0029-1 together were over BASIC's 255 characters). |

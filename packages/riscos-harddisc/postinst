@@ -7,23 +7,9 @@ if [ "$1" = configure ]; then
   dpkg-query -L riscos-harddisc | while read -r f; do
     case "$f" in /riscos/HardDisc4/*) [ -e "$f" ] && chown -h 1000:1000 "$f" ;; esac
   done
-  # ARMEABISupport: GCCSDK's 1.05 is the installed version (1.08 isn't
-  # stable on RISC OS on Linux). It goes in !System.310, where PackMan's
-  # package puts it, replacing a 1.06-1.08 there (as earlier images and
-  # this package installed); a copy in !System.500 would hide it, so an
-  # old one there goes. Any other version there is left alone.
-  s=/riscos/HardDisc4/!Boot/Resources/!System
-  m=/riscos/HardDisc4/TestBed/Modules/ARMEABISupport,ffa
-  old="$s/500/Modules/ARMEABISupport,ffa"
-  if [ -f "$old" ] && grep -q "ARMEABISupport.1\.0[0-8] " "$old" 2>/dev/null; then
-    rm -f "$old"
-  fi
-  cur="$s/310/Modules/ARMEABISupport,ffa"
-  if [ -f "$m" ] && { [ ! -e "$cur" ] || grep -q "ARMEABISupport.1\.0[6-8] " "$cur" 2>/dev/null; }; then
-    mkdir -p "$s/310/Modules"
-    cp "$m" "$cur"
-    chown -R 1000:1000 "$s/310/Modules"
-  fi
+  # ARMEABISupport in !System.400, where PackMan's package puts it, the
+  # newest copy kept (from 1.0.0034-1; earlier ones used 310): see the script
+  /usr/lib/riscos/place-armeabisupport
   # MbufManager at start-up (every RISC OS 5 ROM has it; ROL's from 5.31-7),
   # with MbufRes for its Messages: !Omni's LanManFS and Access need it
   tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"

@@ -1,0 +1,55 @@
+#!/bin/sh
+# place-armeabisupport [ROOT]: puts ARMEABISupport where PackMan's package
+# does, !System.400.Modules, keeping the newest copy there is (from
+# riscos-harddisc 1.0.0034-1). Earlier ROL images and packages put it in
+# !System.310 (and some in !System.500); the System path is searched
+# newest folder first (500, 400, ... 310), so copies in two folders hide
+# one another.
+#   - PackMan installed it (its Status lists ARMEABISupport): PackMan's
+#     copy in 400 is left as it is.
+#   - Otherwise the newest of 400's, 500's, 310's and ROL's own copy
+#     (TestBed.Modules) goes in 400.
+#   Then copies in 310 and 500 go, unless they're newer than 400's (never
+#   a newer version replaced or removed).
+# riscos-harddisc's postinst runs it; an image builder runs it with ROOT.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+root=${1:-}
+hd="$root/riscos/HardDisc4"
+s="$hd/!Boot/Resources/!System"
+ours="$hd/TestBed/Modules/ARMEABISupport,ffa"
+st="$hd/!Boot/Resources/!Packages/Status,fff"
+f400="$s/400/Modules/ARMEABISupport,ffa"
+f310="$s/310/Modules/ARMEABISupport,ffa"
+f500="$s/500/Modules/ARMEABISupport,ffa"
+[ -d "$s" ] || exit 0
+
+# a module's version as a number (1.05 -> 105), 0 if none
+ver () {
+  [ -f "$1" ] || { echo 0; return; }
+  v=$(grep -a -o -m1 'ARMEABISupport.[0-9]\.[0-9][0-9]' "$1" | head -1 | sed 's/.*\([0-9]\)\.\([0-9][0-9]\)$/\1\2/')
+  echo "${v:-0}" | sed 's/^0*\([0-9]\)/\1/'
+}
+
+packman=no
+if [ -f "$st" ] && cut -f1 "$st" | grep -qx ARMEABISupport; then packman=yes; fi
+
+if [ "$packman" = no ]; then
+  best=""; bv=0
+  for f in "$f400" "$f500" "$f310" "$ours"; do
+    v=$(ver "$f")
+    if [ "$v" -gt "$bv" ]; then best=$f; bv=$v; fi
+  done
+  if [ -n "$best" ] && [ "$best" != "$f400" ]; then
+    mkdir -p "$s/400/Modules"
+    cp "$best" "$f400.new" && mv -f "$f400.new" "$f400"
+  fi
+fi
+v400=$(ver "$f400")
+if [ "$v400" -gt 0 ]; then
+  for f in "$f310" "$f500"; do
+    [ -f "$f" ] && [ "$(ver "$f")" -le "$v400" ] && rm -f "$f"
+  done
+  chown -R 1000:1000 "$s/400"
+fi
+exit 0
