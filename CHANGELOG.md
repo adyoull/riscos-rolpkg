@@ -6,8 +6,13 @@ next images include them.
 
 ## Coming next (built, not yet packaged)
 
-- **Kernels:** the fast SWI entry is in the kernels already; nothing else
-  waiting.
+- **riscos-rom 5.31-18:** RISC OS no longer stops now and then on the
+  start-up screen as the desktop starts (mostly under UTM/QEMU, rarely on
+  a Pi): an interrupt landing in one instruction of the port's mode-change
+  code left it looping. The source is ready (ROLSrc-5.31-18.zip); it needs
+  building with the DDE.
+- **riscos-kernel-wdk2023:** the fast FPA entry, as the Pi and generic
+  kernels have it (7.2.0-4).
 
 ## riscos-rom (RISC OS itself)
 
@@ -34,6 +39,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0028-1 | 5 Nov 2026 | **FPA floating point about 4.5 times as fast on a Raspberry Pi** (NativeSupport 0.19, with riscos-kernel-pi 6.6.78-6 or riscos-kernel-generic 7.2.0-4): FPA instructions (BASIC64, and programs built for FPEmulator) go to RISC OS's FPEmulator straight from Linux's trap instead of through a signal. On a Pi 4, 500,000 FPA instructions took 27 cs before and 6 cs now, with the same results. `*NativeSupport FastFPA Off` (or `*Set NativeSupport$NoFastFPA 1` before it loads) goes back to the old way. With an older kernel nothing changes. Also: `*NativeSupport FastSWI` and `FastFPA` each act only on their own word, and the report's trap lists always show the busiest traps. |
 | 1.0.0027-1 | 5 Nov 2026 | **The last session's logs are kept** after a restart or a power cut, next to the new ones (LOGS on the FAT partition: riscos-log.prev.txt, kernel-log.prev.txt), with previous-end.txt saying how it ended: switched off or restarted normally, RISC OS asking for a restart (Ctrl+Break, *Reset, or a reset after an error), or not at all (the power went or dipped, or the board reset or hung). Before, the next start's logs replaced them within seconds. |
 | 1.0.0026-1 | 4 Nov 2026 | **Faster RISC OS where it runs under QEMU** (Macs with Apple processors in UTM, and other machines that can't run 32-bit ARM programs; a Raspberry Pi 4 or 5 runs RISC OS natively and doesn't use it): NEON's integer instructions run as the processor's own vector instructions (ROBench's NEON image tests 1.6 to 4.5 times as fast), and jumps between translated code are found faster (SWIs about 1.25 times as fast, video decoding about 20% faster). |
 | 1.0.0025-1 | 4 Nov 2026 | Protected RISC OS gets the Pi 3 and 4's GPIO registers (/dev/gpiomem) for its GPIO devices (riscos-rom 5.31-17, riscos-kernel-pi 6.6.78-5). |
@@ -97,6 +103,8 @@ next images include them.
 
 | Package | Version | Date | What changed |
 |---|---|---|---|
+| riscos-kernel-pi | 6.6.78-6 | 5 Nov 2026 | **The fast FPA entry:** FPA instructions go straight to RISC OS's FPEmulator instead of through a signal (with NativeSupport 0.19, riscos-support 1.0.0028-1): 4.5 times as fast on a Raspberry Pi 4. RISC OS's interrupts are held off as the instruction is passed on, as a real undefined instruction exception does. Only RISC OS's own process is affected. |
+| riscos-kernel-generic | 7.2.0-4 | 5 Nov 2026 | The same fast FPA entry. (The Dev Kit's kernel gets it in a later update.) |
 | riscos-kernel-pi | 6.6.78-5 | 4 Nov 2026 | /dev/gpiomem: the Pi 3 and 4's GPIO registers for RISC OS's GPIO devices (riscos-rom 5.31-17). |
 | riscos-kernel-pi | 6.6.78-4 | 2 Nov 2026 | **The fast SWI entry:** RISC OS's SWIs go straight to RISC OS instead of through Linux's security filter and a signal (with NativeSupport 0.16, riscos-support 1.0.0017-1): about 2.4 µs down to 745 ns per SWI on a Raspberry Pi 4. Only RISC OS's own process is affected. |
 | riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-3 | 2 Nov 2026 | The same fast SWI entry. |

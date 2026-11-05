@@ -3,7 +3,7 @@ Upstream-Name: RISC OS on Linux
 Source: https://github.com/adyoull/riscos-linux
 
 Files: *
-Copyright: Linus Torvalds, Raspberry Pi Ltd and others; 2026 Andrew Youll (the fast SWI entry)
+Copyright: Linus Torvalds, Raspberry Pi Ltd and others; 2026 Andrew Youll (the fast SWI and FPA entries)
 License: GPL-2
 Comment: raspberrypi/linux at the commit in kernel/pi-6.6/BASE of riscos-linux,
  with its configuration there. The start-up firmware (bootcode.bin, start*.elf,
