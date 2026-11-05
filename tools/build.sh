@@ -23,7 +23,11 @@ for spec in "$@"; do
   name=${spec%%=*}; ver=${spec#*=}
   case $name in
     riscos-rom)
-      python3 "$mk" "$name" "$ver" "$pool" "$ROOT/opt/riscos/RISCOS.IMG=/opt/riscos/RISCOS.IMG" ;;
+      # always mode 755: QEMU (protected RISC OS, as the user riscos) has to
+      # read it, and a ROM built elsewhere can come rwx--x--x (5.31-16, -17)
+      rt=$(mktemp -d); cp "$ROOT/opt/riscos/RISCOS.IMG" "$rt/RISCOS.IMG"; chmod 755 "$rt/RISCOS.IMG"
+      python3 "$mk" "$name" "$ver" "$pool" "$rt/RISCOS.IMG=/opt/riscos/RISCOS.IMG"
+      rm -rf "$rt" ;;
     riscos-support)
       args=()
       for f in "$ROOT"/opt/riscos/*; do

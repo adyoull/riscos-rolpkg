@@ -13,6 +13,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 5.31-17.1 | 5 Nov 2026 | **RISC OS starts again where it runs under QEMU** (UTM on an Apple Silicon Mac, and other machines that can't run 32-bit ARM code): 5.31-16 and 5.31-17 were installed readable only by root, so protected RISC OS (QEMU, as the user riscos) couldn't load it, and the machine switched off a minute after the start-up screen. The same RISC OS as 5.31-17. Raspberry Pis and the Dev Kit, which run it natively, weren't affected. |
 | 5.31-17 | 4 Nov 2026 | **GPIO on a Raspberry Pi 3 or 4:** RISC OS has the Pi's GPIO devices, as RISC OS on the Pi does, working on the board's own GPIO registers (through Linux), so programs that drive the GPIO pins or look for the Pi's GPIO device (the Raspberry Pi edition of ROOL's DDE: its C compiler and assembler) work. Only the pins the board brings out (the 40-pin header) can be changed. Needs riscos-kernel-pi 6.6.78-5 and riscos-support 1.0.0025-1. |
 | 5.31-16 | 4 Nov 2026 | **Saving from StrongEd 4.70:** HardDisc4, USB discs and SD cards (IXFS) now have a disc name, ROL, so their full names read `IXFS::ROL.$.…`, like a native disc's `SDFS::RISCOSpi.$.…`. StrongEd 4.70 takes a name with `.$.` in it as a full path and refused every IXFS save ("Don't know where to save"). Names written the old way (`IXFS:$.…`) still work everywhere. |
 | 5.31-15 | 4 Nov 2026 | **Finer timing:** the hardware counter that programs use for times finer than a centisecond reloads every centisecond, as on a Pi, not once a second. Programs using UnixLib's clock_gettime (games' frame timing, SDL) get sub-centisecond times instead of 10 ms steps, and the network stack's microsecond times are no longer up to a second out. |
@@ -61,6 +62,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0033-1 | 5 Nov 2026 | PDF files open in Folio however the boot is ordered: the file in the boot's Tasks now sets a macro, worked out when a PDF is opened (1.0.0032-1's needed the boot to have looked at Folio first). 1.0.0032-1's file is replaced if it hasn't been changed. |
 | 1.0.0032-1 | 5 Nov 2026 | **Folio, the PDF and ebook reader** (0.0.1 test71, from our PackMan source), installed as PackMan would install it, in Apps.Document: PackMan lists it as installed and upgrades it, and the boot looks at it. **PDF files open in Folio** when double-clicked (a file in the boot's Tasks, put there once: delete it to choose another viewer). Folio also reads EPUB, FB2, MOBI, CBZ and XPS files (drag them to its icon). It needs a screen of 32 thousand colours or more. |
 | 1.0.0031-1 | 5 Nov 2026 | Updates: Install updates stopped with "String too long at line 445" once the root password had been given (the password and the longer install command of 1.0.0029-1 together were over BASIC's 255 characters). |
 | 1.0.0030-1 | 4 Nov 2026 | **IXFS:$ on the icon bar is labelled "IXFS:$" again** (RISC OS 5.31-16's disc name made Pinboard label it just "$"): HardDisc4's icon task puts it there now, next to Apps, as a folder; Menu has Open '$' and Free (the whole disc's space). The boot's old AddTinyDir line for it goes. |

@@ -103,17 +103,36 @@ if [ "$1" = configure ]; then
   # as PackMan would, once (see the script)
   /usr/lib/riscos/install-packman-packages
   # Folio (from 1.0.0032-1) opens PDF files: a file in the boot's Tasks sets
-  # PDF's run action to Folio's !Run when Folio has been seen. Put there
-  # once (the stamp), so deleting it to choose another viewer is kept.
+  # PDF's run action to Folio's !Run. Put there once (the stamp), so
+  # deleting it to choose another viewer is kept. From 1.0.0033-1 it's a
+  # macro (resolved when a PDF is opened, so it doesn't matter whether the
+  # boot has looked at Folio yet); 1.0.0032-1's file, if unchanged, is
+  # replaced.
   fs=/var/lib/riscos/packman/FolioPDF
+  ff="$tk/FolioPDF,feb"
+  folio_pdf_old () {
+    printf '%s\n' \
+      "| Folio opens PDF files (filetype &ADF) when they're double-clicked. Delete" \
+      "| this file to choose another PDF viewer: it's put here once (riscos-harddisc)." \
+      'If "<Folio$Dir>"<>"" Then Set Alias$@RunType_ADF /<Folio$Dir>.!Run %%*0' \
+      'If "<File$Type_ADF>"="" Then Set File$Type_ADF PDF'
+  }
+  folio_pdf () {
+    printf '%s\n' \
+      "| Folio opens PDF files (filetype &ADF) when they're double-clicked. Delete" \
+      "| this file to choose another PDF viewer: it's put here once (riscos-harddisc)." \
+      "| A macro, so it doesn't matter whether the boot has seen Folio yet." \
+      'SetMacro Alias$@RunType_ADF If "<Folio$Dir>"<>"" Then /<Folio$Dir>.!Run %%*0 Else Error 0 Folio, the PDF viewer, hasn'"'"'t been seen: open the directory it'"'"'s in' \
+      'If "<File$Type_ADF>"="" Then Set File$Type_ADF PDF'
+  }
+  if [ -f "$ff" ] && folio_pdf_old | cmp -s - "$ff"; then
+    folio_pdf > "$ff"
+    chown 1000:1000 "$ff"
+  fi
   if [ -d "$tk" ] && [ ! -e "$fs" ]; then
-    if [ ! -e "$tk/FolioPDF,feb" ]; then
-      printf '%s\n' \
-        "| Folio opens PDF files (filetype &ADF) when they're double-clicked. Delete" \
-        "| this file to choose another PDF viewer: it's put here once (riscos-harddisc)." \
-        'If "<Folio$Dir>"<>"" Then Set Alias$@RunType_ADF /<Folio$Dir>.!Run %%*0' \
-        'If "<File$Type_ADF>"="" Then Set File$Type_ADF PDF' > "$tk/FolioPDF,feb"
-      chown 1000:1000 "$tk/FolioPDF,feb"
+    if [ ! -e "$ff" ]; then
+      folio_pdf > "$ff"
+      chown 1000:1000 "$ff"
     fi
     mkdir -p /var/lib/riscos/packman
     : > "$fs"
