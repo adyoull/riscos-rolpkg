@@ -34,6 +34,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0027-1 | 5 Nov 2026 | **The last session's logs are kept** after a restart or a power cut, next to the new ones (LOGS on the FAT partition: riscos-log.prev.txt, kernel-log.prev.txt), with previous-end.txt saying how it ended: switched off or restarted normally, RISC OS asking for a restart (Ctrl+Break, *Reset, or a reset after an error), or not at all (the power went or dipped, or the board reset or hung). Before, the next start's logs replaced them within seconds. |
 | 1.0.0026-1 | 4 Nov 2026 | **Faster RISC OS where it runs under QEMU** (Macs with Apple processors in UTM, and other machines that can't run 32-bit ARM programs; a Raspberry Pi 4 or 5 runs RISC OS natively and doesn't use it): NEON's integer instructions run as the processor's own vector instructions (ROBench's NEON image tests 1.6 to 4.5 times as fast), and jumps between translated code are found faster (SWIs about 1.25 times as fast, video decoding about 20% faster). |
 | 1.0.0025-1 | 4 Nov 2026 | Protected RISC OS gets the Pi 3 and 4's GPIO registers (/dev/gpiomem) for its GPIO devices (riscos-rom 5.31-17, riscos-kernel-pi 6.6.78-5). |
 | 1.0.0024-1 | 3 Nov 2026 | rol-cmd runs commands as RISC OS's own Linux user (riscos) when asked, with no password: for *IXRun and the new *LinuxUser (riscos-harddisc 1.0.0023-1). It can't change the system or gain root's rights. |
