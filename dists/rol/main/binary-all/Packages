@@ -1,0 +1,557 @@
+Package: riscos-harddisc
+Version: 1.0.0001-1
+Architecture: all
+Installed-Size: 1347
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0001-1_all.deb
+Size: 185884
+MD5sum: 7d4e78d682ffbd340dc84ebdf9351ca1
+SHA256: 5e1dc4a7e901196658117b11c9555b814b30e71c7071c46e48f46ec1f700fa2c
+
+Package: riscos-harddisc
+Version: 1.0.0004-1
+Architecture: all
+Installed-Size: 1350
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0004-1_all.deb
+Size: 186840
+MD5sum: 93af4690576813cab958b1f93fddc851
+SHA256: 70f95f831e1c2717d9770ad8d48bb5b628f0897d30d55acbf3b7ee86d9f1f387
+
+Package: riscos-harddisc
+Version: 1.0.0006-1
+Architecture: all
+Installed-Size: 1350
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0006-1_all.deb
+Size: 187104
+MD5sum: adc7b058253774f95df29dc778fe6248
+SHA256: 36f141e00076a9589937b6e688a64e4c21c3edd2d4d66d2978cbb8ffae431743
+
+Package: riscos-harddisc
+Version: 1.0.0007-1
+Architecture: all
+Installed-Size: 1363
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0007-1_all.deb
+Size: 192576
+MD5sum: 81b991850b309317a3d526d77aaf84ea
+SHA256: 639d496fc6bad87937a314efec0888a7ff45db9876879f2ca0edda3af03bab0a
+
+Package: riscos-harddisc
+Version: 1.0.0009-1
+Architecture: all
+Installed-Size: 1371
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0009-1_all.deb
+Size: 195744
+MD5sum: 5a34d2e7c4f5eeab4534e750efa7eb99
+SHA256: 53db6a9a76a7e2f10f5eb0d83bd1659224c928731eaee5e9e1efc6a4cd856d4d
+
+Package: riscos-harddisc
+Version: 1.0.0010-1
+Architecture: all
+Installed-Size: 1371
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0010-1_all.deb
+Size: 195960
+MD5sum: a18265863f2c632537427487fdc820b4
+SHA256: 3ee2e1c575673367a72960d08c007ef47f1dfc3a1d40a44d6d8dd089152e889f
+
+Package: riscos-harddisc
+Version: 1.0.0012-1
+Architecture: all
+Installed-Size: 1372
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0012-1_all.deb
+Size: 196104
+MD5sum: 98b714b3d88d7731667ead839996ad10
+SHA256: 4b45a5cb55f55b53aa13a7e3f93ea0af278a983fea9d2969fb14b627da106cb5
+
+Package: riscos-harddisc
+Version: 1.0.0013-1
+Architecture: all
+Installed-Size: 1373
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0013-1_all.deb
+Size: 196636
+MD5sum: f14647b2764f5925ce80af31c0c16214
+SHA256: 1ca5d26087e3118a576ac9beddc4ad6f7ff9325cc8e9a8dd8ac99217c0e2aa5a
+
+Package: riscos-harddisc
+Version: 1.0.0014-1
+Architecture: all
+Installed-Size: 1387
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0014-1_all.deb
+Size: 201132
+MD5sum: 1423c598bdac0c4bff8ceb1681afe758
+SHA256: feb9ac84f8e5b898fbf8cff75c0d68a9da9fabef12f3efd053f6cca965a78108
+
+Package: riscos-harddisc
+Version: 1.0.0015-1
+Architecture: all
+Installed-Size: 1413
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0015-1_all.deb
+Size: 210976
+MD5sum: 45caaee2b1918050bb62f955c920d7f7
+SHA256: fb1fa555aac2157576981f231d789d4bec7f0d40af4292495f09a04b4e352585
+
+Package: riscos-harddisc
+Version: 1.0.0016-1
+Architecture: all
+Installed-Size: 1427
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0016-1_all.deb
+Size: 216076
+MD5sum: e54b48c76e2d54b78a455c6a005b1129
+SHA256: 90646ff487b8bd0b35f9820ba4fb19b8e4040f733dd2d0d8592c5585a06bb014
+
+Package: riscos-harddisc
+Version: 1.0.0017-1
+Architecture: all
+Installed-Size: 1444
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0017-1_all.deb
+Size: 219596
+MD5sum: 6f20c075a1fb87cc870f0fabb4b17504
+SHA256: a7ba7189994292b1cceeec84a58d97e6452c897e9907ba92899bfc083eb444ba
+
+Package: riscos-harddisc
+Version: 1.0.0018-1
+Architecture: all
+Installed-Size: 1456
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0018-1_all.deb
+Size: 223676
+MD5sum: 61900b784bbd3ac073ee5fe120f3e2eb
+SHA256: ae9a0eaf8ffc79d69c6e8f5255a070edde75a6f7ecaaac7dc139cc60a6dd185a
+
+Package: riscos-harddisc
+Version: 1.0.0019-1
+Architecture: all
+Installed-Size: 1457
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0019-1_all.deb
+Size: 223756
+MD5sum: 4b668858ac1d785c7bff0738e4b7bbab
+SHA256: 247edb689bf48f9aa8309b72d36364d448de5ae3453175ea502b8a1c4e4dfd98
+
+Package: riscos-harddisc
+Version: 1.0.0020-1
+Architecture: all
+Installed-Size: 1458
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0020-1_all.deb
+Size: 224284
+MD5sum: 1a941688f3ee037a5a24f01f5c1b00c2
+SHA256: c5abfd1423f6dcde71b3b4927014490983d75306d974db407672e37fffd10cbd
+
+Package: riscos-harddisc
+Version: 1.0.0021-1
+Architecture: all
+Installed-Size: 1461
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0021-1_all.deb
+Size: 225168
+MD5sum: e87902cf8450c6805798b64b61bddf65
+SHA256: 2bbd03d54294d1402a0c7f81f337b481cd2727f62413cdd919acc35b547b0497
+
+Package: riscos-harddisc
+Version: 1.0.0022-1
+Architecture: all
+Installed-Size: 1461
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0022-1_all.deb
+Size: 225368
+MD5sum: acf5ba31e8b3a78f9e0bc12553d7710c
+SHA256: 3ea61a04d116652e56fe2910ca508e0ab3eb2635b863a0b5f8db3462dbc63fd2
+
+Package: riscos-harddisc
+Version: 1.0.0023-1
+Architecture: all
+Installed-Size: 1461
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0023-1_all.deb
+Size: 225520
+MD5sum: 6865ad61b9aeb06b009990231a9d5b94
+SHA256: 12bebc10e23d0a6835fc2dd21898e284543fb06d2e4c349685767e5c9800cef0
+
+Package: riscos-harddisc
+Version: 1.0.0024-1
+Architecture: all
+Installed-Size: 1664
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0024-1_all.deb
+Size: 283772
+MD5sum: 715f3c9397f3d3ff4c2443cc803c0b6b
+SHA256: 2d689c662425bf6a7dc02263d9e8d471aa4ffcb74bbc9c4bc9f6cf842b1564df
+
+Package: riscos-harddisc
+Version: 1.0.0025-1
+Architecture: all
+Installed-Size: 1664
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0025-1_all.deb
+Size: 283908
+MD5sum: 54e3ec98347dfdc0b3272493bb335c35
+SHA256: 934e6151c64f8f9218cb0fab41967bbd4d24285f64f2a41ce40e84c65208430e
+
+Package: riscos-harddisc
+Version: 1.0.0026-1
+Architecture: all
+Installed-Size: 2725
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0026-1_all.deb
+Size: 605348
+MD5sum: 002410b2de60ba191c6f58f27f7a48db
+SHA256: 5dafcb77073315c0c1404675fab70ccf35a731d6f2823252b9231dbdc7caa3a9
+
+Package: riscos-harddisc
+Version: 1.0.0027-1
+Architecture: all
+Installed-Size: 9963
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0027-1_all.deb
+Size: 4641984
+MD5sum: 3cb6cdec49853ee80a61a4e6ca8f8ba2
+SHA256: 8bba84fab9f8272fb8fbd4a131b7ba54bc934ab75e5621580c96363a3ce00974
+
+Package: riscos-harddisc
+Version: 1.0.0028-1
+Architecture: all
+Installed-Size: 9963
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0028-1_all.deb
+Size: 4641380
+MD5sum: 17841bae163aa37d372c7a09fc60964d
+SHA256: 89e7a6a8432c71b092fb6acfb7f2c400ef7643936ebfe1ce0109220083603dc3
+
+Package: riscos-harddisc
+Version: 1.0.0029-1
+Architecture: all
+Installed-Size: 9965
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0029-1_all.deb
+Size: 4646476
+MD5sum: a0f57ddce05583da5711d39ef2554cf9
+SHA256: 96699d95c26e60f1b3aef29f6b19db0afe2f74f392ef399eee88f993e1fd7a07
+
+Package: riscos-harddisc
+Version: 1.0.0030-1
+Architecture: all
+Installed-Size: 9966
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0030-1_all.deb
+Size: 4642620
+MD5sum: 8ebaf5ecbefb46b9c359c068a476a869
+SHA256: 680e9268495088852fe396512a2406c0b294f73451330d3eac06dcacb7521ed2
+
+Package: riscos-harddisc
+Version: 1.0.0031-1
+Architecture: all
+Installed-Size: 9966
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0031-1_all.deb
+Size: 4643320
+MD5sum: 19741260354ecf013ab6965c7d6d02bb
+SHA256: 5cb4c295e0bdd80c27eccc0de5acf0e3a8ba0e8055cce75e317ce9e0027a38e5
+
+Package: riscos-harddisc
+Version: 1.0.0032-1
+Architecture: all
+Installed-Size: 32936
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0032-1_all.deb
+Size: 14781036
+MD5sum: 01815d041dca8e71d1fd5779f3203cf2
+SHA256: e7f65cb3f734fff4bd81ab50e323d678556e6355d1c9ffac6b5cb554833fa368
+
+Package: riscos-harddisc
+Version: 1.0.0033-1
+Architecture: all
+Installed-Size: 32936
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0033-1_all.deb
+Size: 14777904
+MD5sum: bfe65b1241f584433afa484692f24e79
+SHA256: 2f29148e18bdc0c87bcf9932622debfe39492c1b878a5fb9df131dd0c7400e8c
+
+Package: riscos-harddisc
+Version: 1.0.0034-1
+Architecture: all
+Installed-Size: 32938
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0034-1_all.deb
+Size: 14790912
+MD5sum: 06170adabb7edf91e9f455f3ab22605c
+SHA256: 847e13e7b72fa8e3d7113626f48a65aca38119a32b98e9d2d22474209ea94b6a
+
+Package: riscos-harddisc
+Version: 1.0.0035-1
+Architecture: all
+Installed-Size: 32946
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0035-1_all.deb
+Size: 14773648
+MD5sum: ed1cc06dd5c181acef96394263f56eb7
+SHA256: c3f151289b0821947c08d617493b4f09c92ec28ac88107e0abaff71df18539b7
+
+Package: riscos-harddisc
+Version: 1.0.0036-1
+Architecture: all
+Installed-Size: 32947
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS on Linux's own parts of HardDisc4
+ The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
+ LinuxShell (*Linux) and USBDriver modules. Your own files and choices
+ are never touched.
+Filename: pool/riscos-harddisc_1.0.0036-1_all.deb
+Size: 14783624
+MD5sum: c46bf2fc583f0f91e4124ec1f4f27c44
+SHA256: d9235b7abd30097b6ad5ba523320a6b2aabd87d9f9d6acb6ff7af31921fbcb61
