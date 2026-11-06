@@ -6,8 +6,7 @@ next images include them.
 
 ## Coming next (built, not yet packaged)
 
-- **riscos-kernel-wdk2023:** the fast FPA entry, as the Pi and generic
-  kernels have it (7.2.0-4).
+Nothing at the moment.
 
 ## riscos-rom (RISC OS itself)
 
@@ -35,6 +34,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0029-1 | 6 Nov 2026 | **Big programs work natively** (NativeSupport 0.21): a program over 64 MB (the web browser is 105 MB) wasn't prepared for running in Linux, so its first switch back to user mode did nothing and the desktop stopped. Now a program's own code is prepared whatever its size, and so is a part of it that the program itself asks to be (only while it's the program running: under BASIC, the last program's header can still be at &8000). Other memory is left alone, as in 1.0.0028-1. `*NativeSupport` counts what it did with big programs. **Configure → Screen shows the monitor and the mode**: on a Pi, the monitor's own name (from its EDID) and its modes, from Linux; under UTM, "Linux port (UTM)" with the window's size and frame rate. The start-up mode file is written as Configure writes one, so it shows there too; once you've saved your own in Configure it's never changed. |
 | 1.0.0028-1 | 5 Nov 2026 | **FPA floating point about 4.5 times as fast on a Raspberry Pi** (NativeSupport 0.19, with riscos-kernel-pi 6.6.78-6 or riscos-kernel-generic 7.2.0-4): FPA instructions (BASIC64, and programs built for FPEmulator) go to RISC OS's FPEmulator straight from Linux's trap instead of through a signal. On a Pi 4, 500,000 FPA instructions took 27 cs before and 6 cs now, with the same results. `*NativeSupport FastFPA Off` (or `*Set NativeSupport$NoFastFPA 1` before it loads) goes back to the old way. With an older kernel nothing changes. Also: `*NativeSupport FastSWI` and `FastFPA` each act only on their own word, and the report's trap lists always show the busiest traps. |
 | 1.0.0027-1 | 5 Nov 2026 | **The last session's logs are kept** after a restart or a power cut, next to the new ones (LOGS on the FAT partition: riscos-log.prev.txt, kernel-log.prev.txt), with previous-end.txt saying how it ended: switched off or restarted normally, RISC OS asking for a restart (Ctrl+Break, *Reset, or a reset after an error), or not at all (the power went or dipped, or the board reset or hung). Before, the next start's logs replaced them within seconds. |
 | 1.0.0026-1 | 4 Nov 2026 | **Faster RISC OS where it runs under QEMU** (Macs with Apple processors in UTM, and other machines that can't run 32-bit ARM programs; a Raspberry Pi 4 or 5 runs RISC OS natively and doesn't use it): NEON's integer instructions run as the processor's own vector instructions (ROBench's NEON image tests 1.6 to 4.5 times as fast), and jumps between translated code are found faster (SWIs about 1.25 times as fast, video decoding about 20% faster). |
@@ -65,6 +65,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0035-1 | 6 Nov 2026 | **The sound, USB and SCSI disc modules (LinuxAudio, USBDriver, SCSILinux) keep SPSR_svc** in their 100 Hz ticker routines, which make a SWI from inside an interrupt: code interrupted just as it switched back to user mode could come back in the wrong mode (natively, now and then). riscos-rom 5.31-18 fixes this for every interrupt; these help with older ROMs. LinuxAudio now comes with the package, so it gets updates. |
 | 1.0.0034-1 | 5 Nov 2026 | **ARMEABISupport goes in !System.400**, where PackMan's package puts it (ROL used 310, so after installing it from PackMan there were two copies, and 400's always won). The newest copy there is (in 400, 500, 310 or ROL's own 1.05) is moved to 400 and the others go; a copy PackMan installed is left as it is, and a newer version is never replaced. |
 | 1.0.0033-1 | 5 Nov 2026 | PDF files open in Folio however the boot is ordered: the file in the boot's Tasks now sets a macro, worked out when a PDF is opened (1.0.0032-1's needed the boot to have looked at Folio first). 1.0.0032-1's file is replaced if it hasn't been changed. |
 | 1.0.0032-1 | 5 Nov 2026 | **Folio, the PDF and ebook reader** (0.0.1 test71, from our PackMan source), installed as PackMan would install it, in Apps.Document: PackMan lists it as installed and upgrades it, and the boot looks at it. **PDF files open in Folio** when double-clicked (a file in the boot's Tasks, put there once: delete it to choose another viewer). Folio also reads EPUB, FB2, MOBI, CBZ and XPS files (drag them to its icon). It needs a screen of 32 thousand colours or more. |
@@ -99,8 +100,9 @@ next images include them.
 
 | Package | Version | Date | What changed |
 |---|---|---|---|
+| riscos-kernel-wdk2023 | 7.2.0-4 | 6 Nov 2026 | The fast FPA entry, as riscos-kernel-generic 7.2.0-4 has it (with riscos-support 1.0.0028-1 or later): FPA instructions go straight to RISC OS's FPEmulator instead of through a signal. |
 | riscos-kernel-pi | 6.6.78-6 | 5 Nov 2026 | **The fast FPA entry:** FPA instructions go straight to RISC OS's FPEmulator instead of through a signal (with NativeSupport 0.19, riscos-support 1.0.0028-1): 4.5 times as fast on a Raspberry Pi 4. RISC OS's interrupts are held off as the instruction is passed on, as a real undefined instruction exception does. Only RISC OS's own process is affected. |
-| riscos-kernel-generic | 7.2.0-4 | 5 Nov 2026 | The same fast FPA entry. (The Dev Kit's kernel gets it in a later update.) |
+| riscos-kernel-generic | 7.2.0-4 | 5 Nov 2026 | The same fast FPA entry. |
 | riscos-kernel-pi | 6.6.78-5 | 4 Nov 2026 | /dev/gpiomem: the Pi 3 and 4's GPIO registers for RISC OS's GPIO devices (riscos-rom 5.31-17). |
 | riscos-kernel-pi | 6.6.78-4 | 2 Nov 2026 | **The fast SWI entry:** RISC OS's SWIs go straight to RISC OS instead of through Linux's security filter and a signal (with NativeSupport 0.16, riscos-support 1.0.0017-1): about 2.4 µs down to 745 ns per SWI on a Raspberry Pi 4. Only RISC OS's own process is affected. |
 | riscos-kernel-generic, riscos-kernel-wdk2023 | 7.2.0-3 | 2 Nov 2026 | The same fast SWI entry. |

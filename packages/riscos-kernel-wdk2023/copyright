@@ -3,7 +3,7 @@ Upstream-Name: RISC OS on Linux
 Source: https://github.com/adyoull/riscos-linux
 
 Files: *
-Copyright: Linus Torvalds and others; 2026 Andrew Youll (the fast SWI entry)
+Copyright: Linus Torvalds and others; 2026 Andrew Youll (the fast SWI and FPA entries)
 License: GPL-2
 Comment: Linux 7.2 with the patches in kernel/generic-7.2 and the configuration in
  kernel/wdk2023-7.2 of riscos-linux.
