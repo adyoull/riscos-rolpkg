@@ -6,11 +6,6 @@ next images include them.
 
 ## Coming next (built, not yet packaged)
 
-- **riscos-rom 5.31-18:** RISC OS no longer stops now and then on the
-  start-up screen as the desktop starts (mostly under UTM/QEMU, rarely on
-  a Pi): an interrupt landing in one instruction of the port's mode-change
-  code left it looping. The source is ready (ROLSrc-5.31-18.zip); it needs
-  building with the DDE.
 - **riscos-kernel-wdk2023:** the fast FPA entry, as the Pi and generic
   kernels have it (7.2.0-4).
 
@@ -18,6 +13,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 5.31-18 | 6 Nov 2026 | **RISC OS no longer stops now and then on the start-up screen as the desktop starts** (mostly under QEMU/UTM, rarely on a Pi): an interrupt landing in one instruction of the port's mode-change code left it looping. **A program's switch back to user mode no longer goes wrong now and then** (UnixLib's mode changes, natively: the program then stops at its next SWI): an interrupt's handlers (ticker routines, ScreenBlanker's, TickerV) could change SPSR_svc under the code they interrupted; the interrupt now keeps it, as it kept r14_svc. Natively 0.2% of such switches made with interrupts on went wrong; now none in 20,000. |
 | 5.31-17.1 | 5 Nov 2026 | **RISC OS starts again where it runs under QEMU** (UTM on an Apple Silicon Mac, and other machines that can't run 32-bit ARM code): 5.31-16 and 5.31-17 were installed readable only by root, so protected RISC OS (QEMU, as the user riscos) couldn't load it, and the machine switched off a minute after the start-up screen. The same RISC OS as 5.31-17. Raspberry Pis and the Dev Kit, which run it natively, weren't affected. |
 | 5.31-17 | 4 Nov 2026 | **GPIO on a Raspberry Pi 3 or 4:** RISC OS has the Pi's GPIO devices, as RISC OS on the Pi does, working on the board's own GPIO registers (through Linux), so programs that drive the GPIO pins or look for the Pi's GPIO device (the Raspberry Pi edition of ROOL's DDE: its C compiler and assembler) work. Only the pins the board brings out (the 40-pin header) can be changed. Needs riscos-kernel-pi 6.6.78-5 and riscos-support 1.0.0025-1. |
 | 5.31-16 | 4 Nov 2026 | **Saving from StrongEd 4.70:** HardDisc4, USB discs and SD cards (IXFS) now have a disc name, ROL, so their full names read `IXFS::ROL.$.…`, like a native disc's `SDFS::RISCOSpi.$.…`. StrongEd 4.70 takes a name with `.$.` in it as a full path and refused every IXFS save ("Don't know where to save"). Names written the old way (`IXFS:$.…`) still work everywhere. |
