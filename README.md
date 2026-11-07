@@ -37,7 +37,8 @@ New versions take effect at the next start (shut down and switch on).
 ## Going back
 
 - **Configure → Updates → Roll back RISC OS** installs the RISC OS build
-  before the one you have, from this repository (every version stays here).
+  before the one you have, from this repository (the last two versions of
+  each package stay here).
 - **If a new RISC OS won't start:** put the card in any computer and make an
   empty file called `ROLLBACK` on its small FAT partition. The next start puts
   the RISC OS that was replaced back in place.
@@ -70,8 +71,8 @@ tools/index.py site <key id>     # Packages, Release, InRelease (signed)
 tools/publish.sh site            # the gh-pages branch, served by GitHub Pages
 ```
 
-`site/pool` keeps every version ever published (it's the gh-pages branch's
-`pool/`). `tools/preinstall.py ROOT DEB...` installs packages into an image
+`site/pool` keeps the last two versions of each package (it's the
+gh-pages branch's `pool/`); older ones are taken out as new ones arrive. `tools/preinstall.py ROOT DEB...` installs packages into an image
 being built, as dpkg would, without running anything.
 
 The signing key isn't in this repository.

@@ -1,8 +1,8 @@
 #!/bin/bash
 # publish.sh SITE: puts SITE (pool/ and dists/, from build.sh and
 # index.py) on the gh-pages branch, which GitHub Pages serves at
-# https://adyoull.github.io/riscos-rolpkg/. Old versions stay in pool/,
-# so that an update can be rolled back. Run from the repository.
+# https://adyoull.github.io/riscos-rolpkg/. The previous version of each
+# package stays in pool/, so that an update can be rolled back. Run from the repository.
 #
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -euo pipefail

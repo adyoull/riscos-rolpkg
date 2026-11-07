@@ -4,8 +4,8 @@
 
   index.py SITE [KEYID]
 
-SITE holds pool/*.deb (every version ever published, so that an update
-can be rolled back). Writes SITE/dists/rol/main/binary-{arm64,all}/
+SITE holds pool/*.deb (the last two versions of each package, so that an
+update can be rolled back). Writes SITE/dists/rol/main/binary-{arm64,all}/
 Packages(.xz) and SITE/dists/rol/{Release,InRelease,Release.gpg}, signed
 with KEYID (gpg; GNUPGHOME chooses the keyring). Also SITE/changes.txt,
 each package version's changes from CHANGELOG.md (tools/changes.py), which
