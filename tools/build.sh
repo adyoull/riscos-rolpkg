@@ -71,6 +71,7 @@ for spec in "$@"; do
       done
       args+=("$pk/riscos-harddisc/install-packman-packages=/usr/lib/riscos/install-packman-packages" \
              "$pk/riscos-harddisc/place-armeabisupport=/usr/lib/riscos/place-armeabisupport" \
+             "$pk/riscos-harddisc/tidy-packman-names=/usr/lib/riscos/tidy-packman-names" \
              "$ROOT/usr/share/riscos/packman=/usr/share/riscos/packman")
       python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" ;;
     *) echo "build.sh: no package $name" >&2; exit 1 ;;

@@ -1,0 +1,71 @@
+#!/bin/sh
+# tidy-packman-names [ROOT]: repairs what earlier riscos-harddisc versions
+# did when PackMan had already saved a file (from 1.0.0039-1).
+#
+# IXFS keeps a file's type as an extended attribute, with a ",xxx" name only
+# when that can't be done. PackMan saves files as a new file renamed into
+# place, so the files it writes have plain names ("Status", "!RunImage"),
+# while riscos-harddisc wrote ",xxx" names ("Status,fff", "!RunImage,ff8").
+# Before 1.0.0039-1 its scripts looked only for the ",xxx" names, so on a
+# machine where PackMan had saved its Status they:
+#   - started a second Status ("Status,fff") that PackMan never reads, and
+#   - copied Folio or RDPServer over a copy PackMan had installed, leaving
+#     each file twice ("!RunImage" and "!RunImage,ff8"); PackMan's next
+#     upgrade of it then failed.
+# This puts any package that only "Status,fff" lists (and that is on the
+# disc) into PackMan's "Status" and removes "Status,fff"; and, in the apps riscos-harddisc
+# installs for PackMan and in their PackMan records (Info.Folio and so on),
+# removes a ",xxx" file where the plain-named one (PackMan's, the newer) is
+# beside it. riscos-harddisc's postinst runs it;
+# an image builder runs it with ROOT.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+root=${1:-}
+hd="$root/riscos/HardDisc4"
+pk="$hd/!Boot/Resources/!Packages"
+
+# a package's components (its Control's Components), as paths in HardDisc4
+components () {
+  [ -f "$1" ] && sed -n 's/^Components: *//p' "$1" | tr ',' '\n' | sed 's/(.*)//; s/^ *//; s/ *$//' | tr . /
+}
+# yes when all of a package's components are on the disc
+present () {
+  c=$(components "$pk/Info/$1/Control,fff"; components "$pk/Info/$1/Control")
+  [ -n "$c" ] || { echo no; return; }
+  for a in $c; do [ -e "$hd/$a" ] || { echo no; return; }; done
+  echo yes
+}
+
+if [ -f "$pk/Status" ] && [ -f "$pk/Status,fff" ]; then
+  while IFS= read -r line || [ -n "$line" ]; do
+    [ -n "$line" ] || continue
+    n=$(printf '%s\n' "$line" | cut -f1)
+    if cut -f1 "$pk/Status" | grep -xF "$n" >/dev/null; then continue; fi
+    [ "$(present "$n")" = yes ] || continue
+    # (Status: tab-separated lines, the last without a newline, as PackMan writes it)
+    if [ -s "$pk/Status" ] && [ -n "$(tail -c1 "$pk/Status")" ]; then printf '\n' >> "$pk/Status"; fi
+    printf '%s' "$line" >> "$pk/Status"
+  done < "$pk/Status,fff"
+  rm -f "$pk/Status,fff"
+  chown 1000:1000 "$pk/Status" 2>/dev/null || true
+fi
+
+for d in "$root"/usr/share/riscos/packman/*; do
+  [ -d "$d" ] || continue
+  # its PackMan record (Info.PACKAGE: Control, Copyright, Files), copied
+  # beside PackMan's own; PackMan's upgrade then stopped with "already exists"
+  i="$pk/Info/$(basename "$d")"
+  if [ -d "$i" ]; then
+    for f in "$i"/*,[0-9a-f][0-9a-f][0-9a-f]; do
+      [ -f "$f" ] && [ -e "${f%,???}" ] && rm -f "$f"
+    done
+  fi
+  for top in "$d"/*; do
+    case "$(basename "$top")" in Info|status|lookat) continue ;; esac
+    (cd "$d" && find "$(basename "$top")" -type f -name '*,[0-9a-f][0-9a-f][0-9a-f]') | while read -r f; do
+      b=${f%,???}
+      if [ -f "$hd/$f" ] && [ -e "$hd/$b" ]; then rm -f "$hd/$f"; fi
+    done
+  done
+done
+exit 0

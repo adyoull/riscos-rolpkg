@@ -13,16 +13,20 @@
 #   a newer version replaced or removed).
 # riscos-harddisc's postinst runs it; an image builder runs it with ROOT.
 #
+# From 1.0.0039-1 files are found under either name IXFS gives them:
+# PackMan's "ARMEABISupport" and "Status" (it saves them renamed into
+# place, the type kept as an extended attribute), or ",ffa" and ",fff".
+# Before, PackMan's Status went unseen, and ROL's copy was put in 400 as
+# "ARMEABISupport,ffa" beside PackMan's "ARMEABISupport". Where both are
+# there, the older goes (PackMan's when they're the same version).
+#
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 root=${1:-}
 hd="$root/riscos/HardDisc4"
 s="$hd/!Boot/Resources/!System"
-ours="$hd/TestBed/Modules/ARMEABISupport,ffa"
-st="$hd/!Boot/Resources/!Packages/Status,fff"
-f400="$s/400/Modules/ARMEABISupport,ffa"
-f310="$s/310/Modules/ARMEABISupport,ffa"
-f500="$s/500/Modules/ARMEABISupport,ffa"
 [ -d "$s" ] || exit 0
+# a RISC OS file's name as it is on the disc: plain, else with its ",xxx"
+ro () { if [ -e "$1" ]; then echo "$1"; else echo "$1,$2"; fi; }
 
 # a module's version as a number (1.05 -> 105), 0 if none
 ver () {
@@ -31,8 +35,20 @@ ver () {
   echo "${v:-0}" | sed 's/^0*\([0-9]\)/\1/'
 }
 
+# a module twice in one folder (plain and ",ffa"): the older goes, the plain
+# one (PackMan's) kept when they're the same
+for m in "$s"/*/Modules/ARMEABISupport; do
+  [ -f "$m" ] && [ -f "$m,ffa" ] || continue
+  if [ "$(ver "$m,ffa")" -gt "$(ver "$m")" ]; then rm -f "$m"; else rm -f "$m,ffa"; fi
+done
+ours=$(ro "$hd/TestBed/Modules/ARMEABISupport" ffa)
+st=$(ro "$hd/!Boot/Resources/!Packages/Status" fff)
+f400=$(ro "$s/400/Modules/ARMEABISupport" ffa)
+f310=$(ro "$s/310/Modules/ARMEABISupport" ffa)
+f500=$(ro "$s/500/Modules/ARMEABISupport" ffa)
+
 packman=no
-if [ -f "$st" ] && cut -f1 "$st" | grep -qx ARMEABISupport; then packman=yes; fi
+if [ -f "$st" ] && cut -f1 "$st" | grep -x ARMEABISupport >/dev/null; then packman=yes; fi
 
 if [ "$packman" = no ]; then
   best=""; bv=0

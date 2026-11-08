@@ -3,16 +3,23 @@
 #
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
+# a RISC OS file's name as it is on the disc (from 1.0.0039-1): plain, as
+# RISC OS leaves a file it saved by renaming it into place (the type an
+# extended attribute), else with its ",xxx" type (also for a new file)
+ro () { if [ -e "$1" ]; then echo "$1"; else echo "$1,$2"; fi; }
 if [ "$1" = configure ]; then
   dpkg-query -L riscos-harddisc | while read -r f; do
     case "$f" in /riscos/HardDisc4/*) [ -e "$f" ] && chown -h 1000:1000 "$f" ;; esac
   done
+  # a second PackMan Status, and Folio's or RDPServer's files twice, left by
+  # earlier versions where PackMan had saved its Status (see the script)
+  /usr/lib/riscos/tidy-packman-names
   # ARMEABISupport in !System.400, where PackMan's package puts it, the
   # newest copy kept (from 1.0.0034-1; earlier ones used 310): see the script
   /usr/lib/riscos/place-armeabisupport
   # MbufManager at start-up (every RISC OS 5 ROM has it; ROL's from 5.31-7),
   # with MbufRes for its Messages: !Omni's LanManFS and Access need it
-  tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
+  tb=$(ro "/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed" feb)
   if [ -f "$tb" ] && ! grep -q "MbufManager" "$tb"; then
     printf '%s\n' \
       "| MbufManager (DCI4 network buffers): in every RISC OS 5 ROM, and in this" \
@@ -65,7 +72,7 @@ if [ "$1" = configure ]; then
   # Pinboard2) left the drives without their icons. The old line goes.
   tk="/riscos/HardDisc4/!Boot/Choices/Boot/Tasks"
   if [ -d "$tk" ]; then
-    pb="$tk/Pinboard,feb"
+    pb=$(ro "$tk/Pinboard" feb)
     if [ -f "$pb" ] && grep -q '!DiscIcon' "$pb"; then
       grep -v '!DiscIcon' "$pb" > "$pb.new" || true
       cat "$pb.new" > "$pb"; rm -f "$pb.new"
@@ -78,7 +85,7 @@ if [ "$1" = configure ]; then
       grep -Ev 'AddTinyDir IXFS:(:ROL\.)?\$[[:space:]]*$' "$pb" > "$pb.new" || true
       cat "$pb.new" > "$pb"; rm -f "$pb.new"
     fi
-    if [ ! -e "$tk/DiscIcon,feb" ]; then
+    if [ ! -e "$tk/DiscIcon" ] && [ ! -e "$tk/DiscIcon,feb" ]; then
       printf '%s\n' \
         "| DiscIcon: HardDisc4, USB discs and SD cards as drive icons" \
         "X Filer_Run <IXFS\$HardDisc4>.!Boot.Resources.!DiscIcon" > "$tk/DiscIcon,feb"
@@ -95,7 +102,7 @@ if [ "$1" = configure ]; then
   # boot has looked at Folio yet); 1.0.0032-1's file, if unchanged, is
   # replaced.
   fs=/var/lib/riscos/packman/FolioPDF
-  ff="$tk/FolioPDF,feb"
+  ff=$(ro "$tk/FolioPDF" feb)
   folio_pdf_old () {
     printf '%s\n' \
       "| Folio opens PDF files (filetype &ADF) when they're double-clicked. Delete" \
@@ -124,7 +131,7 @@ if [ "$1" = configure ]; then
     : > "$fs"
   fi
   # LinuxCodec at start-up (with the other TestBed modules)
-  tb="/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed,feb"
+  tb=$(ro "/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed" feb)
   if [ -f "$tb" ] && ! grep -q "LinuxCodec" "$tb"; then
     printf '%s\n' \
       "| LinuxCodec: Linux's video decoders (VideoCore's H.264 on a Pi 3 or 4) for" \

@@ -17,18 +17,38 @@
 # there, and never replaces a file (so a newer Tinct or !Cache is kept);
 # PackMan offers to replace it if NetSurf is installed with PackMan later.
 #
+# From 1.0.0039-1, RISC OS files are found under either name IXFS gives
+# them: "Status" (as PackMan saves it, the type an extended attribute) or
+# "Status,fff"; and a package with a status file isn't installed when its
+# apps are already there (put there some other way: a copy from a zip, or
+# PackMan with a Status this script didn't see), so files are never copied
+# over another copy (that left each one twice, "!RunImage" and
+# "!RunImage,ff8").
+#
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 root=${1:-}
 hd="$root/riscos/HardDisc4"
 pk="$hd/!Boot/Resources/!Packages"
-st="$pk/Status,fff"
-dt="$hd/!Boot/Choices/Boot/Desktop,fea"
+# a RISC OS file's name as it is on the disc: plain (as RISC OS saves a file
+# it renames into place), else with its ",xxx" type (also for a new file)
+ro () { if [ -e "$1" ]; then echo "$1"; else echo "$1,$2"; fi; }
+st=$(ro "$pk/Status" fff)
+dt=$(ro "$hd/!Boot/Choices/Boot/Desktop" fea)
+# a package's components (its Control's Components), as paths in HardDisc4
+components () {
+  sed -n 's/^Components: *//p' "$1" | tr ',' '\n' | sed 's/(.*)//; s/^ *//; s/ *$//' | tr . /
+}
 for d in "$root"/usr/share/riscos/packman/*; do
   [ -d "$pk" ] || continue
   name=$(basename "$d")
   if [ -f "$d/status" ]; then
-    if [ -f "$st" ] && cut -f1 "$st" | grep -qx "$name"; then continue; fi
+    if [ -f "$st" ] && cut -f1 "$st" | grep -x "$name" >/dev/null; then continue; fi
+    there=no
+    for c in $(components "$(ro "$d/Info/Control" fff)"); do
+      [ -e "$hd/$c" ] && there=yes
+    done
+    [ "$there" = no ] || continue
     cpflags=-a
   else
     there=no
@@ -49,6 +69,9 @@ for d in "$root"/usr/share/riscos/packman/*; do
     (cd "$d" && find "$(basename "$top")") | while read -r f; do chown -h 1000:1000 "$hd/$f"; done
   done
   if [ -f "$d/status" ]; then
+    # (a fresh record: PackMan has none, so any old one is stale, and its
+    # plain-named files would sit beside these)
+    rm -rf "$pk/Info/$name"
     mkdir -p "$pk/Info/$name"
     cp -a "$d/Info/." "$pk/Info/$name/"
     chown -R 1000:1000 "$pk/Info/$name"
