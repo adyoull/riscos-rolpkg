@@ -25,6 +25,15 @@
 # over another copy (that left each one twice, "!RunImage" and
 # "!RunImage,ff8").
 #
+# From 1.0.0040-1, a package can have an "adopt" file: paths in HardDisc4
+# (without a ",xxx" type) of a copy that was put on the disc by hand. When
+# PackMan has no record of the package, those files are removed and the
+# package installed in their place with its record, so PackMan owns it
+# from then on (CaCertificates: the images had their own !CaCertificates in
+# !Boot.Resources, which PackMan didn't know, so installing anything that
+# depends on CaCertificates, such as Iris, stopped with "files conflict":
+# Ralph Barrett's report).
+#
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 root=${1:-}
@@ -49,6 +58,12 @@ for d in "$root"/usr/share/riscos/packman/*; do
       [ -e "$hd/$c" ] && there=yes
     done
     [ "$there" = no ] || continue
+    if [ -f "$d/adopt" ]; then
+      while read -r p; do
+        [ -n "$p" ] || continue
+        rm -f "$hd/$p" "$hd/$p",[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]
+      done < "$d/adopt"
+    fi
     cpflags=-a
   else
     there=no
@@ -64,7 +79,7 @@ for d in "$root"/usr/share/riscos/packman/*; do
     cpflags="-a --update=none"
   fi
   for top in "$d"/*; do
-    case "$(basename "$top")" in Info|status|lookat) continue ;; esac
+    case "$(basename "$top")" in Info|status|lookat|adopt) continue ;; esac
     cp $cpflags "$top" "$hd/"
     (cd "$d" && find "$(basename "$top")") | while read -r f; do chown -h 1000:1000 "$hd/$f"; done
   done
