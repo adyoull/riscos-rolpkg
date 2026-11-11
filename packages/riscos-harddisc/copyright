@@ -7,6 +7,19 @@ Copyright: 2026 Andrew Youll
 License: MIT
 Comment: The Updates, Linux network and Scroll wheel plug-ins, DiscIcon,
  LinuxShell, USBDriver and KVMWheel: harddisc/extras and modules/ of riscos-linux.
+ RiSH, the RISC Shell (Apps/!RiSH): apps/RiSH of riscos-linux.
+
+Files: riscos/HardDisc4/Apps/!RiSH/!RunImage,ff8
+Copyright: 2026 Andrew Youll
+ UnixLib's copyright holders (see the comment)
+License: MIT
+Comment: RiSH's own code is MIT. The program is statically linked with
+ UnixLib (the C library of the GCCSDK and riscos-crossdev toolchains), whose
+ copyright notices and licences (mainly BSD-style, some LGPL and
+ GPL-with-exception parts) are in
+ /riscos/HardDisc4/Apps/!RiSH/UnixLib-COPYING,fff and in
+ /riscos/HardDisc4/Documents/Licences. RiSH's source, to rebuild it with
+ another UnixLib, is apps/RiSH of riscos-linux.
 
 License: MIT
  Permission is hereby granted, free of charge, to any person obtaining a copy
