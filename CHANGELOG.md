@@ -79,6 +79,7 @@ Nothing at the moment.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0049-1 | 11 Nov 2026 | **RiSH 0.04: other programs' text is no longer drawn at the wrong size after a RiSH window has been redrawn.** RiSH draws with the system font at its own size and then put the size back to 8 by 8 pixels, not to what it was: in a 90 dpi mode the right size is 8 by 16, so text that other programs draw with the system font (Edit's windows, with the system font chosen) came out half height until the mode changed. RiSH now reads the size and spacing first and puts those back. |
 | 1.0.0048-1 | 11 Nov 2026 | RiSH carries its copyright and licences: `LICENSE` (MIT, Copyright (c) 2026 Andrew Youll) and `UnixLib-COPYING` (the C library it is linked with) are in the application and named in its !Help, and Documents.Licences has UnixLib's too. The program is unchanged (0.03). |
 | 1.0.0047-1 | 11 Nov 2026 | **RiSH 0.03: copy and paste.** Drag with Select to select text in a terminal (Adjust moves the end; dragging past the top or bottom scrolls). **Copy** on the menu, or Ctrl-Shift-C, puts it on RISC OS's clipboard, for any program to paste. **Paste** on the menu, Ctrl-Shift-V or Shift-Insert types the clipboard's text into the terminal, whatever program it was copied in. Ctrl-C and Ctrl-V alone still go to Linux. Tested both ways with !Edit under QEMU. |
 | 1.0.0046-1 | 11 Nov 2026 | RiSH 0.02: its Info and !Help give its full name, the RISC Shell. Nothing else changed. |
