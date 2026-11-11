@@ -3,10 +3,10 @@ Architecture: all
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
 Section: misc
 Priority: optional
-Depends: riscos-support (>= 1.0.0042-1)
+Depends: riscos-support (>= 1.0.0044-1)
 Homepage: https://github.com/adyoull/riscos-rolpkg
 Description: RISC OS on Linux's own parts of HardDisc4
  The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
- Linux network Configure plug-ins, the hard disc icon (DiscIcon), and the
- LinuxShell (*Linux) and USBDriver modules. Your own files and choices
- are never touched.
+ Linux network Configure plug-ins, the hard disc icon (DiscIcon), RiSH
+ (the Linux terminal, in Apps), and the LinuxShell (*Linux) and USBDriver
+ modules. Your own files and choices are never touched.
