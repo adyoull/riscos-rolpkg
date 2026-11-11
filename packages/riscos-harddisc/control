@@ -8,5 +8,5 @@ Homepage: https://github.com/adyoull/riscos-rolpkg
 Description: RISC OS on Linux's own parts of HardDisc4
  The RISC OS side of RISC OS on Linux, in HardDisc4: the Updates and
  Linux network Configure plug-ins, the hard disc icon (DiscIcon), RiSH
- (the Linux terminal, in Apps), and the LinuxShell (*Linux) and USBDriver
+ (the RISC Shell: the Linux terminal, in Apps), and the LinuxShell (*Linux) and USBDriver
  modules. Your own files and choices are never touched.
