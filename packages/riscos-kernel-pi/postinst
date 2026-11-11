@@ -3,5 +3,33 @@
 set -e
 if [ "$1" = configure ]; then
   /usr/lib/riscos/install-boot-files /usr/lib/riscos/boot-pi
+  # config.txt: "dtparam=audio=on" has to come before the first dtoverlay
+  # line. After one, the firmware gives it to that overlay (vc4-kms-v3d
+  # has an "audio" of its own, HDMI's), the Pi's own sound stays off and
+  # Linux gets no headphone socket (images up to 1.0.0020 had it after).
+  # The file is otherwise the user's: only that line moves, and the file
+  # as it was is kept as config.txt.old.
+  dev=$(/usr/lib/riscos/fat-partition)
+  mnt=$(mktemp -d)
+  mount -t vfat -o shortname=mixed "$dev" "$mnt"
+  c=$mnt/config.txt
+  if [ -f "$c" ] && awk '
+      { sub(/\r$/, "") }
+      /^dtoverlay=/ { seen = 1 }
+      /^dtparam=audio=on[ \t]*$/ { if (seen) late = 1; else early = 1 }
+      END { exit !(late && !early) }' "$c"; then
+    awk '
+      { line = $0; sub(/\r$/, "", line) }
+      line ~ /^dtparam=audio=on[ \t]*$/ { next }
+      line ~ /^dtoverlay=/ && !done { print "dtparam=audio=on"; done = 1 }
+      { print }' "$c" > "$c.new"
+    cp -f "$c" "$c.old"
+    sync
+    mv -f "$c.new" "$c"
+    echo "config.txt: dtparam=audio=on moved before the overlays, for the headphone socket (the file as it was: config.txt.old)."
+  fi
+  sync
+  umount "$mnt"
+  rmdir "$mnt"
 fi
 exit 0
