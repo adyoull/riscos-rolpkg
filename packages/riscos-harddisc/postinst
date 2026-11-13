@@ -45,6 +45,16 @@ if [ "$1" = configure ]; then
       "RMEnsure SCSILinux 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.SCSILinux" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # MemMapEntries: OS_FindMemMapEntries, OS_SetMemMapEntries and
+  # OS_ReadMemMapEntries, which the port's kernel hasn't got (from 1.0.0053-1)
+  if [ -f "$tb" ] && ! grep -q "MemMapEntries" "$tb"; then
+    printf '%s\n' \
+      "| MemMapEntries: the page mapping calls (OS_FindMemMapEntries," \
+      "| OS_SetMemMapEntries, OS_ReadMemMapEntries) that programs with their own" \
+      "| virtual memory use (Photodesk); RISC OS for Linux's kernel has none" \
+      "RMEnsure MemMapEntries 0 RMLoad <IXFS\$HardDisc4>.TestBed.Modules.MemMapEntries" >> "$tb"
+    chown 1000:1000 "$tb"
+  fi
   # *IXRun through *LinuxUser, always (rol-cmd runs it as RISC OS's own
   # Linux user, through the shell: no password, and the path is searched).
   # An earlier line (1.0.0022-1: through *Linux; 1.0.0023-1: only when
