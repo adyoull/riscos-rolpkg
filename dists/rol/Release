@@ -1,0 +1,18 @@
+Origin: riscos-rolpkg
+Label: RISC OS on Linux
+Suite: rol
+Codename: rol
+Date: Fri, 13 Nov 2026 12:58:59 UTC
+Architectures: arm64 all
+Components: main
+Description: RISC OS on Linux: RISC OS, its Linux side and kernels
+MD5Sum:
+ 6d205fcb196cb2e00f8c1437c97d3418 8385 main/binary-arm64/Packages
+ 70df0128244e08763e77f8e0f43d47bc 2012 main/binary-arm64/Packages.xz
+ 5eb3229e54bcab066871a7f8da52ed01 1579 main/binary-all/Packages
+ 09b790de62cca93e8134606b455df058 688 main/binary-all/Packages.xz
+SHA256:
+ 492f8ec6fdef1ffc7be14db5ba48a0f02f3cd64eeadff0c8203fa38ad775ef76 8385 main/binary-arm64/Packages
+ 55b78303e02b92d5c84262ec531d9ed84ea2cfc3b576af57dec9faa86bafd45f 2012 main/binary-arm64/Packages.xz
+ 336323103a1d04eab3d921ac9f65a474fa6aa39208abdc4625ea8394e022f731 1579 main/binary-all/Packages
+ 482851d4a68408a6ed801f902e658e221fdf42ffd56b043f70133d37f99b40d0 688 main/binary-all/Packages.xz

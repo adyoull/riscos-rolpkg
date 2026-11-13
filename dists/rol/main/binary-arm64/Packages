@@ -1,0 +1,201 @@
+Package: riscos-kernel-generic
+Version: 7.2.0-3
+Architecture: arm64
+Installed-Size: 66288
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Conflicts: riscos-kernel-wdk2023
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on UEFI machines and Pinebooks
+ The Linux kernel UEFI machines (UTM, QEMU, ARM boards and servers) and
+ Pine64's Pinebook and Pinebook Pro start (EFI/BOOT/BOOTAA64.EFI on the
+ card's FAT partition), with the Pinebooks' device trees. Installing it
+ copies them onto the FAT partition, keeping the old ones as *.old; a
+ restart starts the new kernel.
+Filename: pool/riscos-kernel-generic_7.2.0-3_arm64.deb
+Size: 16596740
+MD5sum: 2e51b67b36ce18cedd08d10956eaf463
+SHA256: b49aa10b81a60d351593062900e1bbc3a655056e30ca123a2d07c82cf92f99ac
+
+Package: riscos-kernel-generic
+Version: 7.2.0-4
+Architecture: arm64
+Installed-Size: 66288
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Conflicts: riscos-kernel-wdk2023
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on UEFI machines and Pinebooks
+ The Linux kernel UEFI machines (UTM, QEMU, ARM boards and servers) and
+ Pine64's Pinebook and Pinebook Pro start (EFI/BOOT/BOOTAA64.EFI on the
+ card's FAT partition), with the Pinebooks' device trees. Installing it
+ copies them onto the FAT partition, keeping the old ones as *.old; a
+ restart starts the new kernel.
+Filename: pool/riscos-kernel-generic_7.2.0-4_arm64.deb
+Size: 16616740
+MD5sum: d421edc070804072a75bff4e91076129
+SHA256: 3f8c07f223ab4348f6c2d314870763ccb2572a747a6712fe8bfc2a54295e16ac
+
+Package: riscos-kernel-pi
+Version: 6.6.78-10
+Architecture: arm64
+Installed-Size: 37021
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
+ The Raspberry Pi kernel (kernel8.img), its device trees and overlays and
+ the Pi's start-up firmware, on the card's FAT partition. config.txt and
+ cmdline.txt are left as they are. Installing it copies them onto the FAT
+ partition, keeping the old ones as *.old; a restart starts the new
+ kernel.
+Filename: pool/riscos-kernel-pi_6.6.78-10_arm64.deb
+Size: 10260628
+MD5sum: 7c57e22195d66399569c643276e97dd0
+SHA256: a82d42a8f5c7757fd82d35f7eb17ca75b526275c961a8b1a1d8673c9f8736860
+
+Package: riscos-kernel-pi
+Version: 6.6.78-11
+Architecture: arm64
+Installed-Size: 37022
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
+ The Raspberry Pi kernel (kernel8.img), its device trees and overlays and
+ the Pi's start-up firmware, on the card's FAT partition. config.txt and
+ cmdline.txt are left as they are. Installing it copies them onto the FAT
+ partition, keeping the old ones as *.old; a restart starts the new
+ kernel.
+Filename: pool/riscos-kernel-pi_6.6.78-11_arm64.deb
+Size: 10260764
+MD5sum: 1f1445aa1cc699c9deeef2eca76c1581
+SHA256: edaf935d7be76a78df122773f3cf99e58b5641bb8f315b8dad8dffdd18bf82ab
+
+Package: riscos-kernel-wdk2023
+Version: 7.2.0-3
+Architecture: arm64
+Installed-Size: 61747
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Conflicts: riscos-kernel-generic
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
+ The Linux kernel the Windows Dev Kit 2023 (Snapdragon 8cx Gen 3, "Project
+ Volterra") starts from the card's EFI partition (EFI/BOOT/BOOTAA64.EFI,
+ which loads blackrock.dtb), with that device tree. Installing it copies
+ them onto the EFI partition, keeping the old ones as *.old; a restart
+ starts the new kernel.
+Filename: pool/riscos-kernel-wdk2023_7.2.0-3_arm64.deb
+Size: 15502868
+MD5sum: df3d7726240fda5652a3b162dff4da86
+SHA256: f0b3f9a21247392c7bf7042243a77e4026f1f6a11f9dcb179deebaed9eaaeae3
+
+Package: riscos-kernel-wdk2023
+Version: 7.2.0-4
+Architecture: arm64
+Installed-Size: 61747
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0001-1)
+Conflicts: riscos-kernel-generic
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
+ The Linux kernel the Windows Dev Kit 2023 (Snapdragon 8cx Gen 3, "Project
+ Volterra") starts from the card's EFI partition (EFI/BOOT/BOOTAA64.EFI,
+ which loads blackrock.dtb), with that device tree. Installing it copies
+ them onto the EFI partition, keeping the old ones as *.old; a restart
+ starts the new kernel.
+Filename: pool/riscos-kernel-wdk2023_7.2.0-4_arm64.deb
+Size: 15505124
+MD5sum: 9b0b5ef8beea7c92d89f789f44a01e0d
+SHA256: 96660d2d8d04067978a0751c68cebf77b50cf0662eba33a7ecad07a665f66667
+
+Package: riscos-rom
+Version: 5.31-28
+Architecture: arm64
+Installed-Size: 4097
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS 5.31 for RISC OS on Linux
+ RISC OS itself (its ROM image, /opt/riscos/RISCOS.IMG), built from RISC
+ OS Open's sources with Timothy Baldwin's Linux port. RISC OS starts the
+ new one at its next start. The one it replaces is kept in
+ /opt/riscos/rollback: a file called ROLLBACK on the card's FAT partition
+ puts it back at the next start.
+Filename: pool/riscos-rom_5.31-28_arm64.deb
+Size: 1406776
+MD5sum: 6c4311bd3d6e6363e170626be6b49919
+SHA256: 4b4c7e39d14e1cf159e94f134bb28d44f0424f0ffe2000ef075251ae786cd181
+
+Package: riscos-rom
+Version: 5.31-29
+Architecture: arm64
+Installed-Size: 4097
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS 5.31 for RISC OS on Linux
+ RISC OS itself (its ROM image, /opt/riscos/RISCOS.IMG), built from RISC
+ OS Open's sources with Timothy Baldwin's Linux port. RISC OS starts the
+ new one at its next start. The one it replaces is kept in
+ /opt/riscos/rollback: a file called ROLLBACK on the card's FAT partition
+ puts it back at the next start.
+Filename: pool/riscos-rom_5.31-29_arm64.deb
+Size: 1405356
+MD5sum: ae72e73824ac845eedb1461c79c608ca
+SHA256: 54d89a0479ecd43819b2ec1278aad46ebe75eeb6388ef9020d7bc38e5b705559
+
+Package: riscos-support
+Version: 1.0.0052-1
+Architecture: arm64
+Installed-Size: 31555
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: The Linux side of RISC OS on Linux
+ What runs RISC OS on Linux: init, rol-fb (screen, keyboard and mouse),
+ rol-snd (sound), rol-netd (network and Wi-Fi), rol-cmd (Linux commands
+ for RISC OS, with the root password), rol-usbd (USB devices for RISC
+ OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
+ NativeSupport, and this repository's source and key. A restart puts a
+ new version to use.
+Filename: pool/riscos-support_1.0.0052-1_arm64.deb
+Size: 7358116
+MD5sum: e2341814ddc4d0016549712e2fbadbb1
+SHA256: c30ed99ac2b6ac84aeba304f85ea95da6392847e203733f900ac53031b89508e
+
+Package: riscos-support
+Version: 1.0.0053-1
+Architecture: arm64
+Installed-Size: 31555
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: The Linux side of RISC OS on Linux
+ What runs RISC OS on Linux: init, rol-fb (screen, keyboard and mouse),
+ rol-snd (sound), rol-netd (network and Wi-Fi), rol-cmd (Linux commands
+ for RISC OS, with the root password), rol-usbd (USB devices for RISC
+ OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
+ NativeSupport, and this repository's source and key. A restart puts a
+ new version to use.
+Filename: pool/riscos-support_1.0.0053-1_arm64.deb
+Size: 7365824
+MD5sum: 670e81285a0338c67b3c12e334e903d5
+SHA256: ea04746ae7cb48cbefc00b3c03b5639e9e4d718d0eed28e14e1b9e4a4f3fb9c4
