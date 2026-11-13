@@ -17,6 +17,9 @@ if [ "$1" = configure ]; then
   # ARMEABISupport in !System.400, where PackMan's package puts it, the
   # newest copy kept (from 1.0.0034-1; earlier ones used 310): see the script
   /usr/lib/riscos/place-armeabisupport
+  # UnixLib's PThreadTicker as System:Modules.PThrTicker, where programs
+  # look first (from 1.0.0054-1): see the script
+  /usr/lib/riscos/place-pthreadticker
   # MbufManager at start-up (every RISC OS 5 ROM has it; ROL's from 5.31-7),
   # with MbufRes for its Messages: !Omni's LanManFS and Access need it
   tb=$(ro "/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed" feb)

@@ -63,7 +63,7 @@ for spec in "$@"; do
                '!Boot/Resources/Configure/!WheelSetup' 'TestBed/Modules/KVMWheel,ffa' \
                '!Boot/Resources/!DiscIcon' '!Boot/Resources/!NetWatch' 'TestBed/Modules/LinuxShell,ffa' \
                'TestBed/Modules/USBDriver,ffa' 'TestBed/Modules/LinuxAudio,ffa' 'TestBed/Codec/LinuxCodec,ffa' 'TestBed/Codec/ReadMe,fff' \
-               'TestBed/Codec/VCHIQ,ffa' 'TestBed/Codec/BCMSupport,ffa' 'TestBed/Codec/PCI,ffa' 'TestBed/Codec/LoadVC,feb' 'TestBed/Codec/VCTest,fff' 'TestBed/Modules/ARMEABISupport,ffa' 'TestBed/Modules/MManager,ffa' 'TestBed/Modules/MbufRes,ffa' 'TestBed/Modules/LinuxOverlay,ffa' 'TestBed/Modules/SCSILinux,ffa' 'TestBed/Modules/MemMapEntries,ffa' 'Utilities/!Updates' \
+               'TestBed/Codec/VCHIQ,ffa' 'TestBed/Codec/BCMSupport,ffa' 'TestBed/Codec/PCI,ffa' 'TestBed/Codec/LoadVC,feb' 'TestBed/Codec/VCTest,fff' 'TestBed/Modules/ARMEABISupport,ffa' 'TestBed/Modules/MManager,ffa' 'TestBed/Modules/MbufRes,ffa' 'TestBed/Modules/LinuxOverlay,ffa' 'TestBed/Modules/SCSILinux,ffa' 'TestBed/Modules/MemMapEntries,ffa' 'TestBed/Modules/PThrTicker,ffa' 'Utilities/!Updates' \
                'TestBed/PDFS/PDFS,ffa' 'TestBed/PDFS/README,fff' 'TestBed/PDFS/LICENSE,fff' 'TestBed/PDFS/CHANGELOG,fff' \
                '!Boot/Resources/Configure/Monitors/Other/UTM,fff' \
                'Apps/!RiSH' 'Documents/Licences' 'Documents/Source,fff'; do
@@ -71,6 +71,7 @@ for spec in "$@"; do
       done
       args+=("$pk/riscos-harddisc/install-packman-packages=/usr/lib/riscos/install-packman-packages" \
              "$pk/riscos-harddisc/place-armeabisupport=/usr/lib/riscos/place-armeabisupport" \
+             "$pk/riscos-harddisc/place-pthreadticker=/usr/lib/riscos/place-pthreadticker" \
              "$pk/riscos-harddisc/tidy-packman-names=/usr/lib/riscos/tidy-packman-names" \
              "$ROOT/usr/share/riscos/packman=/usr/share/riscos/packman")
       python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" ;;

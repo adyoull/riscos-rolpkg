@@ -1,0 +1,47 @@
+#!/bin/sh
+# place-pthreadticker [ROOT]: puts UnixLib's PThreadTicker module (threads'
+# timer; programs with sound or other threads RMEnsure it) in !System, as
+# System:Modules.PThrTicker (from riscos-harddisc 1.0.0054-1). Programs
+# look there first and fall back to a copy of their own, which may be older.
+#   - A copy in any !System folder older than ROL's (TestBed.Modules) is
+#     replaced where it is; one the same or newer is left.
+#   - No copy anywhere: ROL's goes in !System.310.Modules.
+# riscos-harddisc's postinst runs it; an image builder runs it with ROOT.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+root=${1:-}
+hd="$root/riscos/HardDisc4"
+s="$hd/!Boot/Resources/!System"
+[ -d "$s" ] || exit 0
+# a RISC OS file's name as it is on the disc: plain, else with its ",xxx"
+ro () { if [ -e "$1" ]; then echo "$1"; else echo "$1,$2"; fi; }
+# a module's version as a number (0.04 -> 4), 0 if none
+ver () {
+  [ -f "$1" ] || { echo 0; return; }
+  v=$(grep -a -o -m1 'PThreadTicker.[0-9]\.[0-9][0-9]' "$1" | head -1 | sed 's/.*\([0-9]\)\.\([0-9][0-9]\)$/\1\2/')
+  echo "${v:-0}" | sed 's/^0*\([0-9]\)/\1/'
+}
+ours=$(ro "$hd/TestBed/Modules/PThrTicker" ffa)
+ov=$(ver "$ours")
+[ "$ov" -gt 0 ] || exit 0
+found=no
+for d in "$s"/*/Modules; do
+  [ -d "$d" ] || continue
+  # twice in one folder (plain and ",ffa"): the older goes
+  if [ -f "$d/PThrTicker" ] && [ -f "$d/PThrTicker,ffa" ]; then
+    if [ "$(ver "$d/PThrTicker,ffa")" -gt "$(ver "$d/PThrTicker")" ]; then rm -f "$d/PThrTicker"; else rm -f "$d/PThrTicker,ffa"; fi
+  fi
+  f=$(ro "$d/PThrTicker" ffa)
+  [ -f "$f" ] || continue
+  found=yes
+  if [ "$(ver "$f")" -lt "$ov" ]; then
+    # (written in place: a plain-named file's type is an attribute of it)
+    cat "$ours" > "$f"
+  fi
+done
+if [ "$found" = no ]; then
+  mkdir -p "$s/310/Modules"
+  cp "$ours" "$s/310/Modules/PThrTicker,ffa"
+  chown -R 1000:1000 "$s/310/Modules/PThrTicker,ffa"
+fi
+exit 0
