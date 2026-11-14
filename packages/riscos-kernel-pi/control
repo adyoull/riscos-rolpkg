@@ -1,7 +1,7 @@
 Package: riscos-kernel-pi
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170
 Section: kernel
 Priority: optional
 Homepage: https://github.com/adyoull/riscos-rolpkg
