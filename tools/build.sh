@@ -7,7 +7,13 @@
 #   stages it): /opt/riscos (RISCOS.IMG and the Linux side),
 #   /usr/sbin/init, and RISC OS's HardDisc4 at /riscos/HardDisc4.
 # BOOT: the image's FAT partition as a directory (kernels, device trees).
-# PACKAGE: riscos-rom, riscos-support, riscos-kernel-generic,
+# MODULES: for the kernel packages, the kernel's own modules as
+#   "make modules_install" staged them (INSTALL_MOD_PATH): the directory
+#   holding lib/modules/<release>. They go to /usr/lib/modules/<release>.
+# FIRMWARE: for riscos-firmware and riscos-firmware-cards, the directory
+#   tools/firmware.py made; it goes to /usr/lib/firmware.
+# PACKAGE: riscos-rom, riscos-support, riscos-firmware,
+#   riscos-firmware-cards, riscos-kernel-generic,
 #   riscos-kernel-pi, riscos-kernel-wdk2023 (BOOT: the Dev Kit image's EFI
 #   partition) or riscos-harddisc; VERSION: as in the README.
 #
@@ -18,7 +24,19 @@ site=$1; shift
 pool=$site/pool
 mk=$here/mkdeb.py
 pk=$here/../packages
-hd=$ROOT/riscos/HardDisc4
+hd=${ROOT:-}/riscos/HardDisc4
+# the kernel's modules, as mkdeb arguments (none without MODULES)
+modargs() {
+  marg=()
+  [ -n "${MODULES:-}" ] || return 0
+  local d
+  for d in "$MODULES"/lib/modules/*/; do
+    d=${d%/}
+    # the links back to the build tree mean nothing on the machine
+    rm -f "$d/build" "$d/source"
+    marg+=("$d=/usr/lib/modules/$(basename "$d")")
+  done
+}
 for spec in "$@"; do
   name=${spec%%=*}; ver=${spec#*=}
   case $name in
@@ -44,19 +62,24 @@ for spec in "$@"; do
         "$here/../riscos-rolpkg.sources=/etc/apt/sources.list.d/riscos-rolpkg.sources" \
         "$pk/riscos-support/50riscos-ca=/etc/apt/apt.conf.d/50riscos-ca" ;;
     riscos-kernel-generic)
+      modargs
       python3 "$mk" "$name" "$ver" "$pool" \
         "$BOOT/EFI/BOOT/BOOTAA64.EFI=/usr/lib/riscos/boot-generic/EFI/BOOT/BOOTAA64.EFI" \
-        "$BOOT/dtb=/usr/lib/riscos/boot-generic/dtb" ;;
+        "$BOOT/dtb=/usr/lib/riscos/boot-generic/dtb" "${marg[@]}" ;;
     riscos-kernel-wdk2023)
+      modargs
       python3 "$mk" "$name" "$ver" "$pool" \
         "$BOOT/EFI/BOOT/BOOTAA64.EFI=/usr/lib/riscos/boot-wdk2023/EFI/BOOT/BOOTAA64.EFI" \
-        "$BOOT/blackrock.dtb=/usr/lib/riscos/boot-wdk2023/blackrock.dtb" ;;
+        "$BOOT/blackrock.dtb=/usr/lib/riscos/boot-wdk2023/blackrock.dtb" "${marg[@]}" ;;
+    riscos-firmware|riscos-firmware-cards)
+      python3 "$mk" "$name" "$ver" "$pool" "$FIRMWARE=/usr/lib/firmware" ;;
     riscos-kernel-pi)
       args=()
       for f in "$BOOT"/kernel8.img "$BOOT"/*.dtb "$BOOT"/overlays "$BOOT"/bootcode.bin "$BOOT"/start*.elf "$BOOT"/fixup*.dat "$BOOT"/LICENCE.*; do
         [ -e "$f" ] && args+=("$f=/usr/lib/riscos/boot-pi/$(basename "$f")")
       done
-      python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" ;;
+      modargs
+      python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" "${marg[@]}" ;;
     riscos-harddisc)
       args=()
       for p in '!Boot/Resources/Configure/!ROLUpdate' '!Boot/Resources/Configure/!LinuxNet' \

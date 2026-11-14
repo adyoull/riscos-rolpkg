@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: linux-firmware
+Source: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+
+Files: *
+Copyright: the makers of the devices (see WHENCE)
+License: various
+ Firmware files from linux-firmware, unchanged. Each is distributed under
+ its maker's own licence, which allows redistribution; none is free
+ software. /usr/lib/firmware/WHENCE (linux-firmware's own list) says which
+ licence covers which file, and the licence texts it names are in
+ /usr/lib/firmware/LICENSES. The linux-firmware commit the files were
+ taken from is in /usr/lib/firmware/LICENSES/SOURCE.

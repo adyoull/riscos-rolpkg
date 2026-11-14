@@ -24,9 +24,28 @@ if [ "$1" = configure ]; then
       line ~ /^dtoverlay=/ && !done { print "dtparam=audio=on"; done = 1 }
       { print }' "$c" > "$c.new"
     cp -f "$c" "$c.old"
+    kept=1
     sync
     mv -f "$c.new" "$c"
     echo "config.txt: dtparam=audio=on moved before the overlays, for the headphone socket (the file as it was: config.txt.old)."
+  fi
+  # config.txt: the Compute Modules' own USB controller. The firmware
+  # leaves it as a device ("gadget") port; on the IO boards the USB
+  # sockets (and their hub) hang off it, so it has to be a host, or no
+  # keyboard, mouse or USB drive is seen (Raspberry Pi OS's config.txt
+  # has the same lines). Added once, at the end; the file as it was is
+  # kept as config.txt.old. Someone who has set the port up themselves
+  # (any otg_mode or dwc2 line) is left alone.
+  if [ -f "$c" ] && ! tr -d '\r' < "$c" | grep -q -E '^[ \t]*(otg_mode=|dtoverlay=dwc2)'; then
+    # (config.txt.old stays the file as it was before this update)
+    [ -n "${kept:-}" ] || cp -f "$c" "$c.old"
+    { tr -d '\r' < "$c" | sed -e '$a\'
+      printf '%s\n' '' '# Compute Modules: the USB sockets on the IO board (host mode)' \
+        '[cm4]' 'otg_mode=1' '[cm5]' 'dtoverlay=dwc2,dr_mode=host' '[all]'
+    } > "$c.new"
+    sync
+    mv -f "$c.new" "$c"
+    echo "config.txt: the Compute Modules' USB port set to host mode, for the IO board's USB sockets (the file as it was: config.txt.old)."
   fi
   sync
   umount "$mnt"

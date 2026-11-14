@@ -1,7 +1,7 @@
 Package: riscos-kernel-wdk2023
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0001-1)
+Depends: riscos-support (>= 1.0.0054-1), riscos-firmware, riscos-firmware-cards
 Conflicts: riscos-kernel-generic
 Section: kernel
 Priority: optional
@@ -12,3 +12,8 @@ Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
  which loads blackrock.dtb), with that device tree. Installing it copies
  them onto the EFI partition, keeping the old ones as *.old; a restart
  starts the new kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ riscos-firmware and riscos-firmware-cards.

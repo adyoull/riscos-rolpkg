@@ -1,0 +1,12 @@
+Package: riscos-firmware
+Architecture: all
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: non-free-firmware/kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Firmware for USB Wi-Fi and network adapters, for RISC OS on Linux
+ The firmware files the riscos-kernel-* packages' USB drivers ask for:
+ USB Wi-Fi adapters (Realtek, MediaTek and Ralink, Atheros and others)
+ and USB network adapters that need one. From linux-firmware; each
+ maker's licence is in /usr/lib/firmware/LICENSES, and WHENCE there says
+ which file is whose.

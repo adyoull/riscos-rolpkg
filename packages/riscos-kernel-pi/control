@@ -1,7 +1,7 @@
 Package: riscos-kernel-pi
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0001-1)
+Depends: riscos-support (>= 1.0.0054-1), riscos-firmware
 Section: kernel
 Priority: optional
 Homepage: https://github.com/adyoull/riscos-rolpkg
@@ -11,3 +11,8 @@ Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
  cmdline.txt are left as they are. Installing it copies them onto the FAT
  partition, keeping the old ones as *.old; a restart starts the new
  kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ riscos-firmware.
