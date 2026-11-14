@@ -1,7 +1,7 @@
 Package: riscos-kernel-pi
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0054-1), riscos-firmware
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree
 Section: kernel
 Priority: optional
 Homepage: https://github.com/adyoull/riscos-rolpkg
@@ -15,4 +15,5 @@ Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
  Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
  plugged in or fitted are modules in /usr/lib/modules, loaded as the
  hardware appears (riscos-support's rol-modd); their firmware is in
- riscos-firmware.
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.

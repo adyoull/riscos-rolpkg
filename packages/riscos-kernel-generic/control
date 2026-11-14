@@ -1,7 +1,7 @@
 Package: riscos-kernel-generic
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0054-1), riscos-firmware, riscos-firmware-cards
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-iwlwifi
 Conflicts: riscos-kernel-wdk2023
 Section: kernel
 Priority: optional
@@ -16,4 +16,5 @@ Description: Linux 7.2 kernel for RISC OS on Linux on UEFI machines and Pinebook
  Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
  plugged in or fitted are modules in /usr/lib/modules, loaded as the
  hardware appears (riscos-support's rol-modd); their firmware is in
- riscos-firmware and riscos-firmware-cards.
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.

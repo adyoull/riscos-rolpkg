@@ -10,10 +10,7 @@
 # MODULES: for the kernel packages, the kernel's own modules as
 #   "make modules_install" staged them (INSTALL_MOD_PATH): the directory
 #   holding lib/modules/<release>. They go to /usr/lib/modules/<release>.
-# FIRMWARE: for riscos-firmware and riscos-firmware-cards, the directory
-#   tools/firmware.py made; it goes to /usr/lib/firmware.
-# PACKAGE: riscos-rom, riscos-support, riscos-firmware,
-#   riscos-firmware-cards, riscos-kernel-generic,
+# PACKAGE: riscos-rom, riscos-support, riscos-kernel-generic,
 #   riscos-kernel-pi, riscos-kernel-wdk2023 (BOOT: the Dev Kit image's EFI
 #   partition) or riscos-harddisc; VERSION: as in the README.
 #
@@ -71,8 +68,6 @@ for spec in "$@"; do
       python3 "$mk" "$name" "$ver" "$pool" \
         "$BOOT/EFI/BOOT/BOOTAA64.EFI=/usr/lib/riscos/boot-wdk2023/EFI/BOOT/BOOTAA64.EFI" \
         "$BOOT/blackrock.dtb=/usr/lib/riscos/boot-wdk2023/blackrock.dtb" "${marg[@]}" ;;
-    riscos-firmware|riscos-firmware-cards)
-      python3 "$mk" "$name" "$ver" "$pool" "$FIRMWARE=/usr/lib/firmware" ;;
     riscos-kernel-pi)
       args=()
       for f in "$BOOT"/kernel8.img "$BOOT"/*.dtb "$BOOT"/overlays "$BOOT"/bootcode.bin "$BOOT"/start*.elf "$BOOT"/fixup*.dat "$BOOT"/LICENCE.*; do

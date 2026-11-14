@@ -5,8 +5,7 @@ Updates plug-in, from CHANGELOG.md's tables. One line each:
 
   PACKAGE <tab> VERSION <tab> DATE <tab> WHAT CHANGED
 
-newest first, plain text (no markdown). The kernels' and the firmware's
-tables have a Package
+newest first, plain text (no markdown). The kernels' table has a Package
 column that may name several packages: one line for each. index.py writes
 it to SITE/changes.txt; rol-info --fetch fetches it, and keeps only the
 versions newer than (and the one equal to) what is installed.
@@ -35,7 +34,7 @@ def main():
             pkg = m.group(1)
             continue
         if line.startswith('## '):
-            pkg = '' if 'Kernels' in line or 'Firmware' in line else None
+            pkg = '' if 'Kernels' in line else None
             continue
         if pkg is None or not line.startswith('|') or line.startswith('|---'):
             continue

@@ -21,11 +21,9 @@ and its key (`/usr/share/keyrings/riscos-rolpkg.gpg`, also
 |---|---|---|
 | `riscos-rom` | RISC OS (the ROM) | `/opt/riscos/RISCOS.IMG`; the one it replaces is kept in `/opt/riscos/rollback` |
 | `riscos-support` | the Linux side: init, rol-fb, rol-snd, rol-netd, rol-cmd, rol-usbd, rol-modd (loads driver modules), qemu-arm-riscos, NativeSupport; this repository's source and key | `/opt/riscos`, `/usr/sbin/init`, `/usr/lib/riscos` |
-| `riscos-kernel-generic` | the kernel for UEFI machines (UTM, QEMU, boards) and the Pinebooks | copied onto the FAT partition (`EFI/BOOT/BOOTAA64.EFI`, `dtb/`); the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules` |
-| `riscos-kernel-wdk2023` | the Windows Dev Kit 2023's kernel (it loads `blackrock.dtb`) and device tree | copied onto the Dev Kit image's EFI partition; the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules` |
-| `riscos-kernel-pi` | the Raspberry Pi kernel, device trees, overlays and firmware | copied onto the FAT partition (`kernel8.img` …); `config.txt` and `cmdline.txt` are left alone (but for the two small corrections the CHANGELOG describes). Its driver modules: `/usr/lib/modules` |
-| `riscos-firmware` | firmware for USB Wi-Fi and network adapters (from linux-firmware) | `/usr/lib/firmware` |
-| `riscos-firmware-cards` | firmware for Wi-Fi and network cards fitted inside a machine; the generic and Dev Kit kernels need it | `/usr/lib/firmware` |
+| `riscos-kernel-generic` | the kernel for UEFI machines (UTM, QEMU, boards) and the Pinebooks | copied onto the FAT partition (`EFI/BOOT/BOOTAA64.EFI`, `dtb/`); the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
+| `riscos-kernel-wdk2023` | the Windows Dev Kit 2023's kernel (it loads `blackrock.dtb`) and device tree | copied onto the Dev Kit image's EFI partition; the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
+| `riscos-kernel-pi` | the Raspberry Pi kernel, device trees, overlays and firmware | copied onto the FAT partition (`kernel8.img` …); `config.txt` and `cmdline.txt` are left alone (but for the two small corrections the CHANGELOG describes). Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
 | `riscos-harddisc` | RISC OS on Linux's desktop parts: Configure's Updates and Linux network, the hard disc icon, `*Linux` (LinuxShell), USBDriver, LinuxCodec (Linux's video decoders) | `/riscos/HardDisc4`; your own files and choices are never touched |
 
 Only the kernel the machine starts is kept up to date: the Updates plug-in
@@ -71,13 +69,6 @@ New versions take effect at the next start (shut down and switch on).
 # "make INSTALL_MOD_PATH=<dir> INSTALL_MOD_STRIP=1 modules_install" left them)
 ROOT=<image root> BOOT=<FAT partition directory> \
   tools/build.sh site riscos-rom=5.31-2 riscos-kernel-pi=6.6.78-2 ...
-# the firmware packages, from a linux-firmware checkout and the kernels' modules:
-tools/firmware.py --lf linux-firmware --class usb --out fw-usb <modules dir>/lib/modules/* ...
-tools/firmware.py --lf linux-firmware --class other --without fw-usb --out fw-cards \
-  --skip ath12k/ --skip intel/ --skip rtl_bt/ --skip qca/ --skip brcm/BCM --skip mediatek/BT \
-  --skip mediatek/mt7927/BT --skip mediatek/mt7925/BT <generic and Dev Kit modules dirs> ...
-FIRMWARE=fw-usb tools/build.sh site riscos-firmware=<linux-firmware's date>-1
-FIRMWARE=fw-cards tools/build.sh site riscos-firmware-cards=<the same>
 tools/index.py site <key id>     # Packages, Release, InRelease (signed)
 tools/publish.sh site            # the gh-pages branch, served by GitHub Pages
 ```

@@ -38,6 +38,25 @@ for k in $kernels; do
     apt-mark hold "$k" >/dev/null 2>&1
   fi
 done
+# The package sources were changed by an update (riscos-support's postinst:
+# Debian's non-free-firmware section added), so apt's lists don't yet
+# have what the rest of the update needs: after an install (Updates runs
+# this when apt has finished, as root) read them again and install what
+# was left. Once: a check for updates reads them anyway.
+again=/var/lib/riscos/apt-again
+if [ -f "$again" ] && [ "$(id -u)" = 0 ]; then
+  rm -f "$again"
+  if [ "${1:-}" != --fetch ]; then
+    echo "The package sources have changed: looking again, and installing what was left."
+    if apt-get update; then
+      stdbuf -oL -eL apt-get -o APT::Status-Fd=1 -y -o Dpkg::Options::=--force-confdef \
+        -o Dpkg::Options::=--force-confold full-upgrade || true
+      apt-get clean || true
+    else
+      echo "Couldn't read the package lists: use Check for updates, then Install, to finish."
+    fi
+  fi
+fi
 echo "@machine"
 echo "$machine"
 echo "@installed"

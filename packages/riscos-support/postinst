@@ -7,6 +7,30 @@ if [ "$1" = configure ]; then
   mkdir -p /usr/lib/ssl
   [ -e /usr/lib/ssl/cert.pem ] || ln -s /etc/ssl/certs/ca-certificates.crt /usr/lib/ssl/cert.pem
   [ -e /usr/lib/ssl/certs ] || ln -s /etc/ssl/certs /usr/lib/ssl/certs
+  # The firmware of Wi-Fi and network adapters is in Debian's own packages
+  # (firmware-realtek and the rest), which the kernel packages depend on;
+  # they are in Debian's "non-free-firmware" section, which the images
+  # didn't have in their package sources. Added to Debian's entries (not
+  # to anyone else's). apt has to read the lists again before it can see
+  # those packages: /var/lib/riscos/apt-again tells rol-info, which
+  # Updates runs when the install is over, to do that and install what
+  # was left (the kernel and the firmware).
+  changed=
+  f=/etc/apt/sources.list.d/debian.sources
+  if [ -f "$f" ] && grep '^Components:' "$f" | grep -qv non-free-firmware; then
+    sed -i '/^Components:/{/non-free-firmware/!s/[ \t]*$/ non-free-firmware/}' "$f"
+    changed=1
+  fi
+  f=/etc/apt/sources.list
+  if [ -f "$f" ] && grep -E '^deb[ \t].*debian.* main' "$f" | grep -qv non-free-firmware; then
+    sed -i -E '/^deb[ \t].*debian.* main/{/non-free-firmware/!s/[ \t]*$/ non-free-firmware/}' "$f"
+    changed=1
+  fi
+  if [ -n "$changed" ]; then
+    mkdir -p /var/lib/riscos
+    : > /var/lib/riscos/apt-again
+    echo "Debian's non-free-firmware section (the firmware of Wi-Fi and network adapters) added to the package sources."
+  fi
   echo "The Linux side of RISC OS on Linux is updated: restart (shut down and switch on) to use it."
 fi
 exit 0
