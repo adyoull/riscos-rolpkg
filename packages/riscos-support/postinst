@@ -26,6 +26,23 @@ if [ "$1" = configure ]; then
     sed -i -E '/^deb[ \t].*debian.* main/{/non-free-firmware/!s/[ \t]*$/ non-free-firmware/}' "$f"
     changed=1
   fi
+  # Debian's firmware-misc-nonfree recommends three more packages, which apt
+  # would install with it: the firmware of NVIDIA and Intel graphics chips
+  # and Intel odds and ends (about 48 MB to download, 107 MB installed).
+  # Nothing here uses them: the kernels have no driver for those chips. A
+  # pin keeps apt from installing them (delete the file to have them).
+  f=/etc/apt/preferences.d/riscos-firmware
+  if [ ! -e "$f" ]; then
+    mkdir -p /etc/apt/preferences.d
+    cat > "$f" <<'EOF'
+Explanation: RISC OS on Linux: firmware-misc-nonfree recommends these, and
+Explanation: nothing here uses them (no driver for those chips in the
+Explanation: kernels). Delete this file to let apt install them.
+Package: firmware-nvidia-graphics firmware-intel-graphics firmware-intel-misc
+Pin: release *
+Pin-Priority: -1
+EOF
+  fi
   if [ -n "$changed" ]; then
     mkdir -p /var/lib/riscos
     : > /var/lib/riscos/apt-again

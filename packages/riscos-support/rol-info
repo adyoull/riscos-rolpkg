@@ -57,6 +57,19 @@ if [ -f "$again" ] && [ "$(id -u)" = 0 ]; then
     fi
   fi
 fi
+# Three firmware packages that came in only because firmware-misc-nonfree
+# recommends them (riscos-support 1.0.0055-1 didn't stop that; 1.0.0056-1's
+# pin does): NVIDIA and Intel graphics chips' firmware, which nothing here
+# uses. Taken off again after an install, if apt put them there itself
+# (someone who installed one on purpose keeps it).
+if [ "$(id -u)" = 0 ] && [ "${1:-}" != --fetch ] && [ -e /etc/apt/preferences.d/riscos-firmware ]; then
+  extra=$(apt-mark showauto firmware-nvidia-graphics firmware-intel-graphics firmware-intel-misc 2>/dev/null | tr '\n' ' ')
+  if [ -n "$extra" ]; then
+    echo "Removing firmware that isn't used here (it was installed as a recommendation): $extra"
+    # shellcheck disable=SC2086
+    apt-get -y purge $extra || true
+  fi
+fi
 echo "@machine"
 echo "$machine"
 echo "@installed"
