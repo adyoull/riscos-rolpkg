@@ -162,5 +162,22 @@ if [ "$1" = configure ]; then
       "IfThere IXFS:\$.dev.vchiq Then Obey <IXFS\$HardDisc4>.TestBed.Codec.LoadVC" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # Wimp$ScrapDir short enough for the C library: tmpnam() and tmpfile()
+  # read it into 69 characters, and with the disc name that names have had
+  # since RISC OS 5.31-16 (IXFS::ROL.$...) it is 70, so every C program's
+  # temporary files went to "$.tmp" on the current disc instead: Linux's
+  # /tmp from HardDisc4, and nowhere at all from a RAM disc or a USB disc
+  # (a ROM build on a RAM disc stopped in perl and srcbuild). The same
+  # directory named without the disc name fits.
+  tb=$(ro "/riscos/HardDisc4/!Boot/Choices/Boot/PreDesk/TestBed" feb)
+  if [ -f "$tb" ] && ! grep -q 'Wimp\$ScrapDir' "$tb"; then
+    printf '%s\n' \
+      "| Wimp\$ScrapDir without the disc name: the C library (tmpnam, tmpfile)" \
+      "| reads it into 69 characters and IXFS::ROL.\$.riscos.HardDisc4.!Boot..." \
+      "| is 70, so C programs' temporary files went to \$.tmp on the current disc" \
+      "If \"<Wimp\$ScrapDir>\" = \"IXFS::ROL.\$.riscos.HardDisc4.!Boot.Resources.!Scrap.ScrapDirs.ScrapDir\" Then Set Wimp\$ScrapDir <IXFS\$HardDisc4>.!Boot.Resources.!Scrap.ScrapDirs.ScrapDir" \
+      "If \"<Wimp\$Scrap>\" = \"IXFS::ROL.\$.riscos.HardDisc4.!Boot.Resources.!Scrap.ScrapDirs.ScrapDir.ScrapFile\" Then Set Wimp\$Scrap <IXFS\$HardDisc4>.!Boot.Resources.!Scrap.ScrapDirs.ScrapDir.ScrapFile" >> "$tb"
+    chown 1000:1000 "$tb"
+  fi
 fi
 exit 0
