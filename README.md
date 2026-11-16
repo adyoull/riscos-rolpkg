@@ -25,6 +25,7 @@ and its key (`/usr/share/keyrings/riscos-rolpkg.gpg`, also
 | `riscos-kernel-wdk2023` | the Windows Dev Kit 2023's kernel (it loads `blackrock.dtb`) and device tree | copied onto the Dev Kit image's EFI partition; the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
 | `riscos-kernel-pi` | the Raspberry Pi kernel, device trees, overlays and firmware | copied onto the FAT partition (`kernel8.img` …); `config.txt` and `cmdline.txt` are left alone (but for the two small corrections the CHANGELOG describes). Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
 | `riscos-harddisc` | RISC OS on Linux's desktop parts: Configure's Updates and Linux network, the hard disc icon, `*Linux` (LinuxShell), USBDriver, LinuxCodec (Linux's video decoders) | `/riscos/HardDisc4`; your own files and choices are never touched |
+| `riscos-risc3d` | RISC3D's Linux side, from the RISC3D project: rol-3d, which draws RISC OS programs' OpenGL with Linux's graphics driver, and Debian's trixie-backports source pinned to Mesa only (Mesa 25.2). riscos-support recommends it, so Updates installs it; RISC OS's side (!RISC3D) is the PackMan package RISC3D, which riscos-harddisc installs | `/opt/riscos/rol-3d`; `/etc/apt/sources.list.d`, `/etc/apt/preferences.d` |
 
 Only the kernel the machine starts is kept up to date: the Updates plug-in
 holds any other (`apt-mark hold`), so the generic card still starts on both
