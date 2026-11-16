@@ -60,6 +60,36 @@ EOF
       rm -f "$c.bak.new" 2>/dev/null || true
     fi
   fi
+  # Raspberry Pi 5, 500 and Compute Module 5: some NVMe drives stop
+  # answering once they have gone into a power-saving state there (andym's
+  # Argon ONE UP: left idle, the battery icon went and HardDisc4 gave
+  # "Disc Error"; with these two settings it ran for hours). So NVMe
+  # power-state changes and PCIe link power saving are turned off: added
+  # once to the end of cmdline.txt's line on the FAT partition
+  # (!Boot.Loader), the file as it was kept as cmdline.txt.old. Someone
+  # who has set either themselves is left alone.
+  if grep -q -a -E 'Raspberry Pi 5|Compute Module 5' /proc/device-tree/model 2>/dev/null; then
+    dev=$(/usr/lib/riscos/fat-partition 2>/dev/null) || dev=
+    mnt=$(mktemp -d)
+    if [ -n "$dev" ] && mount -t vfat -o shortname=mixed "$dev" "$mnt" 2>/dev/null; then
+      l=$mnt/cmdline.txt
+      if [ -s "$l" ] && ! grep -q -E 'nvme_core\.default_ps_max_latency_us=|pcie_aspm=' "$l"; then
+        if cp -f "$l" "$l.old" && awk '
+            NR == 1 { sub(/\r$/, ""); sub(/[ \t]+$/, "")
+                      print $0 " nvme_core.default_ps_max_latency_us=0 pcie_aspm=off"; next }
+            { print }' "$l" > "$l.new"; then
+          sync
+          mv -f "$l.new" "$l"
+          echo "cmdline.txt: NVMe and PCIe power saving turned off, for NVMe drives that stop answering when idle on a Pi 5 or CM5 (the file as it was: cmdline.txt.old)."
+        else
+          rm -f "$l.new"
+        fi
+      fi
+      sync
+      umount "$mnt" || true
+    fi
+    rmdir "$mnt" 2>/dev/null || true
+  fi
   echo "The Linux side of RISC OS on Linux is updated: restart (shut down and switch on) to use it."
 fi
 exit 0
