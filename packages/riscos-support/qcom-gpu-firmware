@@ -1,0 +1,48 @@
+#!/bin/sh
+# qcom-gpu-firmware: on the Windows Dev Kit 2023 only, keeps just the two
+# files of Debian's firmware-qcom-soc that its GPU (Adreno 690) needs,
+# a660_sqe.fw and a660_gmu.bin (about 100 KB), and not the rest of the
+# package (305 MB: modems, DSPs and other boards' GPUs). Debian has no
+# smaller package with them, and RISC OS on Linux ships no firmware of its
+# own, so riscos-kernel-wdk2023 depends on the whole package and this
+# leaves the rest out:
+# - /etc/dpkg/dpkg.cfg.d/riscos-qcom-firmware tells dpkg not to unpack the
+#   other files of /usr/lib/firmware/qcom when the package is installed or
+#   updated (dpkg's path-exclude);
+# - files of the package already unpacked (before that file was there) are
+#   deleted, and the directories left empty.
+# The GPU's third file, its zap shader, is the Dev Kit's own: init copies it
+# from Windows to qcom/sc8280xp/microsoft/blackrock, which is no package's
+# and is left alone. Nothing is done on any other machine.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+set -e
+grep -qa 'microsoft,blackrock' /proc/device-tree/compatible 2>/dev/null || exit 0
+cfg=/etc/dpkg/dpkg.cfg.d/riscos-qcom-firmware
+if [ ! -e "$cfg" ]; then
+  mkdir -p /etc/dpkg/dpkg.cfg.d
+  cat > "$cfg" <<'END'
+# RISC OS on Linux (riscos-support's qcom-gpu-firmware), on the Windows Dev
+# Kit 2023: of /usr/lib/firmware/qcom (firmware-qcom-soc), only what the
+# Dev Kit's GPU needs. Delete this file and reinstall firmware-qcom-soc to
+# have all of it.
+path-exclude=/usr/lib/firmware/qcom/*
+path-include=/usr/lib/firmware/qcom/a660_sqe.fw
+path-include=/usr/lib/firmware/qcom/a660_gmu.bin
+END
+fi
+dpkg-query -W -f='${Status}' firmware-qcom-soc 2>/dev/null | grep -q 'ok installed' || exit 0
+n=0
+dpkg-query -L firmware-qcom-soc | grep '^/usr/lib/firmware/qcom/' > /tmp/qcom-fw.$$ || true
+while read -r f; do
+  case "$f" in
+    /usr/lib/firmware/qcom/a660_sqe.fw|/usr/lib/firmware/qcom/a660_gmu.bin) continue ;;
+  esac
+  if [ -f "$f" ] || [ -L "$f" ]; then rm -f "$f"; n=$((n+1)); fi
+done < /tmp/qcom-fw.$$
+sort -r /tmp/qcom-fw.$$ | while read -r f; do
+  [ -d "$f" ] && [ ! -L "$f" ] && rmdir "$f" 2>/dev/null || true
+done
+rm -f /tmp/qcom-fw.$$
+[ "$n" = 0 ] || echo "firmware-qcom-soc: $n files the Dev Kit doesn't use removed; its GPU's two kept."
+exit 0

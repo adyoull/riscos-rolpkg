@@ -1,7 +1,7 @@
 Package: riscos-kernel-wdk2023
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
+Depends: riscos-support (>= 1.0.0069-1), firmware-qcom-soc, firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
 Conflicts: riscos-kernel-generic
 Section: kernel
 Priority: optional
@@ -18,3 +18,7 @@ Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
  hardware appears (riscos-support's rol-modd); their firmware is in
  Debian's firmware packages (the non-free-firmware section), which this
  package depends on.
+ .
+ The GPU (Adreno 690) needs a660_sqe.fw and a660_gmu.bin from Debian's
+ firmware-qcom-soc; only those two of its files are kept (riscos-support's
+ qcom-gpu-firmware), and its zap shader is copied from Windows at start-up.

@@ -3,5 +3,8 @@
 set -e
 if [ "$1" = configure ]; then
   /usr/lib/riscos/install-boot-files /usr/lib/riscos/boot-wdk2023
+  # firmware-qcom-soc, which this depends on for the GPU's two files: the
+  # rest of it left out (riscos-support's script)
+  [ -x /usr/lib/riscos/qcom-gpu-firmware ] && /usr/lib/riscos/qcom-gpu-firmware || true
 fi
 exit 0
