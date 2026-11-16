@@ -6,7 +6,7 @@ next images include them.
 
 ## Coming next (built, not yet packaged)
 
-Nothing at the moment.
+- **riscos-rom:** from the next RISC OS update, installing one also refreshes `CMOS.bak` (the settings as they were before the new RISC OS ran), as riscos-support's updates do from 1.0.0065-1. In the packaging now (`packages/riscos-rom/preinst`); 5.31-30 itself is unchanged and isn't reissued for it.
 
 ## riscos-rom (RISC OS itself)
 

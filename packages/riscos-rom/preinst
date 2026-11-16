@@ -10,5 +10,16 @@ if [ "$1" = upgrade ] || [ "$1" = install ]; then
     mv -f /opt/riscos/rollback/RISCOS.IMG.new /opt/riscos/rollback/RISCOS.IMG
     if [ -n "$2" ]; then echo "$2" > /opt/riscos/rollback/VERSION; else echo unknown > /opt/riscos/rollback/VERSION; fi
   fi
+  # RISC OS's settings (CMOS RAM) as they are before the new ROM runs,
+  # kept beside them as CMOS.bak (RISC OS: !Boot.Loader.CMOS/bak): copy it
+  # over CMOS to have them back. riscos-support's updates do the same.
+  c='/riscos/HardDisc4/!Boot/Loader/CMOS'
+  if [ -s "$c" ]; then
+    if cp -f "$c" "$c.bak.new" 2>/dev/null && mv -f "$c.bak.new" "$c.bak" 2>/dev/null; then
+      chown 1000:1000 "$c.bak" 2>/dev/null || true
+    else
+      rm -f "$c.bak.new" 2>/dev/null || true
+    fi
+  fi
 fi
 exit 0
