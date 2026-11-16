@@ -3,6 +3,7 @@ Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
 Section: misc
 Priority: optional
+Breaks: riscos-harddisc (<< 1.0.0060-1)
 Homepage: https://github.com/adyoull/riscos-rolpkg
 Description: The Linux side of RISC OS on Linux
  What runs RISC OS on Linux: init, rol-fb (screen, keyboard and mouse),

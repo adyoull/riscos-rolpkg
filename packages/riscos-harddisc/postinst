@@ -162,6 +162,17 @@ if [ "$1" = configure ]; then
       "IfThere IXFS:\$.dev.vchiq Then Obey <IXFS\$HardDisc4>.TestBed.Codec.LoadVC" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+  # NVMe drives in RISC OS's format: RISC OS Open's NVMeFS and its filer on
+  # the NVMeDriver for RISC OS on Linux, loaded at start-up when Linux
+  # lists such a drive (riscos-support 1.0.0066-1's rol-discd)
+  if [ -f "$tb" ] && ! grep -q "TestBed.NVMe.Load" "$tb"; then
+    printf '%s\n' \
+      "| NVMe drives in RISC OS's own format, as on a machine running RISC OS" \
+      "| itself: RISC OS Open's NVMeFS and NVMeFiler, on the NVMeDriver for RISC" \
+      "| OS on Linux. Only where Linux lists such a drive." \
+      "IfThere IXFS:\$.riscos.mediactl.nvme Then Obey <IXFS\$HardDisc4>.TestBed.NVMe.Load" >> "$tb"
+    chown 1000:1000 "$tb"
+  fi
   # Wimp$ScrapDir short enough for the C library: tmpnam() and tmpfile()
   # read it into 69 characters, and with the disc name that names have had
   # since RISC OS 5.31-16 (IXFS::ROL.$...) it is 70, so every C program's

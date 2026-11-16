@@ -82,7 +82,7 @@ for spec in "$@"; do
                '!Boot/Resources/!DiscIcon' '!Boot/Resources/!NetWatch' '!Boot/Resources/!Battery' 'TestBed/Modules/LinuxShell,ffa' \
                'TestBed/Modules/USBDriver,ffa' 'TestBed/Modules/LinuxAudio,ffa' 'TestBed/Codec/LinuxCodec,ffa' 'TestBed/Codec/ReadMe,fff' \
                'TestBed/Codec/VCHIQ,ffa' 'TestBed/Codec/BCMSupport,ffa' 'TestBed/Codec/PCI,ffa' 'TestBed/Codec/LoadVC,feb' 'TestBed/Codec/VCTest,fff' 'TestBed/Modules/ARMEABISupport,ffa' 'TestBed/Modules/MManager,ffa' 'TestBed/Modules/MbufRes,ffa' 'TestBed/Modules/LinuxOverlay,ffa' 'TestBed/Modules/SCSILinux,ffa' 'TestBed/Modules/MemMapEntries,ffa' 'TestBed/Modules/PThrTicker,ffa' 'Utilities/!Updates' \
-               'TestBed/PDFS/PDFS,ffa' 'TestBed/PDFS/README,fff' 'TestBed/PDFS/LICENSE,fff' 'TestBed/PDFS/CHANGELOG,fff' \
+               'TestBed/NVMe' 'TestBed/PDFS/PDFS,ffa' 'TestBed/PDFS/README,fff' 'TestBed/PDFS/LICENSE,fff' 'TestBed/PDFS/CHANGELOG,fff' \
                '!Boot/Resources/Configure/Monitors/Other/UTM,fff' \
                'Apps/!RiSH' 'Documents/Licences' 'Documents/Source,fff'; do
         args+=("$hd/$p=/riscos/HardDisc4/$p")
