@@ -48,6 +48,18 @@ EOF
     : > /var/lib/riscos/apt-again
     echo "Debian's non-free-firmware section (the firmware of Wi-Fi and network adapters) added to the package sources."
   fi
+  # RISC OS's settings (CMOS RAM) as they are at this update, kept beside
+  # them as CMOS.bak (RISC OS: !Boot.Loader.CMOS/bak): copy it over CMOS
+  # to have them back. !Boot.Loader is the FAT partition from 1.0.0064-1
+  # (root's chown means nothing there).
+  c='/riscos/HardDisc4/!Boot/Loader/CMOS'
+  if [ -s "$c" ]; then
+    if cp -f "$c" "$c.bak.new" 2>/dev/null && mv -f "$c.bak.new" "$c.bak" 2>/dev/null; then
+      chown 1000:1000 "$c.bak" 2>/dev/null || true
+    else
+      rm -f "$c.bak.new" 2>/dev/null || true
+    fi
+  fi
   echo "The Linux side of RISC OS on Linux is updated: restart (shut down and switch on) to use it."
 fi
 exit 0
