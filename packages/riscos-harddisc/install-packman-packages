@@ -34,6 +34,14 @@
 # depends on CaCertificates, such as Iris, stopped with "files conflict":
 # Ralph Barrett's report).
 #
+# From 1.0.0064-1, a package can have an "upgrade-from" file: versions of it
+# that an earlier riscos-harddisc staged. When PackMan's Status records one
+# of those, it is updated in place to the staged version (its files, its
+# record and its Status line), as PackMan would; any other version, newer
+# or the user's, is left alone (RISC3D: 1.0.0058-1 installed 0.04-3; left,
+# riscos-risc3d's postinst would add 0.04-7's new files beside it, unknown
+# to PackMan, which then refuses its own upgrade with "files conflict").
+#
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 root=${1:-}
@@ -52,7 +60,32 @@ for d in "$root"/usr/share/riscos/packman/*; do
   [ -d "$pk" ] || continue
   name=$(basename "$d")
   if [ -f "$d/status" ]; then
-    if [ -f "$st" ] && cut -f1 "$st" | grep -x "$name" >/dev/null; then continue; fi
+    if [ -f "$st" ] && cut -f1 "$st" | grep -x "$name" >/dev/null; then
+      have=$(awk -F'\t' -v n="$name" '$1 == n { print $2; exit }' "$st")
+      want=$(cut -f2 "$d/status")
+      if [ -f "$d/upgrade-from" ] && [ "$have" != "$want" ] && grep -qxF "$have" "$d/upgrade-from"; then
+        for top in "$d"/*; do
+          case "$(basename "$top")" in Info|status|lookat|adopt|upgrade-from) continue ;; esac
+          (cd "$d" && find "$(basename "$top")" -type f) | while read -r f; do
+            b=${f%,[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]}
+            rm -f "$hd/$b" "$hd/$b",[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]
+            mkdir -p "$hd/$(dirname "$f")"
+            cp -a "$d/$f" "$hd/$f"
+          done
+          (cd "$d" && find "$(basename "$top")") | while read -r f; do chown -h 1000:1000 "$hd/$f"; done
+        done
+        rm -rf "$pk/Info/$name"
+        mkdir -p "$pk/Info/$name"
+        cp -a "$d/Info/." "$pk/Info/$name/"
+        chown -R 1000:1000 "$pk/Info/$name"
+        # (the Status line's version, the rest as it was; no newline added at the end)
+        awk -F'\t' -v OFS='\t' -v n="$name" -v v="$want" '$1 == n { $2 = v } { printf "%s%s", (NR > 1 ? "\n" : ""), $0 }' "$st" > "$st.new"
+        mv "$st.new" "$st"
+        chown 1000:1000 "$st"
+        echo "PackMan package $name updated from $have to $want."
+      fi
+      continue
+    fi
     there=no
     for c in $(components "$(ro "$d/Info/Control" fff)"); do
       [ -e "$hd/$c" ] && there=yes
@@ -79,7 +112,7 @@ for d in "$root"/usr/share/riscos/packman/*; do
     cpflags="-a --update=none"
   fi
   for top in "$d"/*; do
-    case "$(basename "$top")" in Info|status|lookat|adopt) continue ;; esac
+    case "$(basename "$top")" in Info|status|lookat|adopt|upgrade-from) continue ;; esac
     cp $cpflags "$top" "$hd/"
     (cd "$d" && find "$(basename "$top")") | while read -r f; do chown -h 1000:1000 "$hd/$f"; done
   done
