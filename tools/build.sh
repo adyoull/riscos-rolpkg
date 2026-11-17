@@ -88,9 +88,16 @@ for spec in "$@"; do
                'Apps/!RiSH' 'Documents/Licences' 'Documents/Source,fff'; do
         args+=("$hd/$p=/riscos/HardDisc4/$p")
       done
+      # RISC OS Open's Iconv, for place-iconv (never the test bed's lite one)
+      if ! grep -q -a 'Iconv.*0\.12' "$hd/!Boot/Resources/!System/500/Modules/Iconv,ffa" ||
+         grep -q -a 'lite, RISC OS for Linux' "$hd/!Boot/Resources/!System/500/Modules/Iconv,ffa"; then
+        echo "build.sh: no RISC OS Open Iconv 0.12 in !System.500.Modules" >&2; exit 1
+      fi
       args+=("$pk/riscos-harddisc/install-packman-packages=/usr/lib/riscos/install-packman-packages" \
              "$pk/riscos-harddisc/place-armeabisupport=/usr/lib/riscos/place-armeabisupport" \
              "$pk/riscos-harddisc/place-pthreadticker=/usr/lib/riscos/place-pthreadticker" \
+             "$pk/riscos-harddisc/place-iconv=/usr/lib/riscos/place-iconv" \
+             "$hd/!Boot/Resources/!System/500/Modules/Iconv,ffa=/usr/share/riscos/iconv/Iconv,ffa" \
              "$pk/riscos-harddisc/tidy-packman-names=/usr/lib/riscos/tidy-packman-names" \
              "$ROOT/usr/share/riscos/packman=/usr/share/riscos/packman")
       python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" ;;

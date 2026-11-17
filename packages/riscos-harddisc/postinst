@@ -20,6 +20,9 @@ if [ "$1" = configure ]; then
   # UnixLib's PThreadTicker as System:Modules.PThrTicker, where programs
   # look first (from 1.0.0054-1): see the script
   /usr/lib/riscos/place-pthreadticker
+  # (1.0.0068-1) RISC OS Open's Iconv in place of the test bed's "lite"
+  # one, which the images had in !System.310.Modules: see the script
+  /usr/lib/riscos/place-iconv
   # (1.0.0063-1) The file that loads RISC OS on Linux's own modules at
   # start-up (discs, sound, USB, the rest: "TestBed") was one of the files
   # in Choices:Boot.PreDesk, run in the directory's order, and that run

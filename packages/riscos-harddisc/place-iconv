@@ -1,0 +1,53 @@
+#!/bin/sh
+# place-iconv [ROOT]: RISC OS Open's Iconv module (character set
+# conversion, which UnixLib's iconv() loads as System:Modules.Iconv) in
+# place of the test bed's "Iconv (lite)" (from riscos-harddisc 1.0.0068-1).
+# The images had the lite one, which knows only a few character sets, in
+# !System.310.Modules, where RISC OS Open's distribution keeps Iconv;
+# where !System.500.Modules had no Iconv of its own, programs got the lite
+# one, and those that don't check iconv_open() then crashed (RiscOSM 2.36:
+# "Bad memory access" in iconv as it starts, the owner's Pi 4).
+#   - Every lite copy in !System is replaced, where it is, by RISC OS
+#     Open's Iconv 0.12 (/usr/share/riscos/iconv/Iconv,ffa). Any other
+#     Iconv (RISC OS Open's, or a newer one from PackMan) is left alone.
+#   - No Iconv in !System at all: RISC OS Open's goes in !System.310.Modules.
+#   - The unused lite copy in HardDisc4.TestBed.Modules is removed.
+# RISC OS Open's needs !Unicode's encoding names (Unicode:Files.Aliases),
+# which is in !Boot.Resources. A lite module already loaded stays until
+# the next restart. riscos-harddisc's postinst runs it; an image builder
+# runs it with ROOT.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+root=${1:-}
+hd="$root/riscos/HardDisc4"
+s="$hd/!Boot/Resources/!System"
+rool="$root/usr/share/riscos/iconv/Iconv,ffa"
+[ -d "$s" ] && [ -f "$rool" ] || exit 0
+lite () { [ -f "$1" ] && grep -q -a 'lite, RISC OS for Linux test bed' "$1"; }
+found=no
+for d in "$s"/*/Modules; do
+  [ -d "$d" ] || continue
+  for f in "$d/Iconv" "$d/Iconv,ffa"; do
+    [ -f "$f" ] || continue
+    found=yes
+    # (written in place: a plain-named file's type is an attribute of it)
+    if lite "$f"; then cat "$rool" > "$f"; fi
+  done
+done
+if [ "$found" = no ]; then
+  mkdir -p "$s/310/Modules"
+  cp "$rool" "$s/310/Modules/Iconv,ffa"
+  chown 1000:1000 "$s/310/Modules" "$s/310/Modules/Iconv,ffa"
+fi
+for f in "$hd/TestBed/Modules/Iconv" "$hd/TestBed/Modules/Iconv,ffa"; do
+  if lite "$f"; then rm -f "$f"; fi
+done
+# and any start-up line that loaded that copy (none of the images' own
+# lists did, but one written by hand might); written in place
+for f in "$hd/!Boot/Choices/Boot/TestBed" "$hd/!Boot/Choices/Boot/TestBed,feb"; do
+  if [ -f "$f" ] && grep -q 'TestBed\.Modules\.Iconv' "$f"; then
+    t=$(mktemp) && grep -v 'TestBed\.Modules\.Iconv' "$f" > "$t" && cat "$t" > "$f"
+    rm -f "$t"
+  fi
+done
+exit 0
