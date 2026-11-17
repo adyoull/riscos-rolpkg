@@ -28,19 +28,20 @@ if [ "$1" = configure ]; then
   # the alphabet left all those modules unloaded (George Greenfield's Pi 4:
   # his SetUpNet stops with an error, and his FileCore SSD had no icon;
   # up to 5.31-29 TestBed happened to come first). Now the list is
-  # Choices:Boot.TestBed, outside PreDesk, and the application
-  # PreDesk.!AArdvarkLoader (in this package; the owner's name for it, with
-  # an aardvark for its icon) runs it: PreDesk's applications are run after
-  # its files whether or not a file failed, and "!A" is first among them.
-  # 1.0.0062-1 (not published) had a file PreDesk.AArdvarkLoader instead.
+  # Choices:Boot.TestBed, outside PreDesk, and PreDesk.AArdvarkLoader (in
+  # this package from 1.0.0065-1; the owner's name for it), first of
+  # PreDesk's files in the alphabet, runs it before the others. So the
+  # others can use those modules too: Configure's SndSetup needs
+  # SoundControl for *MixVolume, and failed with "File 'MixVolume' not
+  # found" (Raik's Pinebook Pro) while they were loaded after it.
+  # 1.0.0063-1 and 1.0.0064-1 had an application, PreDesk.!AArdvarkLoader,
+  # run after the files; dpkg removes it with this version.
   bd='/riscos/HardDisc4/!Boot/Choices/Boot'
   old=$(ro "$bd/PreDesk/TestBed" feb)
   if [ -f "$old" ] && [ ! -e "$bd/TestBed" ] && [ ! -e "$bd/TestBed,feb" ]; then
     mv "$old" "$bd/$(basename "$old")"
     chown 1000:1000 "$bd/$(basename "$old")"
   fi
-  old=$(ro "$bd/PreDesk/AArdvarkLoader" feb)
-  if [ -f "$old" ] && grep -q 'Choices:Boot.TestBed' "$old"; then rm -f "$old"; fi
   # MbufManager at start-up (every RISC OS 5 ROM has it; ROL's from 5.31-7),
   # with MbufRes for its Messages: !Omni's LanManFS and Access need it
   tb=$(ro "/riscos/HardDisc4/!Boot/Choices/Boot/TestBed" feb)
