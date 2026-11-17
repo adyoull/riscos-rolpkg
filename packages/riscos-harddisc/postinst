@@ -212,5 +212,22 @@ if [ "$1" = configure ]; then
       "If \"<Wimp\$Scrap>\" = \"IXFS::ROL.\$.riscos.HardDisc4.!Boot.Resources.!Scrap.ScrapDirs.ScrapDir.ScrapFile\" Then Set Wimp\$Scrap <IXFS\$HardDisc4>.!Boot.Resources.!Scrap.ScrapDirs.ScrapDir.ScrapFile" >> "$tb"
     chown 1000:1000 "$tb"
   fi
+
+  # (1.0.0066-1) Every command in the list runs through *X, so that one
+  # that fails (a module that won't load on this machine) leaves the rest
+  # to load and stops nothing else. Run by PreDesk.!AArdvarkLoader
+  # (1.0.0063-1, 1.0.0064-1), a failing line ended the list there and
+  # also the run of PreDesk's applications, Configure among them, which
+  # sets the screen mode: andym's Argon ONE UP (a CM5) started in 640x480
+  # until he removed !AArdvarkLoader. Lines already through X, comments
+  # and blank lines are left as they are; the file's own changes above
+  # come first.
+  if [ -f "$tb" ]; then
+    awk '
+      /^[ \t]*$/ || /^[ \t]*\|/ || /^[ \t]*[Xx][ \t]/ { print; next }
+      { sub(/^[ \t]+/, ""); print "X " $0 }
+    ' "$tb" > "$tb.new" && mv "$tb.new" "$tb"
+    chown 1000:1000 "$tb"
+  fi
 fi
 exit 0
