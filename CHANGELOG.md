@@ -112,6 +112,7 @@ next images include them.
 
 | Version | Date | What changed |
 |---|---|---|
+| 1.0.0072-1 | 18 Nov 2026 | **RISC OS's current directory is HardDisc4 after start-up**, as RISC OS itself starts in the root of the disc it boots from. It was `IXFS::ROL.$` (Linux's root), where RISC OS can't write, so programs that save in the current directory failed there: Jeffrey Lee's crash dumps, for one (Ralph Barrett). AArdvarkLoader sets it first thing. Checked under QEMU (`*Ex` shows `CSD IXFS::ROL.$.riscos.HardDisc4`). |
 | 1.0.0071-1 | 18 Nov 2026 | **Messages about USB discs from Linux are shown on the desktop**: !DiscIcon shows (once) what riscos-support 1.0.0077-1 says about a disc it can't use, such as a RISC OS disc with 4096-byte sectors in a USB adapter. Checked under QEMU. |
 | 1.0.0070-1 | 17 Nov 2026 | **Close windows on HardDisc4's icon bar menu:** closes every directory window on the disc HardDisc4 is on (IXFS, which also holds `IXFS:$` and, inside it, USB discs and cards), as Dismount closes a disc's windows on RISC OS itself (Ralph uses that to clear the screen). Windows of other discs (SCSI, RAM disc, ResourceFS) stay. HardDisc4 still can't be dismounted. Checked under QEMU. |
 | 1.0.0069-1 | 17 Nov 2026 | **HardDisc4 can no longer be dismounted from its icon** (Ralph's report: Dismount removed the icon and left HardDisc4's windows open). HardDisc4 is the disc RISC OS runs from, so its icon bar menu now has Open '$' and Free only, like `IXFS:$`'s. USB discs and SD cards keep Eject. Checked under QEMU. |
