@@ -1,0 +1,54 @@
+#!/bin/sh
+# place-packman [ROOT]: puts PackMan (RISC OS's package manager, Alan
+# Buckley's !PackMan 0.9.8-1, as the images have it) back in
+# HardDisc4.Apps.Admin when it has gone (from riscos-support 1.0.0079-1).
+# The images come with it, but no package did, so once deleted (or lost)
+# nothing put it back and there was no way to get the others.
+#   - Only when there is no !PackMan anywhere in HardDisc4 (down to six
+#     levels): one the user moved, or a newer one, is left alone.
+#   - Its files from /usr/share/riscos/packman-app/!PackMan, owned by
+#     RISC OS's user (1000).
+#   - PackMan's record of itself (!Boot.Resources.!Packages: Info.PackMan
+#     and its Status line) made to match the files put back, so PackMan
+#     knows what it is and offers its own upgrades as usual; the rest of
+#     its Status is left as it is.
+# riscos-support's postinst runs it; an image builder runs it with ROOT.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+root=${1:-}
+hd="$root/riscos/HardDisc4"
+src="$root/usr/share/riscos/packman-app"
+[ -d "$hd/Apps" ] && [ -d "$src/!PackMan" ] || exit 0
+# any !PackMan application already on the disc?
+if find "$hd" -maxdepth 6 -type d -name '!PackMan' 2>/dev/null | while read -r d; do
+     ls "$d"/!RunImage* >/dev/null 2>&1 && echo yes && break
+   done | grep -q yes; then
+  exit 0
+fi
+mkdir -p "$hd/Apps/Admin"
+cp -a "$src/!PackMan" "$hd/Apps/Admin/!PackMan"
+chown -R 1000:1000 "$hd/Apps/Admin/!PackMan"
+chown 1000:1000 "$hd/Apps/Admin" 2>/dev/null || true
+# its record
+pk="$hd/!Boot/Resources/!Packages"
+if [ -d "$pk" ]; then
+  ro () { if [ -e "$1" ]; then echo "$1"; else echo "$1,$2"; fi; }
+  st=$(ro "$pk/Status" fff)
+  line=$(cat "$src/status")
+  rm -rf "$pk/Info/PackMan"
+  mkdir -p "$pk/Info/PackMan"
+  cp -a "$src/Info/." "$pk/Info/PackMan/"
+  chown -R 1000:1000 "$pk/Info/PackMan"
+  if [ -f "$st" ] && cut -f1 "$st" | grep -qx PackMan; then
+    # (written in place, without adding a newline at the end, as PackMan writes it)
+    t=$(mktemp)
+    awk -v l="$line" '{ printf "%s%s", (NR > 1 ? "\n" : ""), ($0 ~ /^PackMan\t/ ? l : $0) }' "$st" > "$t" && cat "$t" > "$st"
+    rm -f "$t"
+  else
+    if [ -s "$st" ] && [ -n "$(tail -c1 "$st")" ]; then printf '\n' >> "$st"; fi
+    printf '%s' "$line" >> "$st"
+  fi
+  chown 1000:1000 "$st"
+fi
+echo "PackMan was missing: put back in HardDisc4.Apps.Admin."
+exit 0

@@ -90,6 +90,9 @@ EOF
     fi
     rmdir "$mnt" 2>/dev/null || true
   fi
+  # PackMan, put back in HardDisc4.Apps.Admin when there's no !PackMan on
+  # the disc at all (see the script; one moved elsewhere is left alone)
+  /usr/lib/riscos/place-packman || true
   # The Windows Dev Kit 2023: only the GPU's two files of firmware-qcom-soc
   # (see the script; nothing on other machines)
   /usr/lib/riscos/qcom-gpu-firmware || true

@@ -56,6 +56,8 @@ for spec in "$@"; do
         "$pk/riscos-support/install-boot-files=/usr/lib/riscos/install-boot-files" \
         "$pk/riscos-support/rol-info=/usr/lib/riscos/rol-info" \
         "$pk/riscos-support/qcom-gpu-firmware=/usr/lib/riscos/qcom-gpu-firmware" \
+        "$pk/riscos-support/place-packman=/usr/lib/riscos/place-packman" \
+        "$ROOT/usr/share/riscos/packman-app=/usr/share/riscos/packman-app" \
         "$here/../keys/riscos-rolpkg.gpg=/usr/share/keyrings/riscos-rolpkg.gpg" \
         "$here/../riscos-rolpkg.sources=/etc/apt/sources.list.d/riscos-rolpkg.sources" \
         "$pk/riscos-support/50riscos-ca=/etc/apt/apt.conf.d/50riscos-ca" ;;
