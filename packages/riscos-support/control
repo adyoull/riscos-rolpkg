@@ -3,6 +3,7 @@ Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
 Section: misc
 Priority: optional
+Depends: dosfstools
 Recommends: riscos-risc3d
 Breaks: riscos-harddisc (<< 1.0.0060-1)
 Homepage: https://github.com/adyoull/riscos-rolpkg
@@ -13,4 +14,5 @@ Description: The Linux side of RISC OS on Linux
  OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
  NativeSupport, and this repository's source and key. A restart puts a
  new version to use. Recommends riscos-risc3d, so that RISC OS programs
- can draw with the GPU (RISC3D) with nothing else to install.
+ can draw with the GPU (RISC3D) with nothing else to install. Depends on
+ dosfstools: start-up checks the FAT (boot) partition and repairs it.
