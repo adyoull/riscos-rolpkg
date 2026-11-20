@@ -1,0 +1,37 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Origin: riscos-rolpkg
+Label: RISC OS on Linux
+Suite: rol
+Codename: rol
+Date: Fri, 20 Nov 2026 12:23:08 UTC
+Architectures: arm64 all
+Components: main
+Description: RISC OS on Linux: RISC OS, its Linux side and kernels
+MD5Sum:
+ 9daa08a9104bd2044c8fa05d09e28cc6 13087 main/binary-arm64/Packages
+ 2ff81c11567b658e459f998b7ecce88e 2880 main/binary-arm64/Packages.xz
+ df5a59a681461f3d554f5f91cdf75520 1579 main/binary-all/Packages
+ 188ba6a580853b54d09f6f3820fc3ae0 688 main/binary-all/Packages.xz
+SHA256:
+ d2f72374bdbca369a56fa02125cef68cb3be8e89350c3beab367147f3a88141c 13087 main/binary-arm64/Packages
+ 1ee3b79932f9c07df9f6f25ff3a51196ca082dff04635c47d17c67aad026d5d0 2880 main/binary-arm64/Packages.xz
+ 05f3be2ba8ef976eee35f290abb6aaeb5bf45916f90c1c9f44efe360ed33af35 1579 main/binary-all/Packages
+ e191633d6430789ab4479098a610b8bcca0cdf4f8066edec3d55ee946955284f 688 main/binary-all/Packages.xz
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEx8yYjSX9+vgA4K1uAZr/c3l0ocMFAmsAO6wACgkQAZr/c3l0
+ocPKoBAAhSdgB2sBeJH+1S8fsuPQqXYQuRXKBHzgV5Au4NXOt/Vzrb1lPWH9udtJ
+P+NJhutrgN7X2QAFUtrZFWoHYedj0dP8c3iud1fjzdqxjgXl5VelxQ00sMLIXCun
+tK7NA+eitdVG/Ni6xikMs8ec7bPqjLUo1mIWHOvzHFAVDIqF45TgbWBUnKmjaoFh
+sznrsK896p+gSqnak1R7aIrGJctAQGiyb/sXNYE7XcvP3zKLrZEUudvBS2KnIsmE
+sEYTBtiZVTu1jsH6x3TvCHQDyZxQ0Tt31FGeGJjnQ+zsmGsTziLmpXgjUVzT+ti0
+ECtiq0veTRibSLmi1glXIrvhoTVW004kuPPDNsWvQYFOF+w6W+c/f8oq4WLU3Moh
+lVjStWH3mUtWOvib1k7/GTSWXD9oYdI/Awaal96R55hDLoSS+uDpOxwwpv6W7Vwp
+8KglwlJHDFIScQc2yXTSv3ym2Aymv6OoCu7oiRuFxLbp/V+6vfiiPrLXrYxddpRB
+fMBmOpya/kfwX9TK63k6vsmGwHS1gTxTIhlpgMmNOq4lBnYVYZFlVvFjy/BD+SuQ
+3hzQw+J7FxN+qAnEpB3t+94IDuQJmgXGbk5CS4fHczM9b8ahLcerG7duS1pxrivg
+9KAAs7w6L5xeXmXpTExx5ZvVpJM2PG7EjNK44X2IaUKgwFk8ZyA=
+=lOY3
+-----END PGP SIGNATURE-----

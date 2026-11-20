@@ -1,0 +1,278 @@
+Package: riscos-kernel-generic
+Version: 7.2.0-10
+Architecture: arm64
+Installed-Size: 87989
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
+Conflicts: riscos-kernel-wdk2023
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on UEFI machines and Pinebooks
+ The Linux kernel UEFI machines (UTM, QEMU, ARM boards and servers) and
+ Pine64's Pinebook and Pinebook Pro start (EFI/BOOT/BOOTAA64.EFI on the
+ card's FAT partition), with the Pinebooks' device trees. Installing it
+ copies them onto the FAT partition, keeping the old ones as *.old; a
+ restart starts the new kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.
+Filename: pool/riscos-kernel-generic_7.2.0-10_arm64.deb
+Size: 20616184
+MD5sum: 99e6c21f2ae7176072454b95077aa1dd
+SHA256: eae5f4ef742807ab1470b0e26762c1682cd888253cf454749ec6593ec6fbda1b
+
+Package: riscos-kernel-generic
+Version: 7.2.0-9
+Architecture: arm64
+Installed-Size: 87989
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
+Conflicts: riscos-kernel-wdk2023
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on UEFI machines and Pinebooks
+ The Linux kernel UEFI machines (UTM, QEMU, ARM boards and servers) and
+ Pine64's Pinebook and Pinebook Pro start (EFI/BOOT/BOOTAA64.EFI on the
+ card's FAT partition), with the Pinebooks' device trees. Installing it
+ copies them onto the FAT partition, keeping the old ones as *.old; a
+ restart starts the new kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.
+Filename: pool/riscos-kernel-generic_7.2.0-9_arm64.deb
+Size: 20618800
+MD5sum: e7b32162b2e8b5cd1a97a4af2f0ad8e5
+SHA256: b18ba5841d88cb8ebeded7fa6968860c9c10304015cb0fe56fbdcd02e6f3a980
+
+Package: riscos-kernel-pi
+Version: 6.6.78-17
+Architecture: arm64
+Installed-Size: 56432
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
+ The Raspberry Pi kernel (kernel8.img), its device trees and overlays and
+ the Pi's start-up firmware, on the card's FAT partition. config.txt and
+ cmdline.txt are left as they are. Installing it copies them onto the FAT
+ partition, keeping the old ones as *.old; a restart starts the new
+ kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.
+Filename: pool/riscos-kernel-pi_6.6.78-17_arm64.deb
+Size: 13848132
+MD5sum: bb63c63ec3e0cdfd56f832480d34bfe3
+SHA256: 8a9dfd123f413bb8645cd67726f590ff9b8c723641b32b16e012d39f4eab7f59
+
+Package: riscos-kernel-pi
+Version: 6.6.78-18
+Architecture: arm64
+Installed-Size: 56432
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0055-1), firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 6.6 kernel for RISC OS on Linux on a Raspberry Pi
+ The Raspberry Pi kernel (kernel8.img), its device trees and overlays and
+ the Pi's start-up firmware, on the card's FAT partition. config.txt and
+ cmdline.txt are left as they are. Installing it copies them onto the FAT
+ partition, keeping the old ones as *.old; a restart starts the new
+ kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.
+Filename: pool/riscos-kernel-pi_6.6.78-18_arm64.deb
+Size: 13844524
+MD5sum: b9ed4f2a90c315bf6d95573fbd9355d0
+SHA256: f3e4042772fe66aa8d1edf0c287b19874e8a4c0c3832673ccbe5b03fc596e630
+
+Package: riscos-kernel-wdk2023
+Version: 7.2.0-7.1
+Architecture: arm64
+Installed-Size: 83503
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0069-1), firmware-qcom-soc, firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
+Conflicts: riscos-kernel-generic
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
+ The Linux kernel the Windows Dev Kit 2023 (Snapdragon 8cx Gen 3, "Project
+ Volterra") starts from the card's EFI partition (EFI/BOOT/BOOTAA64.EFI,
+ which loads blackrock.dtb), with that device tree. Installing it copies
+ them onto the EFI partition, keeping the old ones as *.old; a restart
+ starts the new kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.
+ .
+ The GPU (Adreno 690) needs a660_sqe.fw and a660_gmu.bin from Debian's
+ firmware-qcom-soc; only those two of its files are kept (riscos-support's
+ qcom-gpu-firmware), and its zap shader is copied from Windows at start-up.
+Filename: pool/riscos-kernel-wdk2023_7.2.0-7.1_arm64.deb
+Size: 19555624
+MD5sum: f8b1ceb6c9afa01512f84485b97e9cee
+SHA256: 8b62c82524d2f28690d42d0e2d47f853de4f03f756177ab08c8a4cce1d1f43ca
+
+Package: riscos-kernel-wdk2023
+Version: 7.2.0-7.2
+Architecture: arm64
+Installed-Size: 83503
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Depends: riscos-support (>= 1.0.0069-1), firmware-qcom-soc, firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
+Conflicts: riscos-kernel-generic
+Section: kernel
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Linux 7.2 kernel for RISC OS on Linux on the Windows Dev Kit 2023
+ The Linux kernel the Windows Dev Kit 2023 (Snapdragon 8cx Gen 3, "Project
+ Volterra") starts from the card's EFI partition (EFI/BOOT/BOOTAA64.EFI,
+ which loads blackrock.dtb), with that device tree. Installing it copies
+ them onto the EFI partition, keeping the old ones as *.old; a restart
+ starts the new kernel.
+ .
+ Drivers for Wi-Fi, Ethernet and mobile broadband adapters that are
+ plugged in or fitted are modules in /usr/lib/modules, loaded as the
+ hardware appears (riscos-support's rol-modd); their firmware is in
+ Debian's firmware packages (the non-free-firmware section), which this
+ package depends on.
+ .
+ The GPU (Adreno 690) needs a660_sqe.fw and a660_gmu.bin from Debian's
+ firmware-qcom-soc; only those two of its files are kept (riscos-support's
+ qcom-gpu-firmware), and its zap shader is copied from Windows at start-up.
+Filename: pool/riscos-kernel-wdk2023_7.2.0-7.2_arm64.deb
+Size: 19552352
+MD5sum: 457f06e69adc89f6d119be180442c917
+SHA256: 8287af96bf88daca3ef51fc9366ede3558bb50cf2d35b983370c040677ec4949
+
+Package: riscos-risc3d
+Version: 0.22-1
+Architecture: arm64
+Installed-Size: 248
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Depends: libc6, riscos-support (>= 1.0.0044-1), riscos-harddisc (>= 1.0.0058-1)
+Recommends: libegl1, libgles2, libgl1, libopengl0, libgbm1, libgl1-mesa-dri
+Description: RISC3D: GPU drawing for RISC OS programs (prototype)
+ RISC OS programs' OpenGL and OpenGL ES, through riscos-mesa's EGL, drawn
+ by Linux's graphics driver (the GPU's where there is one): rol-3d,
+ Linux's side. RISC OS's side, !RISC3D in !Boot.Resources (the RISC3D
+ module with its Linux3D driver), is the PackMan package RISC3D, which
+ riscos-harddisc installs and PackMan updates. Frames go
+ straight onto the screen where rol-fb has overlays. Debian's Mesa
+ (recommended) is what draws; without it programs keep riscos-mesa's
+ software rendering.
+Filename: pool/riscos-risc3d_0.22-1_arm64.deb
+Size: 61668
+MD5sum: 5ae4bd1584129fb440af4630b399dbb1
+SHA256: 73ea4ae60e26f23f32e7af20f4b00f55c6e5aa80be8a711894e28aa32eb050d6
+
+Package: riscos-rom
+Version: 5.31-29
+Architecture: arm64
+Installed-Size: 4097
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS 5.31 for RISC OS on Linux
+ RISC OS itself (its ROM image, /opt/riscos/RISCOS.IMG), built from RISC
+ OS Open's sources with Timothy Baldwin's Linux port. RISC OS starts the
+ new one at its next start. The one it replaces is kept in
+ /opt/riscos/rollback: a file called ROLLBACK on the card's FAT partition
+ puts it back at the next start.
+Filename: pool/riscos-rom_5.31-29_arm64.deb
+Size: 1405356
+MD5sum: ae72e73824ac845eedb1461c79c608ca
+SHA256: 54d89a0479ecd43819b2ec1278aad46ebe75eeb6388ef9020d7bc38e5b705559
+
+Package: riscos-rom
+Version: 5.31-30
+Architecture: arm64
+Installed-Size: 4097
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: RISC OS 5.31 for RISC OS on Linux
+ RISC OS itself (its ROM image, /opt/riscos/RISCOS.IMG), built from RISC
+ OS Open's sources with Timothy Baldwin's Linux port. RISC OS starts the
+ new one at its next start. The one it replaces is kept in
+ /opt/riscos/rollback: a file called ROLLBACK on the card's FAT partition
+ puts it back at the next start.
+Filename: pool/riscos-rom_5.31-30_arm64.deb
+Size: 1405784
+MD5sum: a45092e2aca5a5ac2da858962e0c8e33
+SHA256: 0778b6e3f8940e8f614f94cdbe6f2b2f672e5e61b2e2ed0f9cd7f0080e672e63
+
+Package: riscos-support
+Version: 1.0.0080-1
+Architecture: arm64
+Installed-Size: 38360
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Depends: dosfstools
+Recommends: riscos-risc3d
+Breaks: riscos-harddisc (<< 1.0.0060-1)
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: The Linux side of RISC OS on Linux
+ What runs RISC OS on Linux: init, rol-fb (screen, keyboard and mouse),
+ rol-snd (sound), rol-netd (network and Wi-Fi), rol-cmd (Linux commands
+ for RISC OS, with the root password), rol-usbd (USB devices for RISC
+ OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
+ NativeSupport, and this repository's source and key. A restart puts a
+ new version to use. Recommends riscos-risc3d, so that RISC OS programs
+ can draw with the GPU (RISC3D) with nothing else to install. Depends on
+ dosfstools: start-up checks the FAT (boot) partition and repairs it.
+Filename: pool/riscos-support_1.0.0080-1_arm64.deb
+Size: 9396260
+MD5sum: 81f4f24ae7a142c5cf3f64ccc2516a76
+SHA256: 165c6acbdc94c31835822d4107cdaae8a6189641d7954c41987e668c4edacd12
+
+Package: riscos-support
+Version: 1.0.0081-1
+Architecture: arm64
+Installed-Size: 38360
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Depends: dosfstools
+Recommends: riscos-risc3d
+Breaks: riscos-harddisc (<< 1.0.0060-1)
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: The Linux side of RISC OS on Linux
+ What runs RISC OS on Linux: init, rol-fb (screen, keyboard and mouse),
+ rol-snd (sound), rol-netd (network and Wi-Fi), rol-cmd (Linux commands
+ for RISC OS, with the root password), rol-usbd (USB devices for RISC
+ OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
+ NativeSupport, and this repository's source and key. A restart puts a
+ new version to use. Recommends riscos-risc3d, so that RISC OS programs
+ can draw with the GPU (RISC3D) with nothing else to install. Depends on
+ dosfstools: start-up checks the FAT (boot) partition and repairs it.
+Filename: pool/riscos-support_1.0.0081-1_arm64.deb
+Size: 9400040
+MD5sum: 245791370355430ee5d629210253ae92
+SHA256: aba61ceda382b19c1bd570cc421a90bb0ba0103516ef92ecc6d82457218599cf
