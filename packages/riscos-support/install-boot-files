@@ -1,7 +1,22 @@
 #!/bin/sh
 # install-boot-files DIR: copies the files under DIR onto the FAT
-# partition (the kernels and their device trees), keeping each file it
-# replaces as NAME.old. Used by the riscos-kernel-* packages.
+# partition (the kernels and their device trees), keeping the file each
+# one replaces as NAME.old (one generation). Used by the riscos-kernel-*
+# packages.
+#
+# The FAT partition is 256 MB, and holds both kernels (the Pi's kernel8.img,
+# about 32 MB, and the generic EFI/BOOT/BOOTAA64.EFI, about 66 MB). Up to
+# riscos-support 1.0.0081-1 each replaced file was first copied to .old,
+# then the new one written beside both: an update of both kernels needed
+# three copies of each at once and filled the partition ("No space left on
+# device"; George). From 1.0.0082-1:
+#   - the previous .old goes first (it's two kernels old);
+#   - the new file is written as NAME.new and synced, then the file in
+#     place is renamed to NAME.old and NAME.new to NAME (renames take no
+#     room, and there's always a kernel in place);
+#   - a NAME.new left by an update that failed is removed first;
+#   - if there still isn't room for the new file, the .old copies of the
+#     other files being replaced go too, and the message says so.
 #
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
@@ -11,14 +26,40 @@ mnt=$(mktemp -d)
 mount -t vfat -o shortname=mixed "$dev" "$mnt"
 trap 'sync; umount "$mnt"; rmdir "$mnt"' EXIT
 cd "$src"
-find . -type f | while read -r f; do
-  f=${f#./}
+list=$(mktemp)
+find . -type f | sed 's|^\./||' > "$list"
+# room on the partition, in KiB
+room () { df -Pk "$mnt" | awk 'NR == 2 { print $4 }'; }
+kib () { du -k "$1" | awk '{ print $1 }'; }
+# left over from an update that failed
+while read -r f; do rm -f "$mnt/$f.new"; done < "$list"
+dropped=
+while read -r f; do
   mkdir -p "$mnt/$(dirname "$f")"
-  if [ -f "$mnt/$f" ] && ! cmp -s "$f" "$mnt/$f"; then
-    cp -f "$mnt/$f" "$mnt/$f.old"
+  if [ -f "$mnt/$f" ] && cmp -s "$f" "$mnt/$f"; then
+    continue
+  fi
+  rm -f "$mnt/$f.old"
+  need=$(( $(kib "$f") + 1024 ))
+  if [ "$(room)" -lt "$need" ]; then
+    # not enough: the older copies of the others go
+    while read -r g; do
+      if [ -f "$mnt/$g.old" ]; then rm -f "$mnt/$g.old"; dropped=1; fi
+    done < "$list"
+  fi
+  if [ "$(room)" -lt "$need" ]; then
+    echo "install-boot-files: not enough room on $dev for $f ($(kib "$f") KB; $(room) KB free)." >&2
+    rm -f "$list"
+    exit 1
   fi
   cp -f "$f" "$mnt/$f.new"
   sync
+  if [ -f "$mnt/$f" ]; then mv -f "$mnt/$f" "$mnt/$f.old"; fi
   mv -f "$mnt/$f.new" "$mnt/$f"
-done
+done < "$list"
+rm -f "$list"
+sync
 echo "The kernel files on $dev are updated (the old ones are kept as *.old): restart to use them."
+if [ -n "$dropped" ]; then
+  echo "(There wasn't room on $dev for every old copy: some *.old files were removed.)"
+fi
