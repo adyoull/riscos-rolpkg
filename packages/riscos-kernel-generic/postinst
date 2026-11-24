@@ -2,6 +2,31 @@
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 if [ "$1" = configure ]; then
+  # The running kernel's modules, kept by the preinst: put back if this
+  # upgrade removed them (the kernel running is still the old one until
+  # the machine restarts, and for good if the new one doesn't reach the
+  # boot partition). Kept copies of kernels no longer running go, with
+  # any folder put back for them that no package owns.
+  k=/var/lib/riscos/kept-modules
+  r=$(uname -r)
+  if [ -d "$k" ]; then
+    for v in "$k"/*; do
+      [ -d "$v" ] || continue
+      n=$(basename "$v")
+      case $n in *.tmp) rm -rf "$v"; continue ;; esac
+      if [ "$n" = "$r" ]; then
+        if [ ! -d "/usr/lib/modules/$n" ]; then
+          cp -a "$v" "/usr/lib/modules/$n"
+          echo "The running kernel's modules ($n) are kept until the machine restarts with the new one."
+        fi
+      else
+        rm -rf "$v"
+        if [ -d "/usr/lib/modules/$n" ] && ! dpkg-query -S "/usr/lib/modules/$n" >/dev/null 2>&1; then
+          rm -rf "/usr/lib/modules/$n"
+        fi
+      fi
+    done
+  fi
   /usr/lib/riscos/install-boot-files /usr/lib/riscos/boot-generic
 fi
 exit 0

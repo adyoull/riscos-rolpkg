@@ -1,7 +1,7 @@
 Package: riscos-kernel-wdk2023
 Architecture: arm64
 Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
-Depends: riscos-support (>= 1.0.0069-1), firmware-qcom-soc, firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
+Depends: riscos-support (>= 1.0.0082-1), firmware-qcom-soc, firmware-realtek, firmware-mediatek, firmware-atheros, firmware-misc-nonfree, firmware-ath9k-htc, firmware-carl9170, firmware-iwlwifi
 Conflicts: riscos-kernel-generic
 Section: kernel
 Priority: optional

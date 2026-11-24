@@ -1,0 +1,28 @@
+#!/bin/sh
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+#
+# The running kernel's modules kept over an upgrade (from 6.6.78-18.2,
+# 7.2.0-10.2 and 7.2.0-7.3). Upgrading the package removes the old
+# version's /usr/lib/modules/VERSION; if the new kernel then didn't reach
+# the boot partition (it was full or read-only), the machine went on
+# starting the old kernel with no modules, and lost every driver loaded
+# as one (the Argon ONE UP's battery: Norman). A copy goes to
+# /var/lib/riscos/kept-modules/VERSION, and the postinst puts it back if
+# the old kernel is still the one running.
+set -e
+case "$1" in
+  install|upgrade)
+    r=$(uname -r)
+    d=/usr/lib/modules/$r
+    k=/var/lib/riscos/kept-modules
+    # only this package's own kernel (not the other kind's, on the same disc)
+    if [ -d "$d" ] && dpkg-query -L "${DPKG_MAINTSCRIPT_PACKAGE:-}" 2>/dev/null | grep -qx "$d"; then
+      mkdir -p "$k"
+      rm -rf "$k/$r.tmp"
+      cp -a "$d" "$k/$r.tmp"
+      rm -rf "$k/$r"
+      mv "$k/$r.tmp" "$k/$r"
+    fi
+    ;;
+esac
+exit 0
