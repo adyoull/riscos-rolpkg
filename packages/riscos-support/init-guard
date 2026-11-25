@@ -1,0 +1,170 @@
+#!/bin/sh
+# init-guard: keeps RISC OS on Linux's own init (/usr/sbin/init, from
+# riscos-support) as the machine's init. systemd (systemd-sysv) or
+# sysvinit-core would replace it, and the machine would then start Linux
+# with no RISC OS; udev and systemd are kept out with them.
+#
+#   init-guard check    apt, before it runs dpkg (DPkg::Pre-Install-Pkgs,
+#                       /etc/apt/apt.conf.d/50riscos-init-guard): refuses
+#                       anything that would install systemd, systemd-sysv,
+#                       sysvinit-core or udev, or remove riscos-support.
+#                       ROL_INIT_GUARD=off lets it through, and turns the
+#                       guard off until /var/lib/riscos/init-guard-off is
+#                       deleted (for someone who means it).
+#   init-guard restore  dpkg, after each run (post-invoke,
+#                       /etc/dpkg/dpkg.cfg.d/riscos-init-guard): if
+#                       /usr/sbin/init isn't ROL's any more (dpkg forced,
+#                       or apt let through), ROL's is put back at once,
+#                       and the next start removes the rest (repair).
+#                       While it's ROL's, keeps a copy of it.
+#   init-guard setup    riscos-support's postinst, and repair: copies
+#                       this script to /var/lib/riscos/init-guard and
+#                       ROL's init to /var/lib/riscos/init.rol, outside
+#                       any package, so both are still there if
+#                       riscos-support is removed (the hooks run that
+#                       copy, and do nothing while it isn't there).
+#   init-guard repair   ROL's init, at each start once the network is up:
+#                       after a restore, or with any of those packages
+#                       installed, purges them, puts ROL's init back again
+#                       if that took it, and installs riscos-support again
+#                       so dpkg knows /usr/sbin/init is its. Tried again
+#                       at the next start until it has worked.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+init=/usr/sbin/init
+keep=/var/lib/riscos/init.rol
+flag=/var/lib/riscos/init-replaced
+off=/var/lib/riscos/init-guard-off
+others="systemd systemd-sysv sysvinit-core udev"
+
+log () {
+  echo "rol-init-guard: $*" > /dev/kmsg 2>/dev/null || true
+}
+
+# ROL's init: a file (systemd-sysv makes /usr/sbin/init a link) that
+# starts rol-fb, as every ROL init since the first does
+is_rol () {
+  [ -f "$1" ] && [ ! -L "$1" ] && grep -q /opt/riscos/rol-fb "$1" 2>/dev/null
+}
+
+# those of $others that dpkg has installed (or half-installed)
+installed () {
+  dpkg-query -W -f='${Package} ${db:Status-Abbrev}\n' $others 2>/dev/null |
+    awk '$2 ~ /^[ihr][iUFHWt]/ {printf "%s ", $1}'
+}
+
+case ${1:-} in
+check)
+  # apt's list, version 2: "VERSION 2", apt's settings (NAME=VALUE), a
+  # blank line, then one line per package: NAME OLD < NEW ACTION, where
+  # ACTION is a .deb, **CONFIGURE** or **REMOVE**
+  # (a package can be listed twice: unpacked, then configured)
+  add= rem=
+  while read -r name old cmp new action; do
+    [ -n "$action" ] || continue
+    case $name in *=*) continue ;; esac
+    if [ "$action" = '**REMOVE**' ]; then
+      [ "$name" = riscos-support ] && rem=" riscos-support"
+    else
+      case " $others " in
+	*" $name "*) case "$add " in *" $name "*) ;; *) add="$add $name" ;; esac ;;
+      esac
+    fi
+  done
+  bad="${add:+ install$add}${add:+${rem:+,}}${rem:+ remove$rem}"
+  [ -n "$bad" ] || exit 0
+  if [ "${ROL_INIT_GUARD:-}" = off ] || [ -e "$off" ]; then
+    log "let through (ROL_INIT_GUARD=off):$bad; the guard is off until $off is deleted"
+    mkdir -p /var/lib/riscos
+    touch "$off"
+    exit 0
+  fi
+  log "refused:$bad"
+  cat >&2 <<EOF
+
+RISC OS on Linux: not done. This would$bad.
+That would replace RISC OS on Linux's own start-up (init), and the machine
+would then start Linux without RISC OS. Nothing has been changed.
+(The package that wants it may have a version without systemd, or
+apt-get install --no-install-recommends may leave it out.)
+
+EOF
+  exit 1 ;;
+
+restore)
+  # (never fails dpkg)
+  mkdir -p /var/lib/riscos
+  [ "${ROL_INIT_GUARD:-}" != off ] && [ ! -e "$off" ] || exit 0
+  if is_rol "$init"; then
+    if ! cmp -s "$init" "$keep"; then
+      cp "$init" "$keep.new" && chmod 755 "$keep.new" && mv -f "$keep.new" "$keep"
+    fi
+    exit 0
+  fi
+  is_rol "$keep" || exit 0
+  if cp "$keep" "$init.rol-new" && chmod 755 "$init.rol-new" && mv -f "$init.rol-new" "$init"; then
+    touch "$flag"
+    log "/usr/sbin/init wasn't ROL's any more: ROL's put back"
+    echo "RISC OS on Linux: /usr/sbin/init was replaced (by systemd or sysvinit?). ROL's own has been put back; the next start removes $(installed)and installs riscos-support again." >&2
+  fi
+  exit 0 ;;
+
+setup)
+  mkdir -p /var/lib/riscos
+  me=/var/lib/riscos/init-guard
+  if [ "$0" != "$me" ] && ! cmp -s "$0" "$me"; then
+    cp "$0" "$me.new" && chmod 755 "$me.new" && mv -f "$me.new" "$me"
+  fi
+  "$me" restore ;;
+
+repair)
+  "$0" setup
+  [ ! -e "$off" ] || exit 0
+  bad=$(installed)
+  bad=${bad% }
+  ok=1
+  dpkg-query -W -f='${db:Status-Abbrev}' riscos-support 2>/dev/null | grep -q '^ii' || ok=
+  [ -e "$flag" ] || [ -n "$bad" ] || [ -z "$ok" ] || exit 0
+  if [ -n "$ok" ]; then
+    log "repairing: ${bad:-nothing to remove}"
+  else
+    log "repairing: ${bad:-nothing to remove}; riscos-support isn't installed"
+  fi
+  export DEBIAN_FRONTEND=noninteractive
+  lock="-o DPkg::Lock::Timeout=600"
+  if [ -n "$bad" ]; then
+    # (removing them can take other packages that need them: they would
+    # need systemd running, which ROL doesn't have; systemd-sysv is one of
+    # Debian's essential packages, but not here)
+    if ! apt-get $lock -y --allow-remove-essential purge $bad; then
+      log "couldn't remove $bad: tried again at the next start"
+      exit 1
+    fi
+  fi
+  # (dpkg's post-invoke has put ROL's init back if the purge took it)
+  /var/lib/riscos/init-guard restore
+  # (at start-up the network may take a minute: DHCP, Wi-Fi)
+  n=0
+  until apt-get $lock update >/dev/null 2>&1; do
+    n=$((n + 1))
+    if [ $n -ge 12 ]; then
+      log "no network for apt: riscos-support installed again at the next start"
+      exit 1
+    fi
+    sleep 10
+  done
+  if apt-get $lock -y install --reinstall riscos-support; then
+    rm -f "$flag"
+    log "repaired: ROL's init is riscos-support's again${bad:+, $bad removed}"
+  else
+    log "couldn't install riscos-support again (no network?): tried again at the next start"
+    exit 1
+  fi ;;
+
+*)
+  echo "init-guard check|restore|setup|repair" >&2
+  exit 2 ;;
+esac

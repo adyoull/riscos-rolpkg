@@ -1,0 +1,5 @@
+# RISC OS on Linux: after each dpkg run, ROL's own init is put back if
+# something has replaced it (see /var/lib/riscos/init-guard).
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence.
+post-invoke="if [ -x /var/lib/riscos/init-guard ]; then /var/lib/riscos/init-guard restore; fi"

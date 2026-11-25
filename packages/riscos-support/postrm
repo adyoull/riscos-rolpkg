@@ -1,0 +1,9 @@
+#!/bin/sh
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+# Purged: init-guard's copies go too (removed, they stay, so the guard
+# still works; see /usr/lib/riscos/init-guard).
+set -e
+if [ "$1" = purge ]; then
+  rm -f /var/lib/riscos/init-guard /var/lib/riscos/init.rol /var/lib/riscos/init-replaced /var/lib/riscos/init-guard-off
+fi
+exit 0

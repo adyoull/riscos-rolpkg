@@ -60,7 +60,10 @@ for spec in "$@"; do
         "$ROOT/usr/share/riscos/packman-app=/usr/share/riscos/packman-app" \
         "$here/../keys/riscos-rolpkg.gpg=/usr/share/keyrings/riscos-rolpkg.gpg" \
         "$here/../riscos-rolpkg.sources=/etc/apt/sources.list.d/riscos-rolpkg.sources" \
-        "$pk/riscos-support/50riscos-ca=/etc/apt/apt.conf.d/50riscos-ca" ;;
+        "$pk/riscos-support/50riscos-ca=/etc/apt/apt.conf.d/50riscos-ca" \
+        "$pk/riscos-support/init-guard=/usr/lib/riscos/init-guard" \
+        "$pk/riscos-support/50riscos-init-guard=/etc/apt/apt.conf.d/50riscos-init-guard" \
+        "$pk/riscos-support/riscos-init-guard=/etc/dpkg/dpkg.cfg.d/riscos-init-guard" ;;
     riscos-kernel-generic)
       modargs
       python3 "$mk" "$name" "$ver" "$pool" \

@@ -1,2 +1,4 @@
 /etc/apt/sources.list.d/riscos-rolpkg.sources
 /etc/apt/apt.conf.d/50riscos-ca
+/etc/apt/apt.conf.d/50riscos-init-guard
+/etc/dpkg/dpkg.cfg.d/riscos-init-guard

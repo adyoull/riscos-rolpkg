@@ -1,0 +1,10 @@
+// RISC OS on Linux: apt refuses anything that would replace ROL's own
+// init (systemd, systemd-sysv, sysvinit-core, udev) or remove
+// riscos-support. ROL_INIT_GUARD=off lets it through. The script is the
+// copy riscos-support keeps outside the package (/var/lib/riscos); with
+// no copy, nothing is checked. ("sh" is what the option below is for:
+// apt goes by a command's first word.)
+//
+// Copyright (c) 2026 Andrew Youll. MIT licence.
+DPkg::Pre-Install-Pkgs { "sh -c 'if [ -x /var/lib/riscos/init-guard ]; then exec /var/lib/riscos/init-guard check; else cat >/dev/null; fi'"; };
+DPkg::Tools::Options::sh::Version "2";

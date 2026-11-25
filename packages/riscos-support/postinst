@@ -96,6 +96,9 @@ EOF
   # The Windows Dev Kit 2023: only the GPU's two files of firmware-qcom-soc
   # (see the script; nothing on other machines)
   /usr/lib/riscos/qcom-gpu-firmware || true
+  # ROL's init kept as the machine's init: copies of init-guard and of the
+  # init outside the package, for apt's and dpkg's hooks (see the script)
+  /usr/lib/riscos/init-guard setup || true
   echo "The Linux side of RISC OS on Linux is updated: restart (shut down and switch on) to use it."
 fi
 exit 0
