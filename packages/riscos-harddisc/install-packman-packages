@@ -42,6 +42,10 @@
 # riscos-risc3d's postinst would add 0.04-7's new files beside it, unknown
 # to PackMan, which then refuses its own upgrade with "files conflict").
 #
+# From 1.0.0073-1: RISC3D 0.10.0.2-1 (with Configure's 3D window,
+# !RISC3DSetup) and MesaLibs 20.3.5.0.23-1 (riscos-mesa's shared libraries,
+# new here), as in the riscos-packages PackMan repository.
+#
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -e
 root=${1:-}
@@ -52,9 +56,14 @@ pk="$hd/!Boot/Resources/!Packages"
 ro () { if [ -e "$1" ]; then echo "$1"; else echo "$1,$2"; fi; }
 st=$(ro "$pk/Status" fff)
 dt=$(ro "$hd/!Boot/Choices/Boot/Desktop" fea)
-# a package's components (its Control's Components), as paths in HardDisc4
+# a package's components (its Control's Components), as paths in HardDisc4:
+# PackMan's logical path Resources is !Boot.Resources (until 1.0.0073-1
+# this looked for HardDisc4.Resources, so a copy already there was never
+# seen: installing MesaLibs would have written over a !MesaLibs put there
+# by hand, perhaps a newer one)
 components () {
-  sed -n 's/^Components: *//p' "$1" | tr ',' '\n' | sed 's/(.*)//; s/^ *//; s/ *$//' | tr . /
+  sed -n 's/^Components: *//p' "$1" | tr ',' '\n' | sed 's/(.*)//; s/^ *//; s/ *$//' | tr . / |
+    sed 's|^Resources/|!Boot/Resources/|'
 }
 for d in "$root"/usr/share/riscos/packman/*; do
   [ -d "$pk" ] || continue
@@ -86,10 +95,13 @@ for d in "$root"/usr/share/riscos/packman/*; do
       fi
       continue
     fi
+    # a copy already there (not one this package adopts) is left alone
     there=no
-    for c in $(components "$(ro "$d/Info/Control" fff)"); do
-      [ -e "$hd/$c" ] && there=yes
-    done
+    if [ ! -f "$d/adopt" ]; then
+      for c in $(components "$(ro "$d/Info/Control" fff)"); do
+        [ -e "$hd/$c" ] && there=yes
+      done
+    fi
     [ "$there" = no ] || continue
     if [ -f "$d/adopt" ]; then
       while read -r p; do
