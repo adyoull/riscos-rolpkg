@@ -31,6 +31,18 @@ if [ "$1" = configure ]; then
   # and Intel odds and ends (about 48 MB to download, 107 MB installed).
   # Nothing here uses them: the kernels have no driver for those chips. A
   # pin keeps apt from installing them (delete the file to have them).
+  # systemd and the other inits never chosen by apt (CUPS's colour
+  # management, colord, recommends a chain that ends in systemd-sysv:
+  # riscos-support 1.0.0088-1's update went that way). Always written, as
+  # ROL can't start without its own init.
+  mkdir -p /etc/apt/preferences.d
+  cat > /etc/apt/preferences.d/riscos-init <<'EOF'
+Explanation: RISC OS on Linux starts with its own init (riscos-support):
+Explanation: these would replace it, or need systemd running.
+Package: systemd systemd-sysv sysvinit-core udev
+Pin: release *
+Pin-Priority: -1
+EOF
   f=/etc/apt/preferences.d/riscos-firmware
   if [ ! -e "$f" ]; then
     mkdir -p /etc/apt/preferences.d

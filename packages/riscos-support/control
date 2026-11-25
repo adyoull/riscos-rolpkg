@@ -4,8 +4,8 @@ Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
 Section: misc
 Priority: optional
 Depends: dosfstools
-Recommends: riscos-risc3d, riscos-print
-Conflicts: systemd, systemd-sysv, sysvinit-core, udev
+Recommends: riscos-risc3d
+Conflicts: systemd-sysv, sysvinit-core
 Breaks: riscos-harddisc (<< 1.0.0060-1)
 Homepage: https://github.com/adyoull/riscos-rolpkg
 Description: The Linux side of RISC OS on Linux
@@ -16,10 +16,11 @@ Description: The Linux side of RISC OS on Linux
  rol-print (RISC OS's print jobs to Linux's CUPS), NativeSupport, and
  this repository's source and key. A restart puts a new version to use.
  Recommends riscos-risc3d, so that RISC OS programs can draw with the GPU
- (RISC3D), and riscos-print, so that RISC OS can print, with nothing else
- to install. ROL's init is its own: it conflicts with systemd,
- systemd-sysv, sysvinit-core and udev, apt refuses anything that would
- put them in or remove this package (ROL_INIT_GUARD=off lets it through),
- and if dpkg is made to replace /usr/sbin/init anyway, ROL's is put back
- at once and the next start removes them. Depends on
- dosfstools: start-up checks the FAT (boot) partition and repairs it.
+ (RISC3D) with nothing else to install; riscos-print (printing) is
+ installed by Updates once this is in place. ROL's init is its own: it
+ conflicts with systemd-sysv and sysvinit-core, which would replace it;
+ systemd, systemd-sysv, sysvinit-core and udev are pinned out
+ (/etc/apt/preferences.d/riscos-init), apt refuses anything that would
+ put them in or remove this package (ROL_INIT_GUARD=off lets it
+ through), and if they get in anyway, ROL's init is put back and the
+ next start removes them.

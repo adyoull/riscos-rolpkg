@@ -57,6 +57,26 @@ if [ -f "$again" ] && [ "$(id -u)" = 0 ]; then
     fi
   fi
 fi
+# Printing (riscos-print), once: installed after the update rather than
+# with it (as a Recommends of riscos-support 1.0.0088-1 it brought a chain
+# that ends in systemd, before the pin that keeps systemd out was there).
+# Not again if it's taken away: /var/lib/riscos/print-offered.
+offered=/var/lib/riscos/print-offered
+if [ "$(id -u)" = 0 ] && [ "${1:-}" != --fetch ] && [ ! -e "$offered" ] \
+   && [ -e /etc/apt/preferences.d/riscos-init ]; then
+  if dpkg-query -W -f='${db:Status-Abbrev}' riscos-print 2>/dev/null | grep -q '^ii'; then
+    touch "$offered"
+  elif apt-cache show riscos-print >/dev/null 2>&1; then
+    echo "Installing printing (riscos-print: Linux's CUPS, for RISC OS's printers)..."
+    if stdbuf -oL -eL apt-get -o APT::Status-Fd=1 -y -o Dpkg::Options::=--force-confdef \
+         -o Dpkg::Options::=--force-confold install riscos-print; then
+      touch "$offered"
+      apt-get clean || true
+    else
+      echo "Printing wasn't installed: Updates tries again next time."
+    fi
+  fi
+fi
 # Three firmware packages that came in only because firmware-misc-nonfree
 # recommends them (riscos-support 1.0.0055-1 didn't stop that; 1.0.0056-1's
 # pin does): NVIDIA and Intel graphics chips' firmware, which nothing here
