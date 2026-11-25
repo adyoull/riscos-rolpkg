@@ -1,0 +1,20 @@
+# RISC OS on Linux (riscos-print): a printer's ink, toner and other
+# supplies, asked of the printer itself. rol-print runs it with ipptool
+# for Configure's Linux printing plug-in (Options...).
+# Copyright (c) 2026 Andrew Youll. MIT licence.
+{
+	NAME "Supplies"
+	OPERATION Get-Printer-Attributes
+	GROUP operation-attributes-tag
+	ATTR charset attributes-charset utf-8
+	ATTR naturalLanguage attributes-natural-language en
+	ATTR uri printer-uri $uri
+	ATTR keyword requested-attributes marker-names,marker-levels,marker-colors,marker-low-levels,printer-supply,printer-supply-description
+	STATUS successful-ok
+	DISPLAY marker-names
+	DISPLAY marker-levels
+	DISPLAY marker-colors
+	DISPLAY marker-low-levels
+	DISPLAY printer-supply
+	DISPLAY printer-supply-description
+}

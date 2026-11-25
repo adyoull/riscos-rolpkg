@@ -109,7 +109,8 @@ for spec in "$@"; do
     riscos-print)
       python3 "$mk" "$name" "$ver" "$pool" \
         "$pk/riscos-print/setup-linux-printer=/usr/lib/riscos/setup-linux-printer" \
-        "$pk/riscos-print/choices=/usr/share/riscos/print/choices" ;;
+        "$pk/riscos-print/choices=/usr/share/riscos/print/choices" \
+        "$pk/riscos-print/supplies.test=/usr/share/riscos/print/supplies.test" ;;
     *) echo "build.sh: no package $name" >&2; exit 1 ;;
   esac
 done
