@@ -12,7 +12,7 @@
 #   holding lib/modules/<release>. They go to /usr/lib/modules/<release>.
 # PACKAGE: riscos-rom, riscos-support, riscos-kernel-generic,
 #   riscos-kernel-pi, riscos-kernel-wdk2023 (BOOT: the Dev Kit image's EFI
-#   partition) or riscos-harddisc; VERSION: as in the README.
+#   partition), riscos-harddisc or riscos-print; VERSION: as in the README.
 #
 # Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
 set -euo pipefail
@@ -80,7 +80,7 @@ for spec in "$@"; do
       python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" "${marg[@]}" ;;
     riscos-harddisc)
       args=()
-      for p in '!Boot/Resources/Configure/!ROLUpdate' '!Boot/Resources/Configure/!LinuxNet' \
+      for p in '!Boot/Resources/Configure/!ROLUpdate' '!Boot/Resources/Configure/!LinuxNet' '!Boot/Resources/Configure/!LinuxPrint' \
                '!Boot/Resources/Configure/!WheelSetup' 'TestBed/Modules/KVMWheel,ffa' \
                '!Boot/Resources/!DiscIcon' '!Boot/Resources/!NetWatch' '!Boot/Resources/!Battery' 'TestBed/Modules/LinuxShell,ffa' \
                'TestBed/Modules/USBDriver,ffa' 'TestBed/Modules/LinuxAudio,ffa' 'TestBed/Codec/LinuxCodec,ffa' 'TestBed/Codec/ReadMe,fff' \
@@ -103,6 +103,10 @@ for spec in "$@"; do
              "$pk/riscos-harddisc/tidy-packman-names=/usr/lib/riscos/tidy-packman-names" \
              "$ROOT/usr/share/riscos/packman=/usr/share/riscos/packman")
       python3 "$mk" "$name" "$ver" "$pool" "${args[@]}" ;;
+    riscos-print)
+      python3 "$mk" "$name" "$ver" "$pool" \
+        "$pk/riscos-print/setup-linux-printer=/usr/lib/riscos/setup-linux-printer" \
+        "$pk/riscos-print/choices=/usr/share/riscos/print/choices" ;;
     *) echo "build.sh: no package $name" >&2; exit 1 ;;
   esac
 done

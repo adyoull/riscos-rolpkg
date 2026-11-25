@@ -4,7 +4,8 @@ Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
 Section: misc
 Priority: optional
 Depends: dosfstools
-Recommends: riscos-risc3d
+Recommends: riscos-risc3d, riscos-print
+Conflicts: systemd-sysv, sysvinit-core
 Breaks: riscos-harddisc (<< 1.0.0060-1)
 Homepage: https://github.com/adyoull/riscos-rolpkg
 Description: The Linux side of RISC OS on Linux
@@ -12,7 +13,10 @@ Description: The Linux side of RISC OS on Linux
  rol-snd (sound), rol-netd (network and Wi-Fi), rol-cmd (Linux commands
  for RISC OS, with the root password), rol-usbd (USB devices for RISC
  OS), QEMU for machines that can't run 32-bit code (qemu-arm-riscos),
- NativeSupport, and this repository's source and key. A restart puts a
- new version to use. Recommends riscos-risc3d, so that RISC OS programs
- can draw with the GPU (RISC3D) with nothing else to install. Depends on
+ rol-print (RISC OS's print jobs to Linux's CUPS), NativeSupport, and
+ this repository's source and key. A restart puts a new version to use.
+ Recommends riscos-risc3d, so that RISC OS programs can draw with the GPU
+ (RISC3D), and riscos-print, so that RISC OS can print, with nothing else
+ to install. Conflicts with systemd-sysv and sysvinit-core: init here is
+ its own. Depends on
  dosfstools: start-up checks the FAT (boot) partition and repairs it.

@@ -20,11 +20,12 @@ and its key (`/usr/share/keyrings/riscos-rolpkg.gpg`, also
 | Package | What | Where it goes |
 |---|---|---|
 | `riscos-rom` | RISC OS (the ROM) | `/opt/riscos/RISCOS.IMG`; the one it replaces is kept in `/opt/riscos/rollback` |
-| `riscos-support` | the Linux side: init, rol-fb, rol-snd, rol-netd, rol-cmd, rol-usbd, rol-modd (loads driver modules), qemu-arm-riscos, NativeSupport; this repository's source and key | `/opt/riscos`, `/usr/sbin/init`, `/usr/lib/riscos` |
+| `riscos-support` | the Linux side: init, rol-fb, rol-snd, rol-netd, rol-cmd, rol-usbd, rol-modd (loads driver modules), rol-print (print jobs to CUPS), qemu-arm-riscos, NativeSupport; this repository's source and key | `/opt/riscos`, `/usr/sbin/init`, `/usr/lib/riscos` |
 | `riscos-kernel-generic` | the kernel for UEFI machines (UTM, QEMU, boards) and the Pinebooks | copied onto the FAT partition (`EFI/BOOT/BOOTAA64.EFI`, `dtb/`); the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
 | `riscos-kernel-wdk2023` | the Windows Dev Kit 2023's kernel (it loads `blackrock.dtb`) and device tree | copied onto the Dev Kit image's EFI partition; the old files are kept as `*.old`. Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
 | `riscos-kernel-pi` | the Raspberry Pi kernel, device trees, overlays and firmware | copied onto the FAT partition (`kernel8.img` …); `config.txt` and `cmdline.txt` are left alone (but for the two small corrections the CHANGELOG describes). Its driver modules: `/usr/lib/modules`; their firmware: Debian's `firmware-*` packages, which it depends on |
-| `riscos-harddisc` | RISC OS on Linux's desktop parts: Configure's Updates and Linux network, the hard disc icon, `*Linux` (LinuxShell), USBDriver, LinuxCodec (Linux's video decoders) | `/riscos/HardDisc4`; your own files and choices are never touched |
+| `riscos-harddisc` | RISC OS on Linux's desktop parts: Configure's Updates, Linux network and Linux printing, the hard disc icon, `*Linux` (LinuxShell), USBDriver, LinuxCodec (Linux's video decoders) | `/riscos/HardDisc4`; your own files and choices are never touched |
+| `riscos-print` | printing: Debian's CUPS, cups-filters, Ghostscript, avahi and ipp-usb, and "Linux" in RISC OS's !Printers (riscos-support's rol-print gives CUPS RISC OS's print jobs; Configure → Linux printing chooses the printer). riscos-support recommends it, so Updates installs it | Debian's own places; `/usr/lib/riscos/setup-linux-printer`, `/usr/share/riscos/print`; !Printers' choices on HardDisc4 when there are none |
 | `riscos-risc3d` | RISC3D's Linux side, from the RISC3D project: rol-3d, which draws RISC OS programs' OpenGL with Linux's graphics driver, and Debian's trixie-backports source pinned to Mesa only (Mesa 25.2). riscos-support recommends it, so Updates installs it; RISC OS's side (!RISC3D) is the PackMan package RISC3D, which riscos-harddisc installs | `/opt/riscos/rol-3d`; `/etc/apt/sources.list.d`, `/etc/apt/preferences.d` |
 
 Only the kernel the machine starts is kept up to date: the Updates plug-in
@@ -55,7 +56,7 @@ New versions take effect at the next start (shut down and switch on).
   2026)", with the date of RISC OS Open's nightly it was built from. The
   first build was published as `1.0.0001-1`.
 - **Its Linux side and the desktop parts** (`riscos-support`,
-  `riscos-harddisc`) carry the RISC OS on Linux build they came from:
+  `riscos-harddisc`, `riscos-print`) carry the RISC OS on Linux build they came from:
   `1.0.<build>-1`, with a four-digit build number (`1.0.0004-1`).
 - **The kernels** keep the kernel's own version, with a count of this
   project's builds of it after the hyphen: `riscos-kernel-pi` `6.6.78-2`

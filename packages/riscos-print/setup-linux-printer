@@ -1,0 +1,48 @@
+#!/bin/sh
+# setup-linux-printer: puts "Linux printer" in RISC OS's !Printers: a
+# PostScript Level 2 printer (the generic definition in !PrintDefs) whose
+# "File" connection writes each job to IXFS:$.riscos.print.Default, which
+# rol-print gives to Linux's CUPS. riscos-print's postinst runs it, and
+# Configure's Linux printing plug-in (through rol-print, "setup").
+#   - No !Printers choices yet: the ready-made ones (as !Printers 1.95
+#     saved them, set up by hand once) are put there.
+#   - Choices with other printers: "Linux printer" is added to them, if
+#     they already have the PostScript Level 2 definition (otherwise it
+#     says to add it in !Printers, so nothing of someone's set-up is lost).
+#   - Already there: nothing is changed.
+# !Printers reads its choices when it starts: quit it and run it again.
+#
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+set -e
+t=/usr/share/riscos/print/choices
+c='/riscos/HardDisc4/!Boot/Choices/Printers'
+[ -d '/riscos/HardDisc4/!Boot/Choices' ] || { echo "No HardDisc4 here"; exit 1; }
+# (RISC OS's own user, which owns HardDisc4, owns them)
+u=$(stat -c %u:%g /riscos/HardDisc4)
+own () { chown -R "$u" "$@" 2>/dev/null || true; }
+# (a RISC OS file's type is in its name, ",fc6", or in an extended
+# attribute, as !Printers saves it: either is the same file to RISC OS)
+pick () { for f in "$1" "$1,fc6"; do [ -f "$f" ] && { echo "$f"; return; }; done; echo "$1"; }
+s=$(pick "$c/Settings")
+p=$(pick "$c/ps/PrData")
+if [ ! -f "$s" ]; then
+  mkdir -p "$c"
+  cp -R "$t/." "$c/"
+  own "$c"
+  echo "Linux printer set up in !Printers: quit !Printers and run it again to see it"
+  exit 0
+fi
+if grep -q '^sn: Linux$' "$s"; then
+  echo "!Printers already has Linux printer"
+  exit 0
+fi
+if [ -f "$p" ] && grep -q '^pr_nme: PostScript Level 2$' "$p"; then
+  # the printer's own lines, from "cl:" to "ic:", added at the end
+  cp -p "$s" "$c/Settings.old,fc6"
+  sed -n '/^cl:/,/^ic:/p' "$t/Settings,fc6" >> "$s"
+  own "$s" "$c/Settings.old,fc6"
+  echo "Linux printer added to !Printers (its settings as they were are Settings.old): quit !Printers and run it again"
+  exit 0
+fi
+echo "!Printers has printers of its own: add Linux printer there (Install new printer, PostScript, PostScript Level 2; Connection: File, IXFS:\$.riscos.print.Default)"
+exit 2

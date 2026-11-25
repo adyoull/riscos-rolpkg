@@ -1,0 +1,10 @@
+#!/bin/sh
+# Copyright (c) 2026 Andrew Youll. MIT licence (see LICENSE).
+# Puts "Linux printer" in RISC OS's !Printers (setup-linux-printer says
+# what it did). Never fails the install: !Printers can be set up later,
+# from Configure's "Linux printing" plug-in.
+set -e
+if [ "$1" = configure ]; then
+  /usr/lib/riscos/setup-linux-printer || true
+fi
+exit 0

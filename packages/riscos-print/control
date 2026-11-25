@@ -1,0 +1,20 @@
+Package: riscos-print
+Architecture: arm64
+Maintainer: Andrew Youll <adyoull@users.noreply.github.com>
+Section: misc
+Priority: optional
+Depends: riscos-support (>= 1.0.0086-1), cups, cups-daemon, cups-client, cups-filters, ghostscript, avahi-daemon, dbus-daemon, ipp-usb
+Conflicts: systemd, systemd-sysv, sysvinit-core, udev
+Homepage: https://github.com/adyoull/riscos-rolpkg
+Description: Printing for RISC OS on Linux, through Linux's CUPS
+ RISC OS prints with its own PostScript printer driver to "Linux printer"
+ (in !Printers), whose jobs go to Linux's CUPS, which prints them on any
+ printer it can use: network printers that need no driver (IPP Everywhere,
+ AirPrint: most made since about 2012, found by themselves through avahi)
+ and USB printers that speak IPP over USB (ipp-usb). Depends on CUPS,
+ cups-filters and Ghostscript (which turn PostScript into what the printer
+ takes), avahi and ipp-usb. riscos-support's rol-print starts them (there
+ is no systemd here) and hands RISC OS's jobs to CUPS. Configure's "Linux
+ printing" plug-in (riscos-harddisc) chooses the printer, adds and removes
+ printers and changes their settings. Installing it puts Linux printer in
+ !Printers, if !Printers has no printers of its own yet.
