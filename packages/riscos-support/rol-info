@@ -62,6 +62,14 @@ fi
 # that ends in systemd, before the pin that keeps systemd out was there).
 # Not again if it's taken away: /var/lib/riscos/print-offered.
 offered=/var/lib/riscos/print-offered
+# riscos-print installed as riscos-support 1.0.0088-1's Recommends is
+# marked as installed automatically, and since 1.0.0089-1 nothing
+# recommends it: apt-get autoremove (after each Updates install) would
+# take it away. Marked as installed by hand, so it stays.
+if [ "$(id -u)" = 0 ] && [ "${1:-}" != --fetch ] &&
+   [ "$(apt-mark showauto riscos-print 2>/dev/null)" = riscos-print ]; then
+  apt-mark manual riscos-print >/dev/null 2>&1 || true
+fi
 if [ "$(id -u)" = 0 ] && [ "${1:-}" != --fetch ] && [ ! -e "$offered" ] \
    && [ -e /etc/apt/preferences.d/riscos-init ]; then
   if dpkg-query -W -f='${db:Status-Abbrev}' riscos-print 2>/dev/null | grep -q '^ii'; then
