@@ -1,0 +1,7 @@
+# RISC OS on Linux: RISC OS, its Linux side and kernels
+# (https://github.com/adyoull/riscos-rolpkg)
+Types: deb
+URIs: https://adyoull.github.io/riscos-rolpkg/
+Suites: rol
+Components: main
+Signed-By: /usr/share/keyrings/riscos-rolpkg.gpg
